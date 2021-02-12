@@ -57,7 +57,7 @@ namespace ABA_Creator.Entities.ABA
         #endregion
 
         #region Constructors
-        public DetailRecord(PaymentSender _payer, PaymentRecipient _payee, string _indicator, int _amount, int _taxWH, string _lodgementReference, string _Remitter, string _transactioncode = "13")
+        public DetailRecord(PaymentSender _payer, PaymentRecipient _payee, string _indicator, decimal _amount, decimal _taxWH, string _lodgementReference, string _Remitter, string _transactioncode = "13")
         {
             Payer = _payer;
             Payee = _payee;
@@ -67,7 +67,7 @@ namespace ABA_Creator.Entities.ABA
             TransactionCode = _transactioncode;
         }
 
-        public DetailRecord(PaymentSender _payer, PaymentRecipient _payee, string _indicator, int _amount, int _taxWH, string _lodgementReference, string _Remitter)
+        public DetailRecord(PaymentSender _payer, PaymentRecipient _payee, string _indicator, decimal _amount, decimal _taxWH, string _lodgementReference, string _Remitter)
         {
             Payer = _payer;
             Payee = _payee;
@@ -76,7 +76,7 @@ namespace ABA_Creator.Entities.ABA
             NameOfRemitter = _Remitter;
         }
 
-        public DetailRecord(PaymentSender _payer, PaymentRecipient _payee, string _indicator, int _amount, int _taxWH, string _Remitter)
+        public DetailRecord(PaymentSender _payer, PaymentRecipient _payee, string _indicator, decimal _amount, decimal _taxWH, string _Remitter)
         {
             Payer = _payer;
             Payee = _payee;
@@ -85,7 +85,7 @@ namespace ABA_Creator.Entities.ABA
             NameOfRemitter = _Remitter;
         }
 
-        public DetailRecord(PaymentSender _payer, PaymentRecipient _payee, string _indicator, int _amount, int _taxWH)
+        public DetailRecord(PaymentSender _payer, PaymentRecipient _payee, string _indicator, decimal _amount, decimal _taxWH)
         {
             Payer = _payer;
             Payee = _payee;
@@ -94,7 +94,7 @@ namespace ABA_Creator.Entities.ABA
             NameOfRemitter = Payer.AccountName.PadRight(16,' ').Substring(0,16);
         }
 
-        public DetailRecord(PaymentSender _payer, PaymentRecipient _payee, string _indicator, int _amount)
+        public DetailRecord(PaymentSender _payer, PaymentRecipient _payee, string _indicator, decimal _amount)
         {
             Payer = _payer;
             Payee = _payee;
@@ -114,8 +114,8 @@ namespace ABA_Creator.Entities.ABA
                                 record.Substring(8, 9),
                                 record.Substring(30, 32)
                                 ), " ",
-                                int.Parse(record.Substring(20, 10)),
-                                int.Parse(record.Substring(112, 8)),
+                                decimal.Parse(record.Substring(20, 10))/100,
+                                decimal.Parse(record.Substring(112, 8))/100,
                                 record.Substring(62, 18),
                                 record.Substring(96, 16),
                                 record.Substring(18, 2))
@@ -126,7 +126,7 @@ namespace ABA_Creator.Entities.ABA
         #region Methods
         public string[] ToArray()
         {
-            return new string[11] { RecordType, PayerBSB, PayeeAcc, Indicator, TransactionCode, (decimal.Parse(Amount)/10000).ToString("F2"), TitleOfAccount, LodgementReference, TraceRecord, AccountNumber, (decimal.Parse(AmountWithholdingTax)/10000).ToString("F2") };
+            return new string[12] { RecordType, PayerBSB, PayeeAcc, Indicator, TransactionCode, (decimal.Parse(Amount)/100).ToString("F2"), TitleOfAccount, LodgementReference, TraceRecord, AccountNumber, NameOfRemitter, (decimal.Parse(AmountWithholdingTax)/100).ToString("F2") };
         }
 
         public override string ToString()

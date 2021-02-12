@@ -13,7 +13,7 @@ namespace ABA_Creator.Entities.ABA
         public string  ReelSequenceNumber
         {
             get { return m_ReelSequenceNumber; }
-            set { m_ReelSequenceNumber = value.Substring(0,1); }
+            set { m_ReelSequenceNumber = value.Substring(0,2); }
         }
 
         public UserSupplyingFile Payer { get; set; }

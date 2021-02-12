@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Windows.Forms;
 using ABA_Creator.Entities;
 using ABA_Creator.Entities.ABA;
@@ -34,7 +35,8 @@ namespace ABA_Creator
             m_setPayersForm = new SetActivePayer();
             m_addTransactionForm = new AddTransaction();
             m_Transactions = new List<DetailRecord>();
-            openFileDialog1.InitialDirectory = System.Environment.CurrentDirectory;
+            openFileDialog1.InitialDirectory = Environment.CurrentDirectory;
+            saveFileDialog1.InitialDirectory = Environment.CurrentDirectory;
         }
 
         private void addToolStripMenuItem_Click(object sender, EventArgs e)
@@ -169,8 +171,13 @@ namespace ABA_Creator
 
         private void SaveABAFile()
         {
-            MessageBox.Show(new ABAFile(m_DescriptiveRecord, m_Transactions, m_FileTotalRecord).ToString());
-
+            if(saveFileDialog1.ShowDialog() == DialogResult.OK)
+            {
+                string _aba = new ABAFile(m_DescriptiveRecord, m_Transactions, m_FileTotalRecord).ToString();
+                StreamWriter sW = File.CreateText(saveFileDialog1.FileName);
+                sW.Write(_aba);
+                sW.Close();
+            }
         }
 
         private void saveABAFileToolStripMenuItem_Click(object sender, EventArgs e)

@@ -51,10 +51,10 @@ namespace ABA_Creator.Entities
             }
             fileTotalRecord = new FileTotalRecord((from trans in detailRecords
                                                    where trans.TransactionCode != "13"
-                                                   select trans).ToList<DetailRecord>(),
+                                                   select trans).ToList(),
                                                   (from trans in detailRecords
                                                    where trans.TransactionCode == "13"
-                                                   select trans).ToList<DetailRecord>());
+                                                   select trans).ToList());
         }
 
         public override string ToString()

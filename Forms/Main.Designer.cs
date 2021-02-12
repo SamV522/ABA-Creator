@@ -71,6 +71,7 @@ namespace ABA_Creator
             this.DebitTotalAmount = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.NumRecords = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
+            this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
             this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.BSB = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Account = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -81,8 +82,8 @@ namespace ABA_Creator
             this.LodgementReference = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.TraceRecord = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.AccountNumber = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Remitter = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.AmountofWithholdingTax = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_DescriptiveRecord)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_DetailRecord)).BeginInit();
@@ -400,6 +401,7 @@ namespace ABA_Creator
             this.LodgementReference,
             this.TraceRecord,
             this.AccountNumber,
+            this.Remitter,
             this.AmountofWithholdingTax});
             this.dgv_DetailRecord.Location = new System.Drawing.Point(12, 98);
             this.dgv_DetailRecord.Name = "dgv_DetailRecord";
@@ -478,8 +480,12 @@ namespace ABA_Creator
             // 
             // openFileDialog1
             // 
-            this.openFileDialog1.FileName = "openFileDialog1";
             this.openFileDialog1.Filter = "Text Files|*.txt";
+            // 
+            // saveFileDialog1
+            // 
+            this.saveFileDialog1.DefaultExt = "txt";
+            this.saveFileDialog1.Filter = "Text Files|*.txt";
             // 
             // dataGridViewTextBoxColumn1
             // 
@@ -565,6 +571,12 @@ namespace ABA_Creator
             this.AccountNumber.Name = "AccountNumber";
             this.AccountNumber.ReadOnly = true;
             // 
+            // Remitter
+            // 
+            this.Remitter.HeaderText = "Remitter";
+            this.Remitter.Name = "Remitter";
+            this.Remitter.ReadOnly = true;
+            // 
             // AmountofWithholdingTax
             // 
             this.AmountofWithholdingTax.FillWeight = 55.41993F;
@@ -572,11 +584,6 @@ namespace ABA_Creator
             this.AmountofWithholdingTax.MinimumWidth = 6;
             this.AmountofWithholdingTax.Name = "AmountofWithholdingTax";
             this.AmountofWithholdingTax.ReadOnly = true;
-            // 
-            // saveFileDialog1
-            // 
-            this.saveFileDialog1.DefaultExt = "txt";
-            this.saveFileDialog1.Filter = "Text Files|*.txt";
             // 
             // Main
             // 
@@ -650,6 +657,7 @@ namespace ABA_Creator
         private System.Windows.Forms.DataGridViewTextBoxColumn NumRecords;
         private System.Windows.Forms.ToolStripMenuItem testStringConsumeToolStripMenuItem;
         private System.Windows.Forms.OpenFileDialog openFileDialog1;
+        private System.Windows.Forms.SaveFileDialog saveFileDialog1;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
         private System.Windows.Forms.DataGridViewTextBoxColumn BSB;
         private System.Windows.Forms.DataGridViewTextBoxColumn Account;
@@ -660,8 +668,8 @@ namespace ABA_Creator
         private System.Windows.Forms.DataGridViewTextBoxColumn LodgementReference;
         private System.Windows.Forms.DataGridViewTextBoxColumn TraceRecord;
         private System.Windows.Forms.DataGridViewTextBoxColumn AccountNumber;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Remitter;
         private System.Windows.Forms.DataGridViewTextBoxColumn AmountofWithholdingTax;
-        private System.Windows.Forms.SaveFileDialog saveFileDialog1;
     }
 }
 

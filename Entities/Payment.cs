@@ -18,20 +18,20 @@ namespace ABA_Creator.Entities
             set { m_LodgementReference = value; }
         }
 
-        public Payment(int _amount,int _tax, string _reference)
+        public Payment(decimal _amount, decimal _tax, string _reference)
         {
             Amount = _amount;
             Tax = _tax;
             LodgementReference = _reference;
         }
 
-        public Payment(int _amount, int _tax)
+        public Payment(decimal _amount, decimal _tax)
         {
             Amount = _amount;
             Tax = _tax;
         }
 
-        public Payment(int _amount)
+        public Payment(decimal _amount)
         {
             Amount = _amount;
         }
