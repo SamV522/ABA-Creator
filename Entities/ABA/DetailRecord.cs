@@ -5,6 +5,7 @@ namespace ABA_Creator.Entities.ABA
 {
     public class DetailRecord
     {
+        #region Properties
         public string RecordType { get; protected set; } = "1";
 
         public PaymentRecipient Payee { get; set; }
@@ -53,14 +54,17 @@ namespace ABA_Creator.Entities.ABA
 
         public string AmountWithholdingTax => (m_Payment.Tax*100).ToString("00000000");
 
-        public string[] ToArray()
-        {
-            return new string[12] { RecordType, PayerBSB, PayeeAcc, Indicator, TransactionCode, Amount, TitleOfAccount, LodgementReference, TraceRecord, AccountNumber, NameOfRemitter, AmountWithholdingTax };
-        }
+        #endregion
 
-        public override string ToString()
+        #region Constructors
+        public DetailRecord(PaymentSender _payer, PaymentRecipient _payee, string _indicator, int _amount, int _taxWH, string _lodgementReference, string _Remitter, string _transactioncode = "13")
         {
-            return $"{RecordType}{PayeeBSB}{PayeeAcc}{Indicator}{TransactionCode}{Amount}{TitleOfAccount}{LodgementReference}{TraceRecord}{AccountNumber}{NameOfRemitter}{AmountWithholdingTax}";
+            Payer = _payer;
+            Payee = _payee;
+            m_Payment = new Payment(_amount, _taxWH, _lodgementReference);
+            Indicator = _indicator;
+            NameOfRemitter = _Remitter;
+            TransactionCode = _transactioncode;
         }
 
         public DetailRecord(PaymentSender _payer, PaymentRecipient _payee, string _indicator, int _amount, int _taxWH, string _lodgementReference, string _Remitter)
@@ -98,5 +102,55 @@ namespace ABA_Creator.Entities.ABA
             Indicator = _indicator;
             NameOfRemitter = Payer.AccountName.PadRight(16,' ').Substring(0, 16);
         }
+
+        public DetailRecord(string record)
+        : this(new PaymentSender(
+                                int.Parse(record.Substring(80, 7).Replace("-","")),
+                                record.Substring(87, 9),
+                                "   ",
+                                "".PadRight(30, ' ')),
+                new PaymentRecipient(
+                                int.Parse(record.Substring(1, 7).Replace("-","")),
+                                record.Substring(8, 9),
+                                record.Substring(30, 32)
+                                ), " ",
+                                int.Parse(record.Substring(20, 10)),
+                                int.Parse(record.Substring(112, 8)),
+                                record.Substring(62, 18),
+                                record.Substring(96, 16),
+                                record.Substring(18, 2))
+        { }
+
+        #endregion
+
+        #region Methods
+        public string[] ToArray()
+        {
+            return new string[11] { RecordType, PayerBSB, PayeeAcc, Indicator, TransactionCode, (decimal.Parse(Amount)/10000).ToString("F2"), TitleOfAccount, LodgementReference, TraceRecord, AccountNumber, (decimal.Parse(AmountWithholdingTax)/10000).ToString("F2") };
+        }
+
+        public override string ToString()
+        {
+            string str = "";
+            str += RecordType;
+            str += PayeeBSB;
+            str += PayeeAcc;
+            str += Indicator;
+            str += TransactionCode;
+            str += Amount;
+            str += TitleOfAccount;
+            str += LodgementReference;
+            str += TraceRecord;
+            str += Payer.AccountNumber;
+            str += NameOfRemitter;
+            str += AmountWithholdingTax;
+            return str;
+        }
+
+        public static DetailRecord FromString(string record)
+        {
+            return new DetailRecord(record);
+        }
+        #endregion
     }
 }

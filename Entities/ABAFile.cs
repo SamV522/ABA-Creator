@@ -5,22 +5,68 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace ABA_Creator.Entities
 {
     class ABAFile
     {
         List<string> Lines;
-        DescriptiveRecord descriptiveRecord;
-        List<DetailRecord> detailRecords;
-        FileTotalRecord fileTotalRecord;
+        public DescriptiveRecord descriptiveRecord { get; private set; }
+        public List<DetailRecord> detailRecords { get; private set; } = new List<DetailRecord>();
+        public FileTotalRecord fileTotalRecord { get; private set; }
+
+        public ABAFile(string file)
+        {
+            Read(file);
+        }
+
+        public ABAFile(DescriptiveRecord _descriptiveRecord, List<DetailRecord> _detailRecords, FileTotalRecord _fileTotalRecord)
+        {
+            descriptiveRecord = _descriptiveRecord;
+            detailRecords = _detailRecords;
+            fileTotalRecord = _fileTotalRecord;
+        }
 
         public void Read(string path)
         {
             Lines = new List<string>();
             Lines.AddRange(File.ReadAllLines(path));
-            //descriptiveRecord = Lines[0];
+            foreach (string line in Lines)
+            {
+                switch (line.Substring(0, 1))
+                {
+                    case "0":   // Descriptive Record
+                        descriptiveRecord = new DescriptiveRecord(line);
+                        break;
+                    case "1":   // Detail Record
+                        DetailRecord detailRecord = new DetailRecord(line);
+                        detailRecords.Add(detailRecord);
+                        break;
+                    case "7":   // File Total Record
+                        break;
+                    default:
+                        break;
+                }
+            }
+            fileTotalRecord = new FileTotalRecord((from trans in detailRecords
+                                                   where trans.TransactionCode != "13"
+                                                   select trans).ToList<DetailRecord>(),
+                                                  (from trans in detailRecords
+                                                   where trans.TransactionCode == "13"
+                                                   select trans).ToList<DetailRecord>());
+        }
 
+        public override string ToString()
+        {
+            string str = "";
+            str += $"{descriptiveRecord}";
+            foreach(DetailRecord record in detailRecords)
+            {
+                str += $"\n{record}";
+            }
+            str += $"\n{fileTotalRecord}";
+            return str;
         }
     }
 }

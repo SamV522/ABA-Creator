@@ -48,12 +48,5 @@ namespace ABA_Creator
             Properties.Settings.Default.Payees = JsonConvert.SerializeObject(_Payees);
             Properties.Settings.Default.Save();
         }
-
-        public static string Consume(string str, int chars)
-        {
-            string retString = str.Substring(0, chars);
-            str = str.Remove(0, chars);
-            return retString;
-        }
     }
 }

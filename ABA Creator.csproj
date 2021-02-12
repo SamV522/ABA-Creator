@@ -65,6 +65,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Entities\ABAFile.cs" />
+    <Compile Include="Entities\UserSupplyingFile.cs" />
     <Compile Include="Forms\Payer\AddPayer.cs">
       <SubType>Form</SubType>
     </Compile>

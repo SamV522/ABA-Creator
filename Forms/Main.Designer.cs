@@ -31,10 +31,8 @@ namespace ABA_Creator
         {
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.generateABAFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openABAFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.saveABAFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.closeABAFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.payeesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.manageToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.addToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -50,6 +48,7 @@ namespace ABA_Creator
             this.importFromFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.searchBSBsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.testStringConsumeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.button1 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
@@ -64,6 +63,14 @@ namespace ABA_Creator
             this.Description = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ProcessDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dgv_DetailRecord = new System.Windows.Forms.DataGridView();
+            this.dgv_FileTotalRecord = new System.Windows.Forms.DataGridView();
+            this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.BSBFormatFiller = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.NetTotalAmount = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.CreditTotalAmount = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.DebitTotalAmount = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.NumRecords = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.BSB = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Account = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -75,14 +82,7 @@ namespace ABA_Creator
             this.TraceRecord = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.AccountNumber = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.AmountofWithholdingTax = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dgv_FileTotalRecord = new System.Windows.Forms.DataGridView();
-            this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.BSBFormatFiller = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.NetTotalAmount = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.CreditTotalAmount = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.DebitTotalAmount = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.NumRecords = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.testStringConsumeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_DescriptiveRecord)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_DetailRecord)).BeginInit();
@@ -100,45 +100,33 @@ namespace ABA_Creator
             this.helpToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(1067, 28);
+            this.menuStrip1.Padding = new System.Windows.Forms.Padding(4, 2, 0, 2);
+            this.menuStrip1.Size = new System.Drawing.Size(800, 24);
             this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "menuStrip1";
             // 
             // fileToolStripMenuItem
             // 
             this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.generateABAFileToolStripMenuItem,
             this.openABAFileToolStripMenuItem,
-            this.saveABAFileToolStripMenuItem,
-            this.closeABAFileToolStripMenuItem});
+            this.saveABAFileToolStripMenuItem});
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
-            this.fileToolStripMenuItem.Size = new System.Drawing.Size(46, 24);
+            this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
             this.fileToolStripMenuItem.Text = "File";
-            // 
-            // generateABAFileToolStripMenuItem
-            // 
-            this.generateABAFileToolStripMenuItem.Name = "generateABAFileToolStripMenuItem";
-            this.generateABAFileToolStripMenuItem.Size = new System.Drawing.Size(210, 26);
-            this.generateABAFileToolStripMenuItem.Text = "Generate ABA file";
             // 
             // openABAFileToolStripMenuItem
             // 
             this.openABAFileToolStripMenuItem.Name = "openABAFileToolStripMenuItem";
-            this.openABAFileToolStripMenuItem.Size = new System.Drawing.Size(210, 26);
+            this.openABAFileToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.openABAFileToolStripMenuItem.Text = "Open ABA File";
             this.openABAFileToolStripMenuItem.Click += new System.EventHandler(this.openABAFileToolStripMenuItem_Click);
             // 
             // saveABAFileToolStripMenuItem
             // 
             this.saveABAFileToolStripMenuItem.Name = "saveABAFileToolStripMenuItem";
-            this.saveABAFileToolStripMenuItem.Size = new System.Drawing.Size(210, 26);
+            this.saveABAFileToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.saveABAFileToolStripMenuItem.Text = "Save ABA File";
-            // 
-            // closeABAFileToolStripMenuItem
-            // 
-            this.closeABAFileToolStripMenuItem.Name = "closeABAFileToolStripMenuItem";
-            this.closeABAFileToolStripMenuItem.Size = new System.Drawing.Size(210, 26);
-            this.closeABAFileToolStripMenuItem.Text = "Close ABA File";
+            this.saveABAFileToolStripMenuItem.Click += new System.EventHandler(this.saveABAFileToolStripMenuItem_Click);
             // 
             // payeesToolStripMenuItem
             // 
@@ -146,20 +134,20 @@ namespace ABA_Creator
             this.manageToolStripMenuItem,
             this.addToolStripMenuItem});
             this.payeesToolStripMenuItem.Name = "payeesToolStripMenuItem";
-            this.payeesToolStripMenuItem.Size = new System.Drawing.Size(67, 24);
+            this.payeesToolStripMenuItem.Size = new System.Drawing.Size(55, 20);
             this.payeesToolStripMenuItem.Text = "Payees";
             // 
             // manageToolStripMenuItem
             // 
             this.manageToolStripMenuItem.Name = "manageToolStripMenuItem";
-            this.manageToolStripMenuItem.Size = new System.Drawing.Size(164, 26);
+            this.manageToolStripMenuItem.Size = new System.Drawing.Size(132, 22);
             this.manageToolStripMenuItem.Text = "Manage";
             this.manageToolStripMenuItem.Click += new System.EventHandler(this.manageToolStripMenuItem_Click);
             // 
             // addToolStripMenuItem
             // 
             this.addToolStripMenuItem.Name = "addToolStripMenuItem";
-            this.addToolStripMenuItem.Size = new System.Drawing.Size(164, 26);
+            this.addToolStripMenuItem.Size = new System.Drawing.Size(132, 22);
             this.addToolStripMenuItem.Text = "New Payee";
             this.addToolStripMenuItem.Click += new System.EventHandler(this.addToolStripMenuItem_Click);
             // 
@@ -170,27 +158,27 @@ namespace ABA_Creator
             this.newPayerToolStripMenuItem,
             this.setPayerToolStripMenuItem});
             this.payersToolStripMenuItem.Name = "payersToolStripMenuItem";
-            this.payersToolStripMenuItem.Size = new System.Drawing.Size(64, 24);
+            this.payersToolStripMenuItem.Size = new System.Drawing.Size(53, 20);
             this.payersToolStripMenuItem.Text = "Payers";
             // 
             // managePayersToolStripMenuItem
             // 
             this.managePayersToolStripMenuItem.Name = "managePayersToolStripMenuItem";
-            this.managePayersToolStripMenuItem.Size = new System.Drawing.Size(191, 26);
+            this.managePayersToolStripMenuItem.Size = new System.Drawing.Size(154, 22);
             this.managePayersToolStripMenuItem.Text = "Manage Payers";
             this.managePayersToolStripMenuItem.Click += new System.EventHandler(this.managePayersToolStripMenuItem_Click);
             // 
             // newPayerToolStripMenuItem
             // 
             this.newPayerToolStripMenuItem.Name = "newPayerToolStripMenuItem";
-            this.newPayerToolStripMenuItem.Size = new System.Drawing.Size(191, 26);
+            this.newPayerToolStripMenuItem.Size = new System.Drawing.Size(154, 22);
             this.newPayerToolStripMenuItem.Text = "New Payer";
             this.newPayerToolStripMenuItem.Click += new System.EventHandler(this.newPayerToolStripMenuItem_Click);
             // 
             // setPayerToolStripMenuItem
             // 
             this.setPayerToolStripMenuItem.Name = "setPayerToolStripMenuItem";
-            this.setPayerToolStripMenuItem.Size = new System.Drawing.Size(191, 26);
+            this.setPayerToolStripMenuItem.Size = new System.Drawing.Size(154, 22);
             this.setPayerToolStripMenuItem.Text = "Set Payer";
             this.setPayerToolStripMenuItem.Click += new System.EventHandler(this.setPayerToolStripMenuItem_Click);
             // 
@@ -203,38 +191,38 @@ namespace ABA_Creator
             this.copyToolStripMenuItem,
             this.importFromFileToolStripMenuItem});
             this.paymentsToolStripMenuItem.Name = "paymentsToolStripMenuItem";
-            this.paymentsToolStripMenuItem.Size = new System.Drawing.Size(104, 24);
+            this.paymentsToolStripMenuItem.Size = new System.Drawing.Size(84, 20);
             this.paymentsToolStripMenuItem.Text = "Transactions";
             // 
             // addToolStripMenuItem1
             // 
             this.addToolStripMenuItem1.Name = "addToolStripMenuItem1";
-            this.addToolStripMenuItem1.Size = new System.Drawing.Size(224, 26);
+            this.addToolStripMenuItem1.Size = new System.Drawing.Size(162, 22);
             this.addToolStripMenuItem1.Text = "Add New";
             this.addToolStripMenuItem1.Click += new System.EventHandler(this.addToolStripMenuItem1_Click);
             // 
             // editToolStripMenuItem
             // 
             this.editToolStripMenuItem.Name = "editToolStripMenuItem";
-            this.editToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.editToolStripMenuItem.Size = new System.Drawing.Size(162, 22);
             this.editToolStripMenuItem.Text = "Edit Selected";
             // 
             // deleteToolStripMenuItem
             // 
             this.deleteToolStripMenuItem.Name = "deleteToolStripMenuItem";
-            this.deleteToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.deleteToolStripMenuItem.Size = new System.Drawing.Size(162, 22);
             this.deleteToolStripMenuItem.Text = "Delete Selected";
             // 
             // copyToolStripMenuItem
             // 
             this.copyToolStripMenuItem.Name = "copyToolStripMenuItem";
-            this.copyToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.copyToolStripMenuItem.Size = new System.Drawing.Size(162, 22);
             this.copyToolStripMenuItem.Text = "Copy Selected";
             // 
             // importFromFileToolStripMenuItem
             // 
             this.importFromFileToolStripMenuItem.Name = "importFromFileToolStripMenuItem";
-            this.importFromFileToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.importFromFileToolStripMenuItem.Size = new System.Drawing.Size(162, 22);
             this.importFromFileToolStripMenuItem.Text = "Import From File";
             // 
             // helpToolStripMenuItem
@@ -243,23 +231,29 @@ namespace ABA_Creator
             this.searchBSBsToolStripMenuItem,
             this.testStringConsumeToolStripMenuItem});
             this.helpToolStripMenuItem.Name = "helpToolStripMenuItem";
-            this.helpToolStripMenuItem.Size = new System.Drawing.Size(55, 24);
+            this.helpToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
             this.helpToolStripMenuItem.Text = "Help";
             // 
             // searchBSBsToolStripMenuItem
             // 
             this.searchBSBsToolStripMenuItem.Name = "searchBSBsToolStripMenuItem";
-            this.searchBSBsToolStripMenuItem.Size = new System.Drawing.Size(226, 26);
+            this.searchBSBsToolStripMenuItem.Size = new System.Drawing.Size(182, 22);
             this.searchBSBsToolStripMenuItem.Text = "Search BSBs...";
             this.searchBSBsToolStripMenuItem.Click += new System.EventHandler(this.searchBSBsToolStripMenuItem_Click);
+            // 
+            // testStringConsumeToolStripMenuItem
+            // 
+            this.testStringConsumeToolStripMenuItem.Name = "testStringConsumeToolStripMenuItem";
+            this.testStringConsumeToolStripMenuItem.Size = new System.Drawing.Size(182, 22);
+            this.testStringConsumeToolStripMenuItem.Text = "Test String Consume";
+            this.testStringConsumeToolStripMenuItem.Click += new System.EventHandler(this.testStringConsumeToolStripMenuItem_Click);
             // 
             // button1
             // 
             this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.button1.Location = new System.Drawing.Point(460, 511);
-            this.button1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.button1.Location = new System.Drawing.Point(345, 415);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(140, 28);
+            this.button1.Size = new System.Drawing.Size(105, 23);
             this.button1.TabIndex = 1;
             this.button1.Text = "Add Transaction";
             this.button1.UseVisualStyleBackColor = true;
@@ -268,10 +262,9 @@ namespace ABA_Creator
             // button2
             // 
             this.button2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.button2.Location = new System.Drawing.Point(312, 511);
-            this.button2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.button2.Location = new System.Drawing.Point(234, 415);
             this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(140, 28);
+            this.button2.Size = new System.Drawing.Size(105, 23);
             this.button2.TabIndex = 2;
             this.button2.Text = "Copy Transaction";
             this.button2.UseVisualStyleBackColor = true;
@@ -279,10 +272,9 @@ namespace ABA_Creator
             // button3
             // 
             this.button3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.button3.Location = new System.Drawing.Point(164, 511);
-            this.button3.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.button3.Location = new System.Drawing.Point(123, 415);
             this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(140, 28);
+            this.button3.Size = new System.Drawing.Size(105, 23);
             this.button3.TabIndex = 3;
             this.button3.Text = "Edit Transaction";
             this.button3.UseVisualStyleBackColor = true;
@@ -290,10 +282,9 @@ namespace ABA_Creator
             // button4
             // 
             this.button4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.button4.Location = new System.Drawing.Point(16, 511);
-            this.button4.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.button4.Location = new System.Drawing.Point(12, 415);
             this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(140, 28);
+            this.button4.Size = new System.Drawing.Size(105, 23);
             this.button4.TabIndex = 4;
             this.button4.Text = "Delete Transaction";
             this.button4.UseVisualStyleBackColor = true;
@@ -301,10 +292,9 @@ namespace ABA_Creator
             // button5
             // 
             this.button5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.button5.Location = new System.Drawing.Point(951, 511);
-            this.button5.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.button5.Location = new System.Drawing.Point(713, 415);
             this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(100, 28);
+            this.button5.Size = new System.Drawing.Size(75, 23);
             this.button5.TabIndex = 6;
             this.button5.Text = "Generate ABA";
             this.button5.UseVisualStyleBackColor = true;
@@ -325,12 +315,11 @@ namespace ABA_Creator
             this.UserBSB,
             this.Description,
             this.ProcessDate});
-            this.dgv_DescriptiveRecord.Location = new System.Drawing.Point(16, 33);
-            this.dgv_DescriptiveRecord.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.dgv_DescriptiveRecord.Location = new System.Drawing.Point(12, 27);
             this.dgv_DescriptiveRecord.Name = "dgv_DescriptiveRecord";
             this.dgv_DescriptiveRecord.ReadOnly = true;
             this.dgv_DescriptiveRecord.RowHeadersWidth = 51;
-            this.dgv_DescriptiveRecord.Size = new System.Drawing.Size(1035, 80);
+            this.dgv_DescriptiveRecord.Size = new System.Drawing.Size(776, 65);
             this.dgv_DescriptiveRecord.TabIndex = 7;
             // 
             // RecordType
@@ -412,13 +401,85 @@ namespace ABA_Creator
             this.TraceRecord,
             this.AccountNumber,
             this.AmountofWithholdingTax});
-            this.dgv_DetailRecord.Location = new System.Drawing.Point(16, 121);
-            this.dgv_DetailRecord.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.dgv_DetailRecord.Location = new System.Drawing.Point(12, 98);
             this.dgv_DetailRecord.Name = "dgv_DetailRecord";
             this.dgv_DetailRecord.ReadOnly = true;
             this.dgv_DetailRecord.RowHeadersWidth = 51;
-            this.dgv_DetailRecord.Size = new System.Drawing.Size(1035, 295);
+            this.dgv_DetailRecord.Size = new System.Drawing.Size(776, 240);
             this.dgv_DetailRecord.TabIndex = 9;
+            // 
+            // dgv_FileTotalRecord
+            // 
+            this.dgv_FileTotalRecord.AllowUserToAddRows = false;
+            this.dgv_FileTotalRecord.AllowUserToDeleteRows = false;
+            this.dgv_FileTotalRecord.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.dgv_FileTotalRecord.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.dgv_FileTotalRecord.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgv_FileTotalRecord.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.dataGridViewTextBoxColumn2,
+            this.BSBFormatFiller,
+            this.NetTotalAmount,
+            this.CreditTotalAmount,
+            this.DebitTotalAmount,
+            this.NumRecords});
+            this.dgv_FileTotalRecord.Location = new System.Drawing.Point(12, 344);
+            this.dgv_FileTotalRecord.Name = "dgv_FileTotalRecord";
+            this.dgv_FileTotalRecord.ReadOnly = true;
+            this.dgv_FileTotalRecord.RowHeadersWidth = 51;
+            this.dgv_FileTotalRecord.Size = new System.Drawing.Size(776, 65);
+            this.dgv_FileTotalRecord.TabIndex = 10;
+            // 
+            // dataGridViewTextBoxColumn2
+            // 
+            this.dataGridViewTextBoxColumn2.FillWeight = 53.2995F;
+            this.dataGridViewTextBoxColumn2.HeaderText = "Record Type";
+            this.dataGridViewTextBoxColumn2.MaxInputLength = 1;
+            this.dataGridViewTextBoxColumn2.MinimumWidth = 6;
+            this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
+            this.dataGridViewTextBoxColumn2.ReadOnly = true;
+            this.dataGridViewTextBoxColumn2.Visible = false;
+            // 
+            // BSBFormatFiller
+            // 
+            this.BSBFormatFiller.HeaderText = "BSB Format Filler";
+            this.BSBFormatFiller.MinimumWidth = 6;
+            this.BSBFormatFiller.Name = "BSBFormatFiller";
+            this.BSBFormatFiller.ReadOnly = true;
+            this.BSBFormatFiller.Visible = false;
+            // 
+            // NetTotalAmount
+            // 
+            this.NetTotalAmount.HeaderText = "Net Total Amount";
+            this.NetTotalAmount.MinimumWidth = 6;
+            this.NetTotalAmount.Name = "NetTotalAmount";
+            this.NetTotalAmount.ReadOnly = true;
+            // 
+            // CreditTotalAmount
+            // 
+            this.CreditTotalAmount.HeaderText = "Credit Total Amount";
+            this.CreditTotalAmount.MinimumWidth = 6;
+            this.CreditTotalAmount.Name = "CreditTotalAmount";
+            this.CreditTotalAmount.ReadOnly = true;
+            // 
+            // DebitTotalAmount
+            // 
+            this.DebitTotalAmount.HeaderText = "Debit Total Amount";
+            this.DebitTotalAmount.MinimumWidth = 6;
+            this.DebitTotalAmount.Name = "DebitTotalAmount";
+            this.DebitTotalAmount.ReadOnly = true;
+            // 
+            // NumRecords
+            // 
+            this.NumRecords.HeaderText = "# Records";
+            this.NumRecords.MinimumWidth = 6;
+            this.NumRecords.Name = "NumRecords";
+            this.NumRecords.ReadOnly = true;
+            // 
+            // openFileDialog1
+            // 
+            this.openFileDialog1.FileName = "openFileDialog1";
+            this.openFileDialog1.Filter = "Text Files|*.txt";
             // 
             // dataGridViewTextBoxColumn1
             // 
@@ -459,7 +520,7 @@ namespace ABA_Creator
             // TransactionCode
             // 
             this.TransactionCode.FillWeight = 55.41993F;
-            this.TransactionCode.HeaderText = "Transaction Code";
+            this.TransactionCode.HeaderText = "Code";
             this.TransactionCode.MinimumWidth = 6;
             this.TransactionCode.Name = "TransactionCode";
             this.TransactionCode.ReadOnly = true;
@@ -512,87 +573,16 @@ namespace ABA_Creator
             this.AmountofWithholdingTax.Name = "AmountofWithholdingTax";
             this.AmountofWithholdingTax.ReadOnly = true;
             // 
-            // dgv_FileTotalRecord
+            // saveFileDialog1
             // 
-            this.dgv_FileTotalRecord.AllowUserToAddRows = false;
-            this.dgv_FileTotalRecord.AllowUserToDeleteRows = false;
-            this.dgv_FileTotalRecord.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.dgv_FileTotalRecord.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.dgv_FileTotalRecord.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgv_FileTotalRecord.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.dataGridViewTextBoxColumn2,
-            this.BSBFormatFiller,
-            this.NetTotalAmount,
-            this.CreditTotalAmount,
-            this.DebitTotalAmount,
-            this.NumRecords});
-            this.dgv_FileTotalRecord.Location = new System.Drawing.Point(16, 423);
-            this.dgv_FileTotalRecord.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.dgv_FileTotalRecord.Name = "dgv_FileTotalRecord";
-            this.dgv_FileTotalRecord.ReadOnly = true;
-            this.dgv_FileTotalRecord.RowHeadersWidth = 51;
-            this.dgv_FileTotalRecord.Size = new System.Drawing.Size(1035, 80);
-            this.dgv_FileTotalRecord.TabIndex = 10;
-            // 
-            // dataGridViewTextBoxColumn2
-            // 
-            this.dataGridViewTextBoxColumn2.FillWeight = 53.2995F;
-            this.dataGridViewTextBoxColumn2.HeaderText = "Record Type";
-            this.dataGridViewTextBoxColumn2.MaxInputLength = 1;
-            this.dataGridViewTextBoxColumn2.MinimumWidth = 6;
-            this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
-            this.dataGridViewTextBoxColumn2.ReadOnly = true;
-            this.dataGridViewTextBoxColumn2.Visible = false;
-            // 
-            // BSBFormatFiller
-            // 
-            this.BSBFormatFiller.HeaderText = "BSB Format Filler";
-            this.BSBFormatFiller.MinimumWidth = 6;
-            this.BSBFormatFiller.Name = "BSBFormatFiller";
-            this.BSBFormatFiller.ReadOnly = true;
-            this.BSBFormatFiller.Visible = false;
-            // 
-            // NetTotalAmount
-            // 
-            this.NetTotalAmount.HeaderText = "Net Total Amount";
-            this.NetTotalAmount.MinimumWidth = 6;
-            this.NetTotalAmount.Name = "NetTotalAmount";
-            this.NetTotalAmount.ReadOnly = true;
-            // 
-            // CreditTotalAmount
-            // 
-            this.CreditTotalAmount.HeaderText = "Credit Total Amount";
-            this.CreditTotalAmount.MinimumWidth = 6;
-            this.CreditTotalAmount.Name = "CreditTotalAmount";
-            this.CreditTotalAmount.ReadOnly = true;
-            // 
-            // DebitTotalAmount
-            // 
-            this.DebitTotalAmount.HeaderText = "Debit Total Amount";
-            this.DebitTotalAmount.MinimumWidth = 6;
-            this.DebitTotalAmount.Name = "DebitTotalAmount";
-            this.DebitTotalAmount.ReadOnly = true;
-            // 
-            // NumRecords
-            // 
-            this.NumRecords.HeaderText = "# Records";
-            this.NumRecords.MinimumWidth = 6;
-            this.NumRecords.Name = "NumRecords";
-            this.NumRecords.ReadOnly = true;
-            // 
-            // testStringConsumeToolStripMenuItem
-            // 
-            this.testStringConsumeToolStripMenuItem.Name = "testStringConsumeToolStripMenuItem";
-            this.testStringConsumeToolStripMenuItem.Size = new System.Drawing.Size(226, 26);
-            this.testStringConsumeToolStripMenuItem.Text = "Test String Consume";
-            this.testStringConsumeToolStripMenuItem.Click += new System.EventHandler(this.testStringConsumeToolStripMenuItem_Click);
+            this.saveFileDialog1.DefaultExt = "txt";
+            this.saveFileDialog1.Filter = "Text Files|*.txt";
             // 
             // Main
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1067, 554);
+            this.ClientSize = new System.Drawing.Size(800, 450);
             this.Controls.Add(this.dgv_FileTotalRecord);
             this.Controls.Add(this.dgv_DetailRecord);
             this.Controls.Add(this.dgv_DescriptiveRecord);
@@ -603,7 +593,6 @@ namespace ABA_Creator
             this.Controls.Add(this.button1);
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.Name = "Main";
             this.Text = "ABA Creator";
             this.Load += new System.EventHandler(this.Main_Load);
@@ -640,10 +629,8 @@ namespace ABA_Creator
         private System.Windows.Forms.ToolStripMenuItem deleteToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem copyToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem importFromFileToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem generateABAFileToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem openABAFileToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem saveABAFileToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem closeABAFileToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem setPayerToolStripMenuItem;
         private System.Windows.Forms.DataGridView dgv_DescriptiveRecord;
         private System.Windows.Forms.DataGridView dgv_DetailRecord;
@@ -655,6 +642,14 @@ namespace ABA_Creator
         private System.Windows.Forms.DataGridViewTextBoxColumn UserBSB;
         private System.Windows.Forms.DataGridViewTextBoxColumn Description;
         private System.Windows.Forms.DataGridViewTextBoxColumn ProcessDate;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
+        private System.Windows.Forms.DataGridViewTextBoxColumn BSBFormatFiller;
+        private System.Windows.Forms.DataGridViewTextBoxColumn NetTotalAmount;
+        private System.Windows.Forms.DataGridViewTextBoxColumn CreditTotalAmount;
+        private System.Windows.Forms.DataGridViewTextBoxColumn DebitTotalAmount;
+        private System.Windows.Forms.DataGridViewTextBoxColumn NumRecords;
+        private System.Windows.Forms.ToolStripMenuItem testStringConsumeToolStripMenuItem;
+        private System.Windows.Forms.OpenFileDialog openFileDialog1;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
         private System.Windows.Forms.DataGridViewTextBoxColumn BSB;
         private System.Windows.Forms.DataGridViewTextBoxColumn Account;
@@ -666,13 +661,7 @@ namespace ABA_Creator
         private System.Windows.Forms.DataGridViewTextBoxColumn TraceRecord;
         private System.Windows.Forms.DataGridViewTextBoxColumn AccountNumber;
         private System.Windows.Forms.DataGridViewTextBoxColumn AmountofWithholdingTax;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
-        private System.Windows.Forms.DataGridViewTextBoxColumn BSBFormatFiller;
-        private System.Windows.Forms.DataGridViewTextBoxColumn NetTotalAmount;
-        private System.Windows.Forms.DataGridViewTextBoxColumn CreditTotalAmount;
-        private System.Windows.Forms.DataGridViewTextBoxColumn DebitTotalAmount;
-        private System.Windows.Forms.DataGridViewTextBoxColumn NumRecords;
-        private System.Windows.Forms.ToolStripMenuItem testStringConsumeToolStripMenuItem;
+        private System.Windows.Forms.SaveFileDialog saveFileDialog1;
     }
 }
 

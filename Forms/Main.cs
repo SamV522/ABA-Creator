@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
+using ABA_Creator.Entities;
 using ABA_Creator.Entities.ABA;
 using ABA_Creator.Forms.Payee;
 using ABA_Creator.Forms.Payer;
@@ -19,7 +20,9 @@ namespace ABA_Creator
 
         private AddTransaction m_addTransactionForm;
 
+        public DescriptiveRecord m_DescriptiveRecord;
         public List<DetailRecord> m_Transactions;
+        public FileTotalRecord m_FileTotalRecord;
 
         public Main()
         {
@@ -31,6 +34,7 @@ namespace ABA_Creator
             m_setPayersForm = new SetActivePayer();
             m_addTransactionForm = new AddTransaction();
             m_Transactions = new List<DetailRecord>();
+            openFileDialog1.InitialDirectory = System.Environment.CurrentDirectory;
         }
 
         private void addToolStripMenuItem_Click(object sender, EventArgs e)
@@ -107,20 +111,71 @@ namespace ABA_Creator
             {
                 dgv_DetailRecord.Rows.Add(tranRecord.ToArray());
             }
-            
+        }
+
+        private void SetTransactions(List<DetailRecord> records)
+        {
+            m_Transactions = records;
+            UpdateTransactionListBox();
+        }
+        
+        private void UpdateDescriptiveRecord(DescriptiveRecord record)
+        {
+            dgv_DescriptiveRecord.Rows.Clear();
+            dgv_DescriptiveRecord.Rows.Add(record.ToArray());
+            m_DescriptiveRecord = record;
         }
 
         private void openABAFileToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
+            OpenABAFile();
         }
 
         private void testStringConsumeToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            string _test = "This is a test string";
-            MessageBox.Show(_test.Consume(4));
-            MessageBox.Show(_test);
 
+        }
+
+        private void UpdateFileTotalRecord(FileTotalRecord record)
+        {
+            dgv_FileTotalRecord.Rows.Clear();
+            dgv_FileTotalRecord.Rows.Add(record.ToArray());
+            m_FileTotalRecord = record;
+        }
+
+        private void UpdateFileTotalRecord()
+        {
+            UpdateFileTotalRecord(new FileTotalRecord(m_Transactions));
+        }
+
+        private void ClearTransactions()
+        {
+            m_Transactions = new List<DetailRecord>();
+            UpdateTransactionListBox();
+        }
+
+        private void OpenABAFile()
+        {
+            ClearTransactions();
+            if (openFileDialog1.ShowDialog() == DialogResult.OK)
+            {
+                //MessageBox.Show(openFileDialog1.FileName);
+                ABAFile _aba = new ABAFile(openFileDialog1.FileName);
+                UpdateDescriptiveRecord(_aba.descriptiveRecord);
+                SetTransactions(_aba.detailRecords);
+                UpdateFileTotalRecord(_aba.fileTotalRecord);
+            }
+        }
+
+        private void SaveABAFile()
+        {
+            MessageBox.Show(new ABAFile(m_DescriptiveRecord, m_Transactions, m_FileTotalRecord).ToString());
+
+        }
+
+        private void saveABAFileToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            SaveABAFile();
         }
     }
 }
