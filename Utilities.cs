@@ -10,47 +10,6 @@ namespace ABA_Creator
 {
     public static class Utilities
     {
-        public enum PadSide
-        {
-            LEFT,
-            RIGHT
-        }
-
-        public static string Pad(string input, PadSide side, int length, string padChar)
-        {
-            string pad = "";
-            Console.WriteLine($"Length: {input.Length} Pad Length: {length}");
-            for (int i=0;i<length-input.Length;i++)
-            {
-                pad += padChar;
-                
-            }
-            switch(side)
-            {
-                case PadSide.LEFT:
-                    return $"{pad}{input}";
-                case PadSide.RIGHT:
-                    return $"{input}{pad}";
-                default:
-                    return $"{pad}{input}";
-            }
-        }
-
-        public static string Pad(int length, string padChar)
-        {
-            return Pad("", PadSide.LEFT, length, padChar);
-        }
-
-        public static string BlankPad(string input, PadSide side,int length)
-        {
-            return Pad(input, side, length, "   ");
-        }
-
-        public static string ZeroPad(string input, PadSide side, int length)
-        {
-            return Pad(input, side, length, "0");
-        }
-
         public static PaymentSender GetCurrentPayer()
         {
             List<PaymentSender> m_Payers = JsonConvert.DeserializeObject<List<PaymentSender>>(Properties.Settings.Default.Payers);
@@ -88,6 +47,13 @@ namespace ABA_Creator
         {
             Properties.Settings.Default.Payees = JsonConvert.SerializeObject(_Payees);
             Properties.Settings.Default.Save();
+        }
+
+        public static string Consume(string str, int chars)
+        {
+            string retString = str.Substring(0, chars);
+            str = str.Remove(0, chars);
+            return retString;
         }
     }
 }

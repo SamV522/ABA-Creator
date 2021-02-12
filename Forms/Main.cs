@@ -114,5 +114,13 @@ namespace ABA_Creator
         {
 
         }
+
+        private void testStringConsumeToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            string _test = "This is a test string";
+            MessageBox.Show(_test.Consume(4));
+            MessageBox.Show(_test);
+
+        }
     }
 }

@@ -20,7 +20,7 @@ namespace ABA_Creator.Entities.ABA
 
         public override string ToString()
         {
-            return $"{RecordType}{BSBFiller}{Utilities.Pad(12, " ")}{NetTotal}{CreditTotal}{DebitTotal}{Utilities.Pad(24, " ")}{CountOfRecords}{Utilities.Pad(40, " ")}";
+            return $"{RecordType}{BSBFiller}{"".PadRight(12,' ')}{NetTotal}{CreditTotal}{DebitTotal}{"".PadRight(24, ' ')}{CountOfRecords}{"".PadRight(40, ' ')}";
         }
 
         public FileTotalRecord(List<DetailRecord> _CreditDetailRecords, List<DetailRecord> _DebitDetailRecords)

@@ -21,7 +21,7 @@ namespace ABA_Creator.Entities.ABA
         public string UserFinancialInstitution => Payer.FinancialInstitution;
 
 
-        public string UserPreferredSpecification => Utilities.Pad(Payer.AccountName, Utilities.PadSide.RIGHT, 26, " ");
+        public string UserPreferredSpecification => Payer.AccountName.PadRight(26,' ');
 
         public string UserIdentificationNumber => Payer.BSB.ToString("000000");
 
@@ -44,7 +44,7 @@ namespace ABA_Creator.Entities.ABA
 
         public override string ToString()
         {
-            return $"{RecordType}{Utilities.Pad(17," ")}{ReelSequenceNumber}{UserFinancialInstitution}{Utilities.Pad(7," ")}{UserPreferredSpecification}{UserIdentificationNumber}{Description}{Date}{Utilities.Pad(40," ")}";
+            return $"{RecordType}{"".PadRight(17,' ')}{ReelSequenceNumber}{UserFinancialInstitution}{"".PadRight(7,' ')}{UserPreferredSpecification}{UserIdentificationNumber}{Description}{Date}{"".PadRight(40,' ')}";
         }
 
         public DescriptiveRecord(string _ReelSequenceNumber,PaymentSender _Payer,string _Description,string _Date)
@@ -67,7 +67,7 @@ namespace ABA_Creator.Entities.ABA
         {
             ReelSequenceNumber = _ReelSequenceNumber;
             Payer = _Payer;
-            Description = Utilities.BlankPad("PAYMENT", Utilities.PadSide.RIGHT, 12);
+            Description = "PAYMENT".PadRight(12, ' ');
         }
 
         /*public DescriptiveRecord FromString(string record)

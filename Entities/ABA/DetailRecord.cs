@@ -87,7 +87,7 @@ namespace ABA_Creator.Entities.ABA
             Payee = _payee;
             m_Payment = new Payment(_amount, _taxWH);
             Indicator = _indicator;
-            NameOfRemitter = Utilities.BlankPad(Payer.AccountName,Utilities.PadSide.RIGHT,16).Substring(0,16);
+            NameOfRemitter = Payer.AccountName.PadRight(16,' ').Substring(0,16);
         }
 
         public DetailRecord(PaymentSender _payer, PaymentRecipient _payee, string _indicator, int _amount)
@@ -96,7 +96,7 @@ namespace ABA_Creator.Entities.ABA
             Payee = _payee;
             m_Payment = new Payment(_amount);
             Indicator = _indicator;
-            NameOfRemitter = Utilities.BlankPad(Payer.AccountName, Utilities.PadSide.RIGHT, 16).Substring(0, 16);
+            NameOfRemitter = Payer.AccountName.PadRight(16,' ').Substring(0, 16);
         }
     }
 }
