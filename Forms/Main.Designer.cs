@@ -42,17 +42,12 @@ namespace ABA_Creator
             this.setPayerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.paymentsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.addToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.editToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.deleteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.copyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.importFromFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.searchBSBsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.testStringConsumeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.button1 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.button4 = new System.Windows.Forms.Button();
-            this.button5 = new System.Windows.Forms.Button();
             this.dgv_DescriptiveRecord = new System.Windows.Forms.DataGridView();
             this.RecordType = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ReelSequenceNumber = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -188,9 +183,6 @@ namespace ABA_Creator
             // 
             this.paymentsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.addToolStripMenuItem1,
-            this.editToolStripMenuItem,
-            this.deleteToolStripMenuItem,
-            this.copyToolStripMenuItem,
             this.importFromFileToolStripMenuItem});
             this.paymentsToolStripMenuItem.Name = "paymentsToolStripMenuItem";
             this.paymentsToolStripMenuItem.Size = new System.Drawing.Size(84, 20);
@@ -203,24 +195,6 @@ namespace ABA_Creator
             this.addToolStripMenuItem1.Text = "Add New";
             this.addToolStripMenuItem1.Click += new System.EventHandler(this.addToolStripMenuItem1_Click);
             // 
-            // editToolStripMenuItem
-            // 
-            this.editToolStripMenuItem.Name = "editToolStripMenuItem";
-            this.editToolStripMenuItem.Size = new System.Drawing.Size(162, 22);
-            this.editToolStripMenuItem.Text = "Edit Selected";
-            // 
-            // deleteToolStripMenuItem
-            // 
-            this.deleteToolStripMenuItem.Name = "deleteToolStripMenuItem";
-            this.deleteToolStripMenuItem.Size = new System.Drawing.Size(162, 22);
-            this.deleteToolStripMenuItem.Text = "Delete Selected";
-            // 
-            // copyToolStripMenuItem
-            // 
-            this.copyToolStripMenuItem.Name = "copyToolStripMenuItem";
-            this.copyToolStripMenuItem.Size = new System.Drawing.Size(162, 22);
-            this.copyToolStripMenuItem.Text = "Copy Selected";
-            // 
             // importFromFileToolStripMenuItem
             // 
             this.importFromFileToolStripMenuItem.Name = "importFromFileToolStripMenuItem";
@@ -230,8 +204,7 @@ namespace ABA_Creator
             // helpToolStripMenuItem
             // 
             this.helpToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.searchBSBsToolStripMenuItem,
-            this.testStringConsumeToolStripMenuItem});
+            this.searchBSBsToolStripMenuItem});
             this.helpToolStripMenuItem.Name = "helpToolStripMenuItem";
             this.helpToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
             this.helpToolStripMenuItem.Text = "Help";
@@ -242,13 +215,6 @@ namespace ABA_Creator
             this.searchBSBsToolStripMenuItem.Size = new System.Drawing.Size(182, 22);
             this.searchBSBsToolStripMenuItem.Text = "Search BSBs...";
             this.searchBSBsToolStripMenuItem.Click += new System.EventHandler(this.searchBSBsToolStripMenuItem_Click);
-            // 
-            // testStringConsumeToolStripMenuItem
-            // 
-            this.testStringConsumeToolStripMenuItem.Name = "testStringConsumeToolStripMenuItem";
-            this.testStringConsumeToolStripMenuItem.Size = new System.Drawing.Size(182, 22);
-            this.testStringConsumeToolStripMenuItem.Text = "Test String Consume";
-            this.testStringConsumeToolStripMenuItem.Click += new System.EventHandler(this.testStringConsumeToolStripMenuItem_Click);
             // 
             // button1
             // 
@@ -282,16 +248,6 @@ namespace ABA_Creator
             this.button4.Text = "Delete Transaction";
             this.button4.UseVisualStyleBackColor = true;
             this.button4.Click += new System.EventHandler(this.button4_Click);
-            // 
-            // button5
-            // 
-            this.button5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.button5.Location = new System.Drawing.Point(713, 415);
-            this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(75, 23);
-            this.button5.TabIndex = 6;
-            this.button5.Text = "Generate ABA";
-            this.button5.UseVisualStyleBackColor = true;
             // 
             // dgv_DescriptiveRecord
             // 
@@ -588,7 +544,6 @@ namespace ABA_Creator
             this.Controls.Add(this.dgv_FileTotalRecord);
             this.Controls.Add(this.dgv_DetailRecord);
             this.Controls.Add(this.dgv_DescriptiveRecord);
-            this.Controls.Add(this.button5);
             this.Controls.Add(this.button4);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.button1);
@@ -622,12 +577,8 @@ namespace ABA_Creator
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Button button4;
-        private System.Windows.Forms.Button button5;
         private System.Windows.Forms.ToolStripMenuItem paymentsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem addToolStripMenuItem1;
-        private System.Windows.Forms.ToolStripMenuItem editToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem deleteToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem copyToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem importFromFileToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem openABAFileToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem saveABAFileToolStripMenuItem;
@@ -648,7 +599,6 @@ namespace ABA_Creator
         private System.Windows.Forms.DataGridViewTextBoxColumn CreditTotalAmount;
         private System.Windows.Forms.DataGridViewTextBoxColumn DebitTotalAmount;
         private System.Windows.Forms.DataGridViewTextBoxColumn NumRecords;
-        private System.Windows.Forms.ToolStripMenuItem testStringConsumeToolStripMenuItem;
         private System.Windows.Forms.OpenFileDialog openFileDialog1;
         private System.Windows.Forms.SaveFileDialog saveFileDialog1;
         private System.Windows.Forms.ToolStripMenuItem newABAFileToolStripMenuItem;

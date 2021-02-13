@@ -64,7 +64,7 @@ namespace ABA_Creator.Forms.Transactions
             this.cmbo_TranCode.Location = new System.Drawing.Point(112, 43);
             this.cmbo_TranCode.Name = "cmbo_TranCode";
             this.cmbo_TranCode.Size = new System.Drawing.Size(246, 21);
-            this.cmbo_TranCode.TabIndex = 2;
+            this.cmbo_TranCode.TabIndex = 1;
             // 
             // txt_LodgementRef
             // 
@@ -138,7 +138,7 @@ namespace ABA_Creator.Forms.Transactions
             0});
             this.nmc_Amount.Name = "nmc_Amount";
             this.nmc_Amount.Size = new System.Drawing.Size(121, 20);
-            this.nmc_Amount.TabIndex = 11;
+            this.nmc_Amount.TabIndex = 2;
             // 
             // nmc_Tax
             // 
@@ -151,7 +151,7 @@ namespace ABA_Creator.Forms.Transactions
             0});
             this.nmc_Tax.Name = "nmc_Tax";
             this.nmc_Tax.Size = new System.Drawing.Size(121, 20);
-            this.nmc_Tax.TabIndex = 12;
+            this.nmc_Tax.TabIndex = 3;
             // 
             // label6
             // 
@@ -168,7 +168,7 @@ namespace ABA_Creator.Forms.Transactions
             this.cmbo_Payees.Location = new System.Drawing.Point(112, 16);
             this.cmbo_Payees.Name = "cmbo_Payees";
             this.cmbo_Payees.Size = new System.Drawing.Size(246, 21);
-            this.cmbo_Payees.TabIndex = 14;
+            this.cmbo_Payees.TabIndex = 0;
             // 
             // btn_Cancel
             // 
@@ -176,7 +176,7 @@ namespace ABA_Creator.Forms.Transactions
             this.btn_Cancel.Location = new System.Drawing.Point(283, 193);
             this.btn_Cancel.Name = "btn_Cancel";
             this.btn_Cancel.Size = new System.Drawing.Size(75, 23);
-            this.btn_Cancel.TabIndex = 15;
+            this.btn_Cancel.TabIndex = 7;
             this.btn_Cancel.Text = "Cancel";
             this.btn_Cancel.UseVisualStyleBackColor = true;
             this.btn_Cancel.Click += new System.EventHandler(this.button1_Click);
@@ -187,7 +187,7 @@ namespace ABA_Creator.Forms.Transactions
             this.btn_Add.Location = new System.Drawing.Point(202, 193);
             this.btn_Add.Name = "btn_Add";
             this.btn_Add.Size = new System.Drawing.Size(75, 23);
-            this.btn_Add.TabIndex = 16;
+            this.btn_Add.TabIndex = 6;
             this.btn_Add.Text = "Add";
             this.btn_Add.UseVisualStyleBackColor = true;
             this.btn_Add.Click += new System.EventHandler(this.button2_Click);

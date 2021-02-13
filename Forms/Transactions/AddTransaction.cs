@@ -51,7 +51,7 @@ namespace ABA_Creator.Forms.Transactions
                 cmbo_Payees.Items.Add(Payee.ToString());
             }
             if (cmbo_Payees.Items.Count > 0) cmbo_Payees.SelectedIndex = 0;
-            cmbo_TranCode.SelectedItem = 0;
+            cmbo_TranCode.SelectedIndex = 0;
         }
     }
 }

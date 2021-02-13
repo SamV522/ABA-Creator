@@ -263,20 +263,20 @@ namespace ABA_Creator
 
         private void button2_Click(object sender, EventArgs e)
         {
-            if(dgv_DetailRecord.SelectedRows.Count>0)
+            MessageBox.Show("This feature is not yet available", "Feature not available");
+            /*if(dgv_DetailRecord.SelectedRows.Count>0)
             {
                 foreach(DataGridViewRow row in dgv_DetailRecord.SelectedRows)
                 {
                     dgv_DetailRecord.Rows.AddCopy(row.Index);
                 }
-            }
+            }*/
         }
 
         private void dgv_DetailRecord_RowsAdded(object sender, DataGridViewRowsAddedEventArgs e)
         {
             if (m_Transactions == null || m_Transactions.Count == 0 || m_Transactions.Count < e.RowIndex) return;
             m_Transactions[e.RowIndex] = new DetailRecord(RowToArray(dgv_DetailRecord.Rows[e.RowIndex]));
-            //UpdateTransactionListBox();
         }
 
         private void dgv_DetailRecord_UserDeletingRow(object sender, DataGridViewRowCancelEventArgs e)
