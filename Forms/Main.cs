@@ -77,11 +77,6 @@ namespace ABA_Creator
             m_addPayerForm.BringToFront();
         }
 
-        private void addToolStripMenuItem1_Click(object sender, EventArgs e)
-        {
-
-        }
-
         private void setPayerToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (m_setPayersForm.IsDisposed) m_setPayersForm = new SetActivePayer();
@@ -89,43 +84,49 @@ namespace ABA_Creator
             m_setPayersForm.BringToFront();
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void addToolStripMenuItem1_Click(object sender, EventArgs e)
         {
             m_addTransactionForm.ShowDialog(this);
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            if (m_addTransactionForm.ShowDialog(this) == DialogResult.OK)
+            {
+                AddTransaction(m_addTransactionForm.Transaction);
+            }
         }
 
         public void AddTransaction(DetailRecord tranRecord)
         {
             this.m_Transactions.Add(tranRecord);
-            UpdateTransactionListBox();
+            UpdateTransactions();
         }
 
         public void RemoveTransaction(int id)
         {
             this.m_Transactions.RemoveAt(id);
-            UpdateTransactionListBox();
+            UpdateTransactions();
         }
 
-        private void UpdateTransactionListBox()
+        private void UpdateTransactions()
         {
             dgv_DetailRecord.Rows.Clear();
-            foreach(DetailRecord tranRecord in m_Transactions)
+            foreach (DetailRecord tranRecord in m_Transactions.ToArray())
             {
                 dgv_DetailRecord.Rows.Add(tranRecord.ToArray());
             }
+            if(dgv_DescriptiveRecord.Rows.Count<1)
+            {
+                UpdateDescriptiveRecord();
+            }
+            UpdateFileTotalRecord();
         }
 
         private void SetTransactions(List<DetailRecord> records)
         {
             m_Transactions = records;
-            UpdateTransactionListBox();
-        }
-        
-        private void UpdateDescriptiveRecord(DescriptiveRecord record)
-        {
-            dgv_DescriptiveRecord.Rows.Clear();
-            dgv_DescriptiveRecord.Rows.Add(record.ToArray());
-            m_DescriptiveRecord = record;
+            UpdateTransactions();
         }
 
         private void openABAFileToolStripMenuItem_Click(object sender, EventArgs e)
@@ -138,11 +139,39 @@ namespace ABA_Creator
 
         }
 
+        private void UpdateDescriptiveRecord()
+        {
+            PaymentSender _payer = Utilities.GetCurrentPayer();
+            UpdateDescriptiveRecord(new DescriptiveRecord("01",
+                                    new UserSupplyingFile(_payer.FinancialInstitution,
+                                                          _payer.AccountName, 
+                                                          _payer.BSB.ToString("0").PadLeft(6,'0'))));
+        }
+
+        private void UpdateDescriptiveRecord(DescriptiveRecord record)
+        {
+            dgv_DescriptiveRecord.Rows.Clear();
+            dgv_DescriptiveRecord.Rows.Add(record.ToArray());
+            m_DescriptiveRecord = record;
+        }
+
+        private void ClearDescriptiveRecord()
+        {
+            dgv_DescriptiveRecord.Rows.Clear();
+            m_DescriptiveRecord = null;
+        }
+
         private void UpdateFileTotalRecord(FileTotalRecord record)
         {
             dgv_FileTotalRecord.Rows.Clear();
             dgv_FileTotalRecord.Rows.Add(record.ToArray());
             m_FileTotalRecord = record;
+        }
+
+        private void ClearFileTotalRecord()
+        {
+            dgv_FileTotalRecord.Rows.Clear();
+            m_FileTotalRecord = null;
         }
 
         private void UpdateFileTotalRecord()
@@ -153,7 +182,7 @@ namespace ABA_Creator
         private void ClearTransactions()
         {
             m_Transactions = new List<DetailRecord>();
-            UpdateTransactionListBox();
+            UpdateTransactions();
         }
 
         private void OpenABAFile()
@@ -180,9 +209,118 @@ namespace ABA_Creator
             }
         }
 
+        private void NewABAFile()
+        {
+            ClearDescriptiveRecord();
+            ClearTransactions();
+            ClearFileTotalRecord();
+        }
+
         private void saveABAFileToolStripMenuItem_Click(object sender, EventArgs e)
         {
             SaveABAFile();
+        }
+
+        private void dgv_DetailRecord_CellValueChanged(object sender, DataGridViewCellEventArgs e)
+        {
+            if (m_Transactions == null || m_Transactions.Count == 0 || m_Transactions.Count < e.RowIndex) return;
+            m_Transactions[e.RowIndex] = new DetailRecord(RowToArray(dgv_DetailRecord.Rows[e.RowIndex]));
+            UpdateTransactions();
+        }
+
+        private void dgv_DetailRecord_UserDeletedRow(object sender, DataGridViewRowEventArgs e)
+        {
+        }
+
+        private string[] RowToArray(DataGridViewRow row)
+        {
+            string[] _ = new string[row.Cells.Count];
+            int i = 0;
+            foreach(DataGridViewCell cell in row.Cells)
+            {
+                if(cell.Value!=null)
+                {
+                    _[i] = cell.Value.ToString();
+                }
+                i++;
+            }
+            return _;
+        }
+
+        private void dgv_DetailRecord_Sorted(object sender, EventArgs e)
+        {
+            m_Transactions.Clear();
+            foreach (DataGridViewRow row in dgv_DetailRecord.Rows)
+            {
+                m_Transactions.Add(new DetailRecord(RowToArray(row)));
+            }
+        }
+
+        private void newABAFileToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            NewABAFile();
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            if(dgv_DetailRecord.SelectedRows.Count>0)
+            {
+                foreach(DataGridViewRow row in dgv_DetailRecord.SelectedRows)
+                {
+                    dgv_DetailRecord.Rows.AddCopy(row.Index);
+                }
+            }
+        }
+
+        private void dgv_DetailRecord_RowsAdded(object sender, DataGridViewRowsAddedEventArgs e)
+        {
+            if (m_Transactions == null || m_Transactions.Count == 0 || m_Transactions.Count < e.RowIndex) return;
+            m_Transactions[e.RowIndex] = new DetailRecord(RowToArray(dgv_DetailRecord.Rows[e.RowIndex]));
+            //UpdateTransactionListBox();
+        }
+
+        private void dgv_DetailRecord_UserDeletingRow(object sender, DataGridViewRowCancelEventArgs e)
+        {
+            e.Cancel = true;
+            if (!DeleteRows(e.Row));
+        }
+
+        private bool DeleteRows(DataGridViewRow row)
+        {
+            DataGridViewRow[] rows = new DataGridViewRow[1] { row };
+            return DeleteRows(rows);
+        }
+
+        private bool DeleteRows(DataGridViewSelectedRowCollection selection)
+        {
+            DataGridViewRow[] rows = new DataGridViewRow[selection.Count];
+            selection.CopyTo(rows, 0);
+            return DeleteRows(rows);
+        }
+
+        private bool DeleteRows(DataGridViewRow[] rows)
+        {
+            bool _deleteRows = MessageBox.Show(
+                $"Are you sure you want to delete {dgv_DetailRecord.SelectedRows.Count} row(s)?",
+                "Delete Rows", MessageBoxButtons.OKCancel) == DialogResult.OK;
+            if(_deleteRows)
+            {
+                foreach (DataGridViewRow row in dgv_DetailRecord.SelectedRows)
+                {
+                    m_Transactions.RemoveAt(row.Index);
+                    dgv_DetailRecord.Rows.RemoveAt(row.Index);
+                    UpdateTransactions();
+                }
+            }
+            return _deleteRows;
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            if(dgv_DetailRecord.SelectedRows.Count>0)
+            {
+                DeleteRows(dgv_DetailRecord.SelectedRows);
+            }
         }
     }
 }

@@ -15,10 +15,10 @@ namespace ABA_Creator.Entities.ABA
         private string m_Indicator;
 
         public string PayeeBSB => Payee.BSB.ToString("000-000");
-        public string PayeeAcc => Payer.AccountNumber.PadLeft(9 - Payer.AccountNumber.Length, ' ');
+        public string PayeeAcc => Payee.AccountNumber.PadLeft(9, ' ');
 
         public string PayerBSB => Payer.BSB.ToString("000-000");
-        public string PayerAcc => Payer.AccountNumber.PadLeft(9 - Payer.AccountNumber.Length, ' ');
+        public string PayerAcc => Payer.AccountNumber.PadLeft(9, ' ');
 
         public string Indicator
         {
@@ -34,15 +34,15 @@ namespace ABA_Creator.Entities.ABA
             get { return m_TransactionCode; }
             set { m_TransactionCode = value.Substring(0,2); }
         }
-        public string Amount => (m_Payment.Amount * 100).ToString("0000000000");
+        public string Amount => (m_Payment.Amount * 100).ToString("0").PadLeft(10, '0');
 
-        public string TitleOfAccount => Payee.AccountName;
+        public string TitleOfAccount => Payee.AccountName.PadRight(32,' ').Substring(0,32);
 
-        public string LodgementReference => m_Payment.LodgementReference.PadRight(18-m_Payment.LodgementReference.Length);
+        public string LodgementReference => m_Payment.LodgementReference.PadRight(18,' ').Substring(0,18);
 
-        public string TraceRecord => Payer.BSB.ToString("000-000");
+        public string TraceRecord => PayerBSB;
 
-        public string AccountNumber => Payer.AccountNumber;
+        public string AccountNumber => PayerAcc;
 
         private string m_NameOfRemitter;
 
@@ -52,7 +52,7 @@ namespace ABA_Creator.Entities.ABA
             set { m_NameOfRemitter = value.Substring(0,Math.Min(value.Length,16)); }
         }
 
-        public string AmountWithholdingTax => (m_Payment.Tax*100).ToString("00000000");
+        public string AmountWithholdingTax => (m_Payment.Tax*100).ToString("0").PadLeft(8,'0');
 
         #endregion
 
@@ -65,15 +65,6 @@ namespace ABA_Creator.Entities.ABA
             Indicator = _indicator;
             NameOfRemitter = _Remitter;
             TransactionCode = _transactioncode;
-        }
-
-        public DetailRecord(PaymentSender _payer, PaymentRecipient _payee, string _indicator, decimal _amount, decimal _taxWH, string _lodgementReference, string _Remitter)
-        {
-            Payer = _payer;
-            Payee = _payee;
-            m_Payment = new Payment(_amount, _taxWH, _lodgementReference);
-            Indicator = _indicator;
-            NameOfRemitter = _Remitter;
         }
 
         public DetailRecord(PaymentSender _payer, PaymentRecipient _payee, string _indicator, decimal _amount, decimal _taxWH, string _Remitter)
@@ -121,12 +112,39 @@ namespace ABA_Creator.Entities.ABA
                                 record.Substring(18, 2))
         { }
 
+        public DetailRecord(string[] record)
+        :this(new PaymentSender(int.Parse(record[8].Replace("-", "")), record[9], "", ""),
+                                    new PaymentRecipient(int.Parse(record[1].Replace("-", "")), record[2], record[6]),
+                                    record[3],
+                                    decimal.Parse(record[5]),
+                                    decimal.Parse(record[11]),
+                                    record[7],
+                                    record[10],
+                                    record[4])
+        { }
         #endregion
 
         #region Methods
         public string[] ToArray()
         {
-            return new string[12] { RecordType, PayerBSB, PayeeAcc, Indicator, TransactionCode, (decimal.Parse(Amount)/100).ToString("F2"), TitleOfAccount, LodgementReference, TraceRecord, AccountNumber, NameOfRemitter, (decimal.Parse(AmountWithholdingTax)/100).ToString("F2") };
+            return new string[12] { RecordType, 
+                                        PayeeBSB, 
+                                        PayeeAcc, 
+                                        Indicator, 
+                                        TransactionCode, 
+                                        (decimal.Parse(Amount)/100).ToString("F2"), 
+                                        TitleOfAccount, 
+                                        LodgementReference, 
+                                        TraceRecord, 
+                                        AccountNumber, 
+                                        NameOfRemitter, 
+                                        (decimal.Parse(AmountWithholdingTax)/100).ToString("F2") 
+                                    };
+        }
+
+        public DetailRecord FromArray(string[] array)
+        {
+            return new DetailRecord(array);
         }
 
         public override string ToString()
@@ -140,8 +158,8 @@ namespace ABA_Creator.Entities.ABA
             str += Amount;
             str += TitleOfAccount;
             str += LodgementReference;
-            str += TraceRecord;
-            str += Payer.AccountNumber;
+            str += PayerBSB;
+            str += PayerAcc;
             str += NameOfRemitter;
             str += AmountWithholdingTax;
             return str;

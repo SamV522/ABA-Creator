@@ -13,9 +13,9 @@ namespace ABA_Creator.Entities.ABA
         private decimal CreditAmount => CreditDetailRecords.Select(record => record.m_Payment.Amount).Sum();
         private decimal DebitAmount => DebitDetailRecords.Select(record => record.m_Payment.Amount).Sum();
         private decimal DifferenceAmount => Math.Abs(CreditAmount) + Math.Abs(DebitAmount);
-        public string NetTotal => DifferenceAmount.ToString("0000000000");
-        public string CreditTotal => CreditAmount.ToString("0000000000");
-        public string DebitTotal => DebitAmount.ToString("0000000000");
+        public string NetTotal => (DifferenceAmount*100).ToString("0000000000");
+        public string CreditTotal => (CreditAmount*100).ToString("0000000000");
+        public string DebitTotal => (DebitAmount*100).ToString("0000000000");
         public string CountOfRecords => (CreditDetailRecords.Count + DebitDetailRecords.Count).ToString("000000");
 
         public FileTotalRecord(List<DetailRecord> _CreditDetailRecords, List<DetailRecord> _DebitDetailRecords)
@@ -44,9 +44,9 @@ namespace ABA_Creator.Entities.ABA
             return new string[] { 
                 RecordType,
                 BSBFiller,
-                (decimal.Parse(NetTotal)/100).ToString("F2"),
-                (decimal.Parse(CreditTotal)/100).ToString("F2"),
-                (decimal.Parse(DebitTotal)/100).ToString("F2"),
+                (DifferenceAmount).ToString("F2"),
+                (CreditAmount).ToString("F2"),
+                (DebitAmount).ToString("F2"),
                 CountOfRecords };
         }
     }

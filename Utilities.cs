@@ -40,7 +40,7 @@ namespace ABA_Creator
         public static List<PaymentRecipient> GetPayees()
         {
             List<PaymentRecipient> m_Payees = JsonConvert.DeserializeObject<List<PaymentRecipient>>(Properties.Settings.Default.Payees);
-            return m_Payees;
+            return m_Payees == null ? new List<PaymentRecipient>() : m_Payees;
         }
 
         public static void SetPayees(List<PaymentRecipient> _Payees)

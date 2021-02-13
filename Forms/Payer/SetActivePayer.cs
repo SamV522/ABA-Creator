@@ -35,6 +35,7 @@ namespace ABA_Creator.Forms.Payer
         private void UpdatePayers()
         {
             m_Payers = JsonConvert.DeserializeObject<List<PaymentSender>>(Properties.Settings.Default.Payers);
+            m_Payers = (m_Payers == null ? new List<PaymentSender>() : m_Payers);
             foreach(PaymentSender Payer in m_Payers)
             {
                 listBox1.Items.Add($"{Payer.AccountName.PadRight(20 - Payer.AccountName.Length)} - BSB: {Payer.BSB} - Acc: {Payer.AccountNumber}");

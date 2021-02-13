@@ -14,6 +14,8 @@ namespace ABA_Creator.Forms.Transactions
 {
     public partial class AddTransaction : Form
     {
+        public DetailRecord Transaction { get; private set; }
+
         public AddTransaction()
         {
             InitializeComponent();
@@ -27,7 +29,7 @@ namespace ABA_Creator.Forms.Transactions
 
         private void button2_Click(object sender, EventArgs e)
         {
-            DetailRecord TranRecord = new DetailRecord(Utilities.GetCurrentPayer(),
+            Transaction = new DetailRecord(Utilities.GetCurrentPayer(),
                                                         Utilities.GetPayeeFromID(cmbo_Payees.SelectedIndex),
                                                         " ",
                                                         (int)nmc_Amount.Value,
@@ -35,7 +37,7 @@ namespace ABA_Creator.Forms.Transactions
                                                         txt_LodgementRef.Text,
                                                         txt_Remitter.Text);
             // This will fail if this form is not opened using ShowDialog
-            ((Main)this.Owner).AddTransaction(TranRecord);
+            //((Main)this.Owner).AddTransaction(TranRecord);
             //((Main)this.Owner).m_Transactions.Add(TranRecord);
             this.DialogResult = DialogResult.OK;
             this.Close();

@@ -89,7 +89,7 @@ namespace ABA_Creator.Entities.ABA
         }
 
         public string[] ToArray()
-        {
+        { 
             return new string[7] {RecordType, ReelSequenceNumber, UserFinancialInstitution, UserPreferredSpecification, Payer.BSB, Description, Date };
         }
 
