@@ -39,5 +39,12 @@ namespace ABA_Creator.Entities
             UserPreferredSpecification = _UPS;
             UserIdentificationNumber = _UID;
         }
+
+        public UserSupplyingFile(PaymentSender payer)
+        {
+            FinancialInstitution = payer.FinancialInstitution;
+            UserPreferredSpecification = payer.UserPreferredSpecification;
+            UserIdentificationNumber = payer.UserIdentificationNumber;
+        }
     }
 }

@@ -77,17 +77,17 @@ namespace ABA_Creator.Forms.Payer
             bool bsbParsed = int.TryParse($"{bsbTxt1.Text}{bsbTxt2.Text}", out int _bsb);
             if(bsbParsed)
             {
-                PaymentSender newRecipient = new PaymentSender(_bsb, textBox4.Text, textBox2.Text,textBox1.Text);
+                PaymentSender newSender = new PaymentSender(_bsb, textBox4.Text, textBox2.Text,textBox1.Text,textBox3.Text);
                 List<PaymentSender> Payers;
                 try
                 {
                     Payers = JsonConvert.DeserializeObject<List<PaymentSender>>(Properties.Settings.Default.Payers);
 
                     if (Payers == null) Payers = new List<PaymentSender>();
-                    Payers.Add(newRecipient);
+                    Payers.Add(newSender);
                     string PayersJson = JsonConvert.SerializeObject(Payers);
                     Properties.Settings.Default.Payers = PayersJson;
-                    if(MessageBox.Show($"Payer added by account name: {newRecipient.AccountName}","Payer Added",MessageBoxButtons.OK)==DialogResult.OK)
+                    if(MessageBox.Show($"Payer added by account name: {newSender.AccountName}","Payer Added",MessageBoxButtons.OK)==DialogResult.OK)
                     {
                         this.DialogResult = DialogResult.OK;
                         this.Close();

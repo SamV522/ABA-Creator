@@ -59,7 +59,7 @@ namespace ABA_Creator.Forms.Payer
             this.textBox4.Location = new System.Drawing.Point(108, 116);
             this.textBox4.Name = "textBox4";
             this.textBox4.Size = new System.Drawing.Size(206, 20);
-            this.textBox4.TabIndex = 4;
+            this.textBox4.TabIndex = 5;
             this.textBox4.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.numeric_Validation);
             // 
             // button1
@@ -67,7 +67,7 @@ namespace ABA_Creator.Forms.Payer
             this.button1.Location = new System.Drawing.Point(158, 142);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 5;
+            this.button1.TabIndex = 6;
             this.button1.Text = "Add";
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
@@ -77,7 +77,7 @@ namespace ABA_Creator.Forms.Payer
             this.button2.Location = new System.Drawing.Point(239, 142);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(75, 23);
-            this.button2.TabIndex = 6;
+            this.button2.TabIndex = 7;
             this.button2.Text = "Cancel";
             this.button2.UseVisualStyleBackColor = true;
             this.button2.Click += new System.EventHandler(this.button2_Click);
@@ -151,7 +151,7 @@ namespace ABA_Creator.Forms.Payer
             this.textBox2.MaxLength = 3;
             this.textBox2.Name = "textBox2";
             this.textBox2.Size = new System.Drawing.Size(36, 20);
-            this.textBox2.TabIndex = 3;
+            this.textBox2.TabIndex = 4;
             this.textBox2.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.alpha_Validation);
             // 
             // label6
@@ -166,10 +166,10 @@ namespace ABA_Creator.Forms.Payer
             // textBox3
             // 
             this.textBox3.Location = new System.Drawing.Point(108, 64);
-            this.textBox3.MaxLength = 3;
+            this.textBox3.MaxLength = 6;
             this.textBox3.Name = "textBox3";
             this.textBox3.Size = new System.Drawing.Size(52, 20);
-            this.textBox3.TabIndex = 12;
+            this.textBox3.TabIndex = 3;
             // 
             // AddPayer
             // 

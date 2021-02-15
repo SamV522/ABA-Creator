@@ -24,7 +24,7 @@ namespace ABA_Creator.Entities.ABA
 
         public string UserPreferredSpecification => Payer.UserPreferredSpecification;
 
-        public string UserIdentificationNumber => Payer.BSB;
+        public string UserIdentificationNumber => Payer.UserIdentificationNumber;
 
 
         private string m_Description;
@@ -90,7 +90,7 @@ namespace ABA_Creator.Entities.ABA
 
         public string[] ToArray()
         { 
-            return new string[7] {RecordType, ReelSequenceNumber, UserFinancialInstitution, UserPreferredSpecification, Payer.BSB, Description, Date };
+            return new string[7] {RecordType, ReelSequenceNumber, UserFinancialInstitution, UserPreferredSpecification, Payer.UserIdentificationNumber, Description, Date };
         }
 
         public DescriptiveRecord FromString(string record)

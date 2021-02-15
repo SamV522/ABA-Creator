@@ -147,7 +147,7 @@ namespace ABA_Creator
                 UpdateDescriptiveRecord(new DescriptiveRecord("01",
                                         new UserSupplyingFile(_payer.FinancialInstitution,
                                                               _payer.AccountName,
-                                                              _payer.BSB.ToString("0").PadLeft(6, '0'))));
+                                                              _payer.UserIdentificationNumber.PadLeft(6, '0'))));
             }
             else
             {

@@ -31,11 +31,11 @@ namespace ABA_Creator.Forms.Payer
             string SettingsPayee = Properties.Settings.Default.Payers;
             if (SettingsPayee.Length <= 0) return;
             Payers = JsonConvert.DeserializeObject<List<PaymentSender>>(Properties.Settings.Default.Payers);
-            foreach (PaymentRecipient payee in Payers)
+            foreach (PaymentSender payer in Payers)
             {
-                listBox1.Items.Add(payee.AccountName.ToUpper().PadRight(20 - payee.AccountName.Length) +
-                                   $" - BSB: {payee.BSB} " +
-                                   $"- Acc No: {payee.AccountNumber}");
+                listBox1.Items.Add(payer.AccountName.ToUpper().PadRight(20 - payer.AccountName.Length) +
+                                   $" - BSB: {payer.BSB} " +
+                                   $"- Acc No: {payer.AccountNumber}");
             }
         }
 
