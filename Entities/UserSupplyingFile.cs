@@ -25,19 +25,19 @@ namespace ABA_Creator.Entities
         }
 
 
-        private string m_BSB;
+        private string m_UserIdentificationNumber;
 
-        public string BSB
+        public string UserIdentificationNumber
         {
-            get { return m_BSB; }
-            set { m_BSB = value.PadLeft(6,'0').Substring(0,6); }
+            get { return m_UserIdentificationNumber; }
+            set { m_UserIdentificationNumber = value.PadLeft(6,'0').Substring(0,6); }
         }
 
-        public UserSupplyingFile(string _FI, string _UPS, string _BSB)
+        public UserSupplyingFile(string _FI, string _UPS, string _UID)
         {
             FinancialInstitution = _FI;
             UserPreferredSpecification = _UPS;
-            BSB = _BSB;
+            UserIdentificationNumber = _UID;
         }
     }
 }

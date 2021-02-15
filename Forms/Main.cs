@@ -142,10 +142,17 @@ namespace ABA_Creator
         private void UpdateDescriptiveRecord()
         {
             PaymentSender _payer = Utilities.GetCurrentPayer();
-            UpdateDescriptiveRecord(new DescriptiveRecord("01",
-                                    new UserSupplyingFile(_payer.FinancialInstitution,
-                                                          _payer.AccountName, 
-                                                          _payer.BSB.ToString("0").PadLeft(6,'0'))));
+            if(_payer !=null)
+            {
+                UpdateDescriptiveRecord(new DescriptiveRecord("01",
+                                        new UserSupplyingFile(_payer.FinancialInstitution,
+                                                              _payer.AccountName,
+                                                              _payer.BSB.ToString("0").PadLeft(6, '0'))));
+            }
+            else
+            {
+                MessageBox.Show("No payer has been selected, please set a payer from the Payers menu.", "No Payer!",MessageBoxButtons.OK);
+            }
         }
 
         private void UpdateDescriptiveRecord(DescriptiveRecord record)

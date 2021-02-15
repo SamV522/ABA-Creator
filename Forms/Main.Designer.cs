@@ -31,6 +31,7 @@ namespace ABA_Creator
         {
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.newABAFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openABAFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.saveABAFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.payeesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -49,24 +50,7 @@ namespace ABA_Creator
             this.button2 = new System.Windows.Forms.Button();
             this.button4 = new System.Windows.Forms.Button();
             this.dgv_DescriptiveRecord = new System.Windows.Forms.DataGridView();
-            this.RecordType = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ReelSequenceNumber = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.FinancialInstitution = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.UserPreferredSpecification = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.UserBSB = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Description = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ProcessDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dgv_DetailRecord = new System.Windows.Forms.DataGridView();
-            this.dgv_FileTotalRecord = new System.Windows.Forms.DataGridView();
-            this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.BSBFormatFiller = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.NetTotalAmount = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.CreditTotalAmount = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.DebitTotalAmount = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.NumRecords = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
-            this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
-            this.newABAFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.BSB = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Account = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -79,6 +63,22 @@ namespace ABA_Creator
             this.AccountNumber = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Remitter = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.AmountofWithholdingTax = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dgv_FileTotalRecord = new System.Windows.Forms.DataGridView();
+            this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.BSBFormatFiller = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.NetTotalAmount = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.CreditTotalAmount = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.DebitTotalAmount = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.NumRecords = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
+            this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
+            this.RecordType = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ReelSequenceNumber = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.FinancialInstitution = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.UserPreferredSpecification = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.UserBSB = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Description = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ProcessDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_DescriptiveRecord)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_DetailRecord)).BeginInit();
@@ -111,17 +111,24 @@ namespace ABA_Creator
             this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
             this.fileToolStripMenuItem.Text = "File";
             // 
+            // newABAFileToolStripMenuItem
+            // 
+            this.newABAFileToolStripMenuItem.Name = "newABAFileToolStripMenuItem";
+            this.newABAFileToolStripMenuItem.Size = new System.Drawing.Size(150, 22);
+            this.newABAFileToolStripMenuItem.Text = "New ABA file";
+            this.newABAFileToolStripMenuItem.Click += new System.EventHandler(this.newABAFileToolStripMenuItem_Click);
+            // 
             // openABAFileToolStripMenuItem
             // 
             this.openABAFileToolStripMenuItem.Name = "openABAFileToolStripMenuItem";
-            this.openABAFileToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.openABAFileToolStripMenuItem.Size = new System.Drawing.Size(150, 22);
             this.openABAFileToolStripMenuItem.Text = "Open ABA File";
             this.openABAFileToolStripMenuItem.Click += new System.EventHandler(this.openABAFileToolStripMenuItem_Click);
             // 
             // saveABAFileToolStripMenuItem
             // 
             this.saveABAFileToolStripMenuItem.Name = "saveABAFileToolStripMenuItem";
-            this.saveABAFileToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.saveABAFileToolStripMenuItem.Size = new System.Drawing.Size(150, 22);
             this.saveABAFileToolStripMenuItem.Text = "Save ABA File";
             this.saveABAFileToolStripMenuItem.Click += new System.EventHandler(this.saveABAFileToolStripMenuItem_Click);
             // 
@@ -185,7 +192,7 @@ namespace ABA_Creator
             this.addToolStripMenuItem1,
             this.importFromFileToolStripMenuItem});
             this.paymentsToolStripMenuItem.Name = "paymentsToolStripMenuItem";
-            this.paymentsToolStripMenuItem.Size = new System.Drawing.Size(84, 20);
+            this.paymentsToolStripMenuItem.Size = new System.Drawing.Size(85, 20);
             this.paymentsToolStripMenuItem.Text = "Transactions";
             // 
             // addToolStripMenuItem1
@@ -212,7 +219,7 @@ namespace ABA_Creator
             // searchBSBsToolStripMenuItem
             // 
             this.searchBSBsToolStripMenuItem.Name = "searchBSBsToolStripMenuItem";
-            this.searchBSBsToolStripMenuItem.Size = new System.Drawing.Size(182, 22);
+            this.searchBSBsToolStripMenuItem.Size = new System.Drawing.Size(146, 22);
             this.searchBSBsToolStripMenuItem.Text = "Search BSBs...";
             this.searchBSBsToolStripMenuItem.Click += new System.EventHandler(this.searchBSBsToolStripMenuItem_Click);
             // 
@@ -273,64 +280,6 @@ namespace ABA_Creator
             this.dgv_DescriptiveRecord.Size = new System.Drawing.Size(776, 65);
             this.dgv_DescriptiveRecord.TabIndex = 7;
             // 
-            // RecordType
-            // 
-            this.RecordType.FillWeight = 53.2995F;
-            this.RecordType.HeaderText = "Record Type";
-            this.RecordType.MaxInputLength = 1;
-            this.RecordType.MinimumWidth = 6;
-            this.RecordType.Name = "RecordType";
-            this.RecordType.ReadOnly = true;
-            this.RecordType.Visible = false;
-            // 
-            // ReelSequenceNumber
-            // 
-            this.ReelSequenceNumber.FillWeight = 109.1018F;
-            this.ReelSequenceNumber.HeaderText = "Reel Sequence Number";
-            this.ReelSequenceNumber.MinimumWidth = 6;
-            this.ReelSequenceNumber.Name = "ReelSequenceNumber";
-            this.ReelSequenceNumber.ReadOnly = true;
-            // 
-            // FinancialInstitution
-            // 
-            this.FinancialInstitution.FillWeight = 109.1018F;
-            this.FinancialInstitution.HeaderText = "Financial Insititution";
-            this.FinancialInstitution.MinimumWidth = 6;
-            this.FinancialInstitution.Name = "FinancialInstitution";
-            this.FinancialInstitution.ReadOnly = true;
-            // 
-            // UserPreferredSpecification
-            // 
-            this.UserPreferredSpecification.FillWeight = 109.1018F;
-            this.UserPreferredSpecification.HeaderText = "User Preferred Specification";
-            this.UserPreferredSpecification.MinimumWidth = 6;
-            this.UserPreferredSpecification.Name = "UserPreferredSpecification";
-            this.UserPreferredSpecification.ReadOnly = true;
-            // 
-            // UserBSB
-            // 
-            this.UserBSB.FillWeight = 109.1018F;
-            this.UserBSB.HeaderText = "BSB";
-            this.UserBSB.MinimumWidth = 6;
-            this.UserBSB.Name = "UserBSB";
-            this.UserBSB.ReadOnly = true;
-            // 
-            // Description
-            // 
-            this.Description.FillWeight = 109.1018F;
-            this.Description.HeaderText = "Description";
-            this.Description.MinimumWidth = 6;
-            this.Description.Name = "Description";
-            this.Description.ReadOnly = true;
-            // 
-            // ProcessDate
-            // 
-            this.ProcessDate.FillWeight = 101.1914F;
-            this.ProcessDate.HeaderText = "Process Date";
-            this.ProcessDate.MinimumWidth = 6;
-            this.ProcessDate.Name = "ProcessDate";
-            this.ProcessDate.ReadOnly = true;
-            // 
             // dgv_DetailRecord
             // 
             this.dgv_DetailRecord.AllowUserToAddRows = false;
@@ -363,91 +312,6 @@ namespace ABA_Creator
             this.dgv_DetailRecord.Sorted += new System.EventHandler(this.dgv_DetailRecord_Sorted);
             this.dgv_DetailRecord.UserDeletedRow += new System.Windows.Forms.DataGridViewRowEventHandler(this.dgv_DetailRecord_UserDeletedRow);
             this.dgv_DetailRecord.UserDeletingRow += new System.Windows.Forms.DataGridViewRowCancelEventHandler(this.dgv_DetailRecord_UserDeletingRow);
-            // 
-            // dgv_FileTotalRecord
-            // 
-            this.dgv_FileTotalRecord.AllowUserToAddRows = false;
-            this.dgv_FileTotalRecord.AllowUserToDeleteRows = false;
-            this.dgv_FileTotalRecord.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.dgv_FileTotalRecord.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.dgv_FileTotalRecord.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgv_FileTotalRecord.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.dataGridViewTextBoxColumn2,
-            this.BSBFormatFiller,
-            this.NetTotalAmount,
-            this.CreditTotalAmount,
-            this.DebitTotalAmount,
-            this.NumRecords});
-            this.dgv_FileTotalRecord.Location = new System.Drawing.Point(12, 344);
-            this.dgv_FileTotalRecord.Name = "dgv_FileTotalRecord";
-            this.dgv_FileTotalRecord.ReadOnly = true;
-            this.dgv_FileTotalRecord.RowHeadersVisible = false;
-            this.dgv_FileTotalRecord.RowHeadersWidth = 51;
-            this.dgv_FileTotalRecord.Size = new System.Drawing.Size(776, 65);
-            this.dgv_FileTotalRecord.TabIndex = 10;
-            // 
-            // dataGridViewTextBoxColumn2
-            // 
-            this.dataGridViewTextBoxColumn2.FillWeight = 53.2995F;
-            this.dataGridViewTextBoxColumn2.HeaderText = "Record Type";
-            this.dataGridViewTextBoxColumn2.MaxInputLength = 1;
-            this.dataGridViewTextBoxColumn2.MinimumWidth = 6;
-            this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
-            this.dataGridViewTextBoxColumn2.ReadOnly = true;
-            this.dataGridViewTextBoxColumn2.Visible = false;
-            // 
-            // BSBFormatFiller
-            // 
-            this.BSBFormatFiller.HeaderText = "BSB Format Filler";
-            this.BSBFormatFiller.MinimumWidth = 6;
-            this.BSBFormatFiller.Name = "BSBFormatFiller";
-            this.BSBFormatFiller.ReadOnly = true;
-            this.BSBFormatFiller.Visible = false;
-            // 
-            // NetTotalAmount
-            // 
-            this.NetTotalAmount.HeaderText = "Net Total Amount";
-            this.NetTotalAmount.MinimumWidth = 6;
-            this.NetTotalAmount.Name = "NetTotalAmount";
-            this.NetTotalAmount.ReadOnly = true;
-            // 
-            // CreditTotalAmount
-            // 
-            this.CreditTotalAmount.HeaderText = "Credit Total Amount";
-            this.CreditTotalAmount.MinimumWidth = 6;
-            this.CreditTotalAmount.Name = "CreditTotalAmount";
-            this.CreditTotalAmount.ReadOnly = true;
-            // 
-            // DebitTotalAmount
-            // 
-            this.DebitTotalAmount.HeaderText = "Debit Total Amount";
-            this.DebitTotalAmount.MinimumWidth = 6;
-            this.DebitTotalAmount.Name = "DebitTotalAmount";
-            this.DebitTotalAmount.ReadOnly = true;
-            // 
-            // NumRecords
-            // 
-            this.NumRecords.HeaderText = "# Records";
-            this.NumRecords.MinimumWidth = 6;
-            this.NumRecords.Name = "NumRecords";
-            this.NumRecords.ReadOnly = true;
-            // 
-            // openFileDialog1
-            // 
-            this.openFileDialog1.Filter = "Text Files|*.txt";
-            // 
-            // saveFileDialog1
-            // 
-            this.saveFileDialog1.DefaultExt = "txt";
-            this.saveFileDialog1.Filter = "Text Files|*.txt";
-            // 
-            // newABAFileToolStripMenuItem
-            // 
-            this.newABAFileToolStripMenuItem.Name = "newABAFileToolStripMenuItem";
-            this.newABAFileToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.newABAFileToolStripMenuItem.Text = "New ABA file";
-            this.newABAFileToolStripMenuItem.Click += new System.EventHandler(this.newABAFileToolStripMenuItem_Click);
             // 
             // dataGridViewTextBoxColumn1
             // 
@@ -536,6 +400,142 @@ namespace ABA_Creator
             this.AmountofWithholdingTax.MinimumWidth = 6;
             this.AmountofWithholdingTax.Name = "AmountofWithholdingTax";
             // 
+            // dgv_FileTotalRecord
+            // 
+            this.dgv_FileTotalRecord.AllowUserToAddRows = false;
+            this.dgv_FileTotalRecord.AllowUserToDeleteRows = false;
+            this.dgv_FileTotalRecord.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.dgv_FileTotalRecord.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.dgv_FileTotalRecord.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgv_FileTotalRecord.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.dataGridViewTextBoxColumn2,
+            this.BSBFormatFiller,
+            this.NetTotalAmount,
+            this.CreditTotalAmount,
+            this.DebitTotalAmount,
+            this.NumRecords});
+            this.dgv_FileTotalRecord.Location = new System.Drawing.Point(12, 344);
+            this.dgv_FileTotalRecord.Name = "dgv_FileTotalRecord";
+            this.dgv_FileTotalRecord.ReadOnly = true;
+            this.dgv_FileTotalRecord.RowHeadersVisible = false;
+            this.dgv_FileTotalRecord.RowHeadersWidth = 51;
+            this.dgv_FileTotalRecord.Size = new System.Drawing.Size(776, 65);
+            this.dgv_FileTotalRecord.TabIndex = 10;
+            // 
+            // dataGridViewTextBoxColumn2
+            // 
+            this.dataGridViewTextBoxColumn2.FillWeight = 53.2995F;
+            this.dataGridViewTextBoxColumn2.HeaderText = "Record Type";
+            this.dataGridViewTextBoxColumn2.MaxInputLength = 1;
+            this.dataGridViewTextBoxColumn2.MinimumWidth = 6;
+            this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
+            this.dataGridViewTextBoxColumn2.ReadOnly = true;
+            this.dataGridViewTextBoxColumn2.Visible = false;
+            // 
+            // BSBFormatFiller
+            // 
+            this.BSBFormatFiller.HeaderText = "BSB Format Filler";
+            this.BSBFormatFiller.MinimumWidth = 6;
+            this.BSBFormatFiller.Name = "BSBFormatFiller";
+            this.BSBFormatFiller.ReadOnly = true;
+            this.BSBFormatFiller.Visible = false;
+            // 
+            // NetTotalAmount
+            // 
+            this.NetTotalAmount.HeaderText = "Net Total Amount";
+            this.NetTotalAmount.MinimumWidth = 6;
+            this.NetTotalAmount.Name = "NetTotalAmount";
+            this.NetTotalAmount.ReadOnly = true;
+            // 
+            // CreditTotalAmount
+            // 
+            this.CreditTotalAmount.HeaderText = "Credit Total Amount";
+            this.CreditTotalAmount.MinimumWidth = 6;
+            this.CreditTotalAmount.Name = "CreditTotalAmount";
+            this.CreditTotalAmount.ReadOnly = true;
+            // 
+            // DebitTotalAmount
+            // 
+            this.DebitTotalAmount.HeaderText = "Debit Total Amount";
+            this.DebitTotalAmount.MinimumWidth = 6;
+            this.DebitTotalAmount.Name = "DebitTotalAmount";
+            this.DebitTotalAmount.ReadOnly = true;
+            // 
+            // NumRecords
+            // 
+            this.NumRecords.HeaderText = "# Records";
+            this.NumRecords.MinimumWidth = 6;
+            this.NumRecords.Name = "NumRecords";
+            this.NumRecords.ReadOnly = true;
+            // 
+            // openFileDialog1
+            // 
+            this.openFileDialog1.Filter = "Text Files|*.txt";
+            // 
+            // saveFileDialog1
+            // 
+            this.saveFileDialog1.DefaultExt = "txt";
+            this.saveFileDialog1.Filter = "Text Files|*.txt";
+            // 
+            // RecordType
+            // 
+            this.RecordType.FillWeight = 53.2995F;
+            this.RecordType.HeaderText = "Record Type";
+            this.RecordType.MaxInputLength = 1;
+            this.RecordType.MinimumWidth = 6;
+            this.RecordType.Name = "RecordType";
+            this.RecordType.ReadOnly = true;
+            this.RecordType.Visible = false;
+            // 
+            // ReelSequenceNumber
+            // 
+            this.ReelSequenceNumber.FillWeight = 109.1018F;
+            this.ReelSequenceNumber.HeaderText = "Reel Sequence Number";
+            this.ReelSequenceNumber.MinimumWidth = 6;
+            this.ReelSequenceNumber.Name = "ReelSequenceNumber";
+            this.ReelSequenceNumber.ReadOnly = true;
+            // 
+            // FinancialInstitution
+            // 
+            this.FinancialInstitution.FillWeight = 109.1018F;
+            this.FinancialInstitution.HeaderText = "Financial Insititution";
+            this.FinancialInstitution.MinimumWidth = 6;
+            this.FinancialInstitution.Name = "FinancialInstitution";
+            this.FinancialInstitution.ReadOnly = true;
+            // 
+            // UserPreferredSpecification
+            // 
+            this.UserPreferredSpecification.FillWeight = 109.1018F;
+            this.UserPreferredSpecification.HeaderText = "User Preferred Specification";
+            this.UserPreferredSpecification.MinimumWidth = 6;
+            this.UserPreferredSpecification.Name = "UserPreferredSpecification";
+            this.UserPreferredSpecification.ReadOnly = true;
+            // 
+            // UserBSB
+            // 
+            this.UserBSB.FillWeight = 109.1018F;
+            this.UserBSB.HeaderText = "User ID";
+            this.UserBSB.MinimumWidth = 6;
+            this.UserBSB.Name = "UserBSB";
+            this.UserBSB.ReadOnly = true;
+            // 
+            // Description
+            // 
+            this.Description.FillWeight = 109.1018F;
+            this.Description.HeaderText = "Description";
+            this.Description.MinimumWidth = 6;
+            this.Description.Name = "Description";
+            this.Description.ReadOnly = true;
+            // 
+            // ProcessDate
+            // 
+            this.ProcessDate.FillWeight = 101.1914F;
+            this.ProcessDate.HeaderText = "Process Date";
+            this.ProcessDate.MinimumWidth = 6;
+            this.ProcessDate.Name = "ProcessDate";
+            this.ProcessDate.ReadOnly = true;
+            // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -586,13 +586,6 @@ namespace ABA_Creator
         private System.Windows.Forms.DataGridView dgv_DescriptiveRecord;
         private System.Windows.Forms.DataGridView dgv_DetailRecord;
         private System.Windows.Forms.DataGridView dgv_FileTotalRecord;
-        private System.Windows.Forms.DataGridViewTextBoxColumn RecordType;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ReelSequenceNumber;
-        private System.Windows.Forms.DataGridViewTextBoxColumn FinancialInstitution;
-        private System.Windows.Forms.DataGridViewTextBoxColumn UserPreferredSpecification;
-        private System.Windows.Forms.DataGridViewTextBoxColumn UserBSB;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Description;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ProcessDate;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
         private System.Windows.Forms.DataGridViewTextBoxColumn BSBFormatFiller;
         private System.Windows.Forms.DataGridViewTextBoxColumn NetTotalAmount;
@@ -614,6 +607,13 @@ namespace ABA_Creator
         private System.Windows.Forms.DataGridViewTextBoxColumn AccountNumber;
         private System.Windows.Forms.DataGridViewTextBoxColumn Remitter;
         private System.Windows.Forms.DataGridViewTextBoxColumn AmountofWithholdingTax;
+        private System.Windows.Forms.DataGridViewTextBoxColumn RecordType;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ReelSequenceNumber;
+        private System.Windows.Forms.DataGridViewTextBoxColumn FinancialInstitution;
+        private System.Windows.Forms.DataGridViewTextBoxColumn UserPreferredSpecification;
+        private System.Windows.Forms.DataGridViewTextBoxColumn UserBSB;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Description;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ProcessDate;
     }
 }
 
