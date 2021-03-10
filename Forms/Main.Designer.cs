@@ -50,6 +50,13 @@ namespace ABA_Creator
             this.button2 = new System.Windows.Forms.Button();
             this.button4 = new System.Windows.Forms.Button();
             this.dgv_DescriptiveRecord = new System.Windows.Forms.DataGridView();
+            this.RecordType = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ReelSequenceNumber = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.FinancialInstitution = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.UserPreferredSpecification = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.UserBSB = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Description = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ProcessDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dgv_DetailRecord = new System.Windows.Forms.DataGridView();
             this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.BSB = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -72,13 +79,7 @@ namespace ABA_Creator
             this.NumRecords = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
-            this.RecordType = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ReelSequenceNumber = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.FinancialInstitution = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.UserPreferredSpecification = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.UserBSB = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Description = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ProcessDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_DescriptiveRecord)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_DetailRecord)).BeginInit();
@@ -211,7 +212,8 @@ namespace ABA_Creator
             // helpToolStripMenuItem
             // 
             this.helpToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.searchBSBsToolStripMenuItem});
+            this.searchBSBsToolStripMenuItem,
+            this.aboutToolStripMenuItem});
             this.helpToolStripMenuItem.Name = "helpToolStripMenuItem";
             this.helpToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
             this.helpToolStripMenuItem.Text = "Help";
@@ -219,7 +221,7 @@ namespace ABA_Creator
             // searchBSBsToolStripMenuItem
             // 
             this.searchBSBsToolStripMenuItem.Name = "searchBSBsToolStripMenuItem";
-            this.searchBSBsToolStripMenuItem.Size = new System.Drawing.Size(146, 22);
+            this.searchBSBsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.searchBSBsToolStripMenuItem.Text = "Search BSBs...";
             this.searchBSBsToolStripMenuItem.Click += new System.EventHandler(this.searchBSBsToolStripMenuItem_Click);
             // 
@@ -279,6 +281,64 @@ namespace ABA_Creator
             this.dgv_DescriptiveRecord.RowHeadersWidth = 51;
             this.dgv_DescriptiveRecord.Size = new System.Drawing.Size(776, 65);
             this.dgv_DescriptiveRecord.TabIndex = 7;
+            // 
+            // RecordType
+            // 
+            this.RecordType.FillWeight = 53.2995F;
+            this.RecordType.HeaderText = "Record Type";
+            this.RecordType.MaxInputLength = 1;
+            this.RecordType.MinimumWidth = 6;
+            this.RecordType.Name = "RecordType";
+            this.RecordType.ReadOnly = true;
+            this.RecordType.Visible = false;
+            // 
+            // ReelSequenceNumber
+            // 
+            this.ReelSequenceNumber.FillWeight = 109.1018F;
+            this.ReelSequenceNumber.HeaderText = "Reel Sequence Number";
+            this.ReelSequenceNumber.MinimumWidth = 6;
+            this.ReelSequenceNumber.Name = "ReelSequenceNumber";
+            this.ReelSequenceNumber.ReadOnly = true;
+            // 
+            // FinancialInstitution
+            // 
+            this.FinancialInstitution.FillWeight = 109.1018F;
+            this.FinancialInstitution.HeaderText = "Financial Insititution";
+            this.FinancialInstitution.MinimumWidth = 6;
+            this.FinancialInstitution.Name = "FinancialInstitution";
+            this.FinancialInstitution.ReadOnly = true;
+            // 
+            // UserPreferredSpecification
+            // 
+            this.UserPreferredSpecification.FillWeight = 109.1018F;
+            this.UserPreferredSpecification.HeaderText = "User Preferred Specification";
+            this.UserPreferredSpecification.MinimumWidth = 6;
+            this.UserPreferredSpecification.Name = "UserPreferredSpecification";
+            this.UserPreferredSpecification.ReadOnly = true;
+            // 
+            // UserBSB
+            // 
+            this.UserBSB.FillWeight = 109.1018F;
+            this.UserBSB.HeaderText = "User ID";
+            this.UserBSB.MinimumWidth = 6;
+            this.UserBSB.Name = "UserBSB";
+            this.UserBSB.ReadOnly = true;
+            // 
+            // Description
+            // 
+            this.Description.FillWeight = 109.1018F;
+            this.Description.HeaderText = "Description";
+            this.Description.MinimumWidth = 6;
+            this.Description.Name = "Description";
+            this.Description.ReadOnly = true;
+            // 
+            // ProcessDate
+            // 
+            this.ProcessDate.FillWeight = 101.1914F;
+            this.ProcessDate.HeaderText = "Process Date";
+            this.ProcessDate.MinimumWidth = 6;
+            this.ProcessDate.Name = "ProcessDate";
+            this.ProcessDate.ReadOnly = true;
             // 
             // dgv_DetailRecord
             // 
@@ -478,63 +538,12 @@ namespace ABA_Creator
             this.saveFileDialog1.DefaultExt = "txt";
             this.saveFileDialog1.Filter = "Text Files|*.txt";
             // 
-            // RecordType
+            // aboutToolStripMenuItem
             // 
-            this.RecordType.FillWeight = 53.2995F;
-            this.RecordType.HeaderText = "Record Type";
-            this.RecordType.MaxInputLength = 1;
-            this.RecordType.MinimumWidth = 6;
-            this.RecordType.Name = "RecordType";
-            this.RecordType.ReadOnly = true;
-            this.RecordType.Visible = false;
-            // 
-            // ReelSequenceNumber
-            // 
-            this.ReelSequenceNumber.FillWeight = 109.1018F;
-            this.ReelSequenceNumber.HeaderText = "Reel Sequence Number";
-            this.ReelSequenceNumber.MinimumWidth = 6;
-            this.ReelSequenceNumber.Name = "ReelSequenceNumber";
-            this.ReelSequenceNumber.ReadOnly = true;
-            // 
-            // FinancialInstitution
-            // 
-            this.FinancialInstitution.FillWeight = 109.1018F;
-            this.FinancialInstitution.HeaderText = "Financial Insititution";
-            this.FinancialInstitution.MinimumWidth = 6;
-            this.FinancialInstitution.Name = "FinancialInstitution";
-            this.FinancialInstitution.ReadOnly = true;
-            // 
-            // UserPreferredSpecification
-            // 
-            this.UserPreferredSpecification.FillWeight = 109.1018F;
-            this.UserPreferredSpecification.HeaderText = "User Preferred Specification";
-            this.UserPreferredSpecification.MinimumWidth = 6;
-            this.UserPreferredSpecification.Name = "UserPreferredSpecification";
-            this.UserPreferredSpecification.ReadOnly = true;
-            // 
-            // UserBSB
-            // 
-            this.UserBSB.FillWeight = 109.1018F;
-            this.UserBSB.HeaderText = "User ID";
-            this.UserBSB.MinimumWidth = 6;
-            this.UserBSB.Name = "UserBSB";
-            this.UserBSB.ReadOnly = true;
-            // 
-            // Description
-            // 
-            this.Description.FillWeight = 109.1018F;
-            this.Description.HeaderText = "Description";
-            this.Description.MinimumWidth = 6;
-            this.Description.Name = "Description";
-            this.Description.ReadOnly = true;
-            // 
-            // ProcessDate
-            // 
-            this.ProcessDate.FillWeight = 101.1914F;
-            this.ProcessDate.HeaderText = "Process Date";
-            this.ProcessDate.MinimumWidth = 6;
-            this.ProcessDate.Name = "ProcessDate";
-            this.ProcessDate.ReadOnly = true;
+            this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.aboutToolStripMenuItem.Text = "About";
+            this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
             // 
             // Main
             // 
@@ -614,6 +623,7 @@ namespace ABA_Creator
         private System.Windows.Forms.DataGridViewTextBoxColumn UserBSB;
         private System.Windows.Forms.DataGridViewTextBoxColumn Description;
         private System.Windows.Forms.DataGridViewTextBoxColumn ProcessDate;
+        private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem;
     }
 }
 

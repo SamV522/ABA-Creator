@@ -63,9 +63,9 @@ namespace ABA_Creator.Entities
             str += $"{descriptiveRecord}";
             foreach(DetailRecord record in detailRecords)
             {
-                str += $"\n{record}";
+                str += $"\r\n{record}";
             }
-            str += $"\n{fileTotalRecord}";
+            str += $"\r\n{fileTotalRecord}";
             return str;
         }
     }

@@ -2,8 +2,10 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Windows.Forms;
+using System.Reflection;
 using ABA_Creator.Entities;
 using ABA_Creator.Entities.ABA;
+using ABA_Creator.Forms;
 using ABA_Creator.Forms.Payee;
 using ABA_Creator.Forms.Payer;
 using ABA_Creator.Forms.Transactions;
@@ -12,6 +14,8 @@ namespace ABA_Creator
 {
     public partial class Main : Form
     {
+        private AboutBox m_aboutBox;
+
         private AddPayee m_addPayeeForm;
         private ManagePayees m_managePayeesForm;
 
@@ -28,6 +32,7 @@ namespace ABA_Creator
         public Main()
         {
             InitializeComponent();
+            m_aboutBox = new AboutBox();
             m_addPayeeForm = new AddPayee();
             m_managePayeesForm = new ManagePayees();
             m_addPayerForm = new AddPayer();
@@ -55,7 +60,7 @@ namespace ABA_Creator
 
         private void Main_Load(object sender, EventArgs e)
         {
-
+            this.Text = $"{Application.ProductName} - {Application.ProductVersion}";
         }
 
         private void searchBSBsToolStripMenuItem_Click(object sender, EventArgs e)
@@ -328,6 +333,11 @@ namespace ABA_Creator
             {
                 DeleteRows(dgv_DetailRecord.SelectedRows);
             }
+        }
+
+        private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            m_aboutBox.Show();
         }
     }
 }

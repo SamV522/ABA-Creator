@@ -35,7 +35,7 @@ namespace ABA_Creator.Entities.ABA
             set { m_Description = value.Substring(0,12); }
         }
 
-        private string m_Date = DateTime.Today.ToString("ddmmyy");
+        private string m_Date = DateTime.Today.ToString("ddMMyy");
 
         public string Date 
         { 
@@ -54,19 +54,19 @@ namespace ABA_Creator.Entities.ABA
         }
 
         public DescriptiveRecord(string _ReelSequenceNumber, UserSupplyingFile _Payer, string _Description)
-        : this(_ReelSequenceNumber, _Payer, _Description, DateTime.Today.ToString("ddmmyy")) { }
+        : this(_ReelSequenceNumber, _Payer, _Description, DateTime.Today.ToString("ddMMyy")) { }
 
         public DescriptiveRecord(string _ReelSequenceNumber, UserSupplyingFile _Payer)
-        : this(_ReelSequenceNumber, _Payer, "PAYMENT".PadRight(12, ' '), DateTime.Today.ToString("ddmmyy")) { }
+        : this(_ReelSequenceNumber, _Payer, "PAYMENT".PadRight(12, ' '), DateTime.Today.ToString("ddMMyy")) { }
 
         public DescriptiveRecord(string _ReelSequenceNumber, string _userFI, string _userPS, string _userBSB, string _desc, string _date)
         : this(_ReelSequenceNumber, new UserSupplyingFile(_userFI, _userPS, _userBSB), _desc, _date) { }
 
         public DescriptiveRecord(string _ReelSequenceNumber, string _userFI, string _userPS, string _userBSB, string _desc)
-        : this(_ReelSequenceNumber, new UserSupplyingFile(_userFI, _userPS, _userBSB), _desc, DateTime.Today.ToString("ddmmyy")) { }
+        : this(_ReelSequenceNumber, new UserSupplyingFile(_userFI, _userPS, _userBSB), _desc, DateTime.Today.ToString("ddMMyy")) { }
 
         public DescriptiveRecord(string _ReelSequenceNumber, string _userFI, string _userPS, string _userBSB)
-        : this(_ReelSequenceNumber, new UserSupplyingFile(_userFI, _userPS, _userBSB), "PAYMENT".PadRight(12,' '), DateTime.Today.ToString("ddmmyy")) { }
+        : this(_ReelSequenceNumber, new UserSupplyingFile(_userFI, _userPS, _userBSB), "PAYMENT".PadRight(12,' '), DateTime.Today.ToString("ddMMyy")) { }
 
         public DescriptiveRecord(string record)
         : this(
