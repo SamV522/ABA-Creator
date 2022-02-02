@@ -39,7 +39,7 @@ namespace ABA_Creator.Entities
         }
         public override string ToString()
         {
-            return $"{AccountName.ToUpper().PadRight(26-AccountName.Length)} - BSB: {BSB} - Acc: {AccountNumber}";
+            return $"{AccountName.ToUpper().PadRight(26)} - BSB: {BSB} - Acc: {AccountNumber}";
         }
     }
 }

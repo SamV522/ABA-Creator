@@ -34,7 +34,7 @@ namespace ABA_Creator.Forms.Payee
             Payees = JsonConvert.DeserializeObject<List<PaymentRecipient>>(Properties.Settings.Default.Payees);
             foreach (PaymentRecipient payee in Payees)
             {
-                listBox1.Items.Add(payee.AccountName.ToUpper().PadRight(20 - payee.AccountName.Length) +
+                listBox1.Items.Add(payee.AccountName.ToUpper().PadRight(20) +
                                    $" - BSB: {payee.BSB} " +
                                    $"- Acc No: {payee.AccountNumber}");
             }
