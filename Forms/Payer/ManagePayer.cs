@@ -1,40 +1,43 @@
-﻿using ABA_Creator.Entities;
-using Newtonsoft.Json;
+﻿using Creator.ABA.Helpers;
+using Creator.ABA.Helpers.Interfaces;
+using Creator.ABA.Models;
+using Creator.ABA.Models.Configuration;
+using Creator.ABA.Services.Interfaces;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace ABA_Creator.Forms.Payer
+namespace Creator.ABA.Forms.Payer
 {
     public partial class ManagePayer : Form
     {
-        public ManagePayer()
-        {
-            InitializeComponent();
-        }
+        private ISettingsProvider<AbaProfileSettings> _settingsProvider;
+        private readonly IBsbValidationHelper _bsbValidationHelper;
 
         public int PayerID = -1;
         private PaymentRecipient m_Payer;
         private List<PaymentSender> m_Payers;
 
+        public ManagePayer(ISettingsProvider<AbaProfileSettings> settingsProvider, IBsbValidationHelper bsbValidationHelper)
+        {
+            _settingsProvider = settingsProvider;
+            _bsbValidationHelper = bsbValidationHelper;
+
+            InitializeComponent();
+        }
+
         private void button1_Click(object sender, EventArgs e)
         {
-            if (MessageBox.Show("Are you sure you want to save your changes?", "Update Payee", MessageBoxButtons.OKCancel)==DialogResult.OK)
+            if (MessageBox.Show("Are you sure you want to save your changes?", "Update Payee", MessageBoxButtons.OKCancel) == DialogResult.OK)
             {
                 if (PayerID >= 0 && PayerID <= m_Payers.Count)
                 {
-                    bool bsbParsed = int.TryParse($"{bsbTxt1.Text}{bsbTxt2.Text}", out int _bsb);
+                    bool bsbParsed = int.TryParse($"{txt_Bsb.Text}", out int _bsb);
                     if (bsbParsed)
                     {
-                        m_Payers[PayerID] = new PaymentSender(_bsb, textBox4.Text, textBox2.Text, textBox1.Text);
-                        Properties.Settings.Default.Payers = JsonConvert.SerializeObject(m_Payers);
-                        Properties.Settings.Default.Save();
+                        _settingsProvider.Settings.Payers[PayerID] = new PaymentSender(_bsb, txt_AccountNumber.Text, txt_FICode.Text, txt_AccountName.Text);
+
+                        _settingsProvider.Save();
                     }
                 }
                 this.DialogResult = DialogResult.OK;
@@ -45,20 +48,50 @@ namespace ABA_Creator.Forms.Payer
 
         private void ManagePayee_Load(object sender, EventArgs e)
         {
-            m_Payers = JsonConvert.DeserializeObject<List<PaymentSender>>(Properties.Settings.Default.Payers);
-            if(PayerID >=0 && PayerID <= m_Payers.Count)
+            if (_settingsProvider.Settings.Payers[PayerID] != null)
             {
-                m_Payer = m_Payers[PayerID];
-                textBox1.Text = m_Payer.AccountName;
-                bsbTxt1.Text = m_Payer.BSB.ToString("000000").Substring(0, 3);
-                bsbTxt2.Text = m_Payer.BSB.ToString("000000").Substring(3, 3);
-                textBox4.Text = m_Payer.AccountNumber;
+                m_Payer = _settingsProvider.Settings.Payers[PayerID];
+                txt_AccountName.Text = m_Payer.AccountName;
+                txt_Bsb.Text = m_Payer.BSB.ToString("000-000");
+                txt_AccountNumber.Text = m_Payer.AccountNumber;
+            }
+            else
+            {
+                MessageBox.Show(
+                    "Something went wrong and the payer could not be found.",
+                    "Error",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error);
+                this.DialogResult = DialogResult.Cancel;
+                this.Close();
             }
         }
 
-        private void button2_Click(object sender, EventArgs e)
+        private void Btn_Cancel_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        private async void Btn_ValidateBsb_Click(object sender, EventArgs e)
+        {
+            var validationResult = await _bsbValidationHelper.IsValidBsb($"{txt_Bsb.Text}");
+
+            switch (validationResult.ResultType)
+            {
+                case BsbValidationResultType.InvalidFormat:
+                    MessageBox.Show("BSB is not in a valid format. Please enter a 6-digit BSB.", "Invalid BSB", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    break;
+                case BsbValidationResultType.NoMatch:
+                    MessageBox.Show("BSB does not match any known financial institutions. Please check the BSB and try again.", "No Match", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    break;
+                case BsbValidationResultType.MultipleMatches:
+                    MessageBox.Show("BSB matches multiple financial institutions. Please check the bsb and try again.", "Multiple Matches", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    break;
+                case BsbValidationResultType.SingleMatch:
+                    txt_FICode.Text = validationResult.Matches[0].FiMnemonic;
+                    MessageBox.Show("BSB has been validated successfully.", "BSB Validated", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    break;
+            }
         }
     }
 }

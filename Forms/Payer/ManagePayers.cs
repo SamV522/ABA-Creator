@@ -1,23 +1,28 @@
-﻿using ABA_Creator.Entities;
+﻿using Creator.ABA.Models;
+using Creator.ABA.Models.Configuration;
+using Creator.ABA.Services.Interfaces;
 using System;
-using System.Collections.Generic;
 using System.Windows.Forms;
-using Newtonsoft.Json;
 
-namespace ABA_Creator.Forms.Payer
+namespace Creator.ABA.Forms.Payer
 {
     public partial class ManagePayers : Form
     {
+        private IFormFactory _formFactory;
+        private ISettingsProvider<AbaProfileSettings> _settingsProvider;
+
         private ManagePayer m_managePayer;
         private AddPayer m_addPayer;
-        private List<PaymentSender> Payers;
 
-        public ManagePayers()
+        public ManagePayers(IFormFactory formFactory, ISettingsProvider<AbaProfileSettings> settingsProvider)
         {
+            _formFactory = formFactory;
+            _settingsProvider = settingsProvider;
+
             InitializeComponent();
-            m_managePayer = new ManagePayer();
-            m_addPayer = new AddPayer();
-            Payers = new List<PaymentSender>();
+
+            m_managePayer = _formFactory.CreateManagePayerForm();
+            m_addPayer = _formFactory.CreateAddPayerForm();
         }
 
         private void ManagePayees_Load(object sender, EventArgs e)
@@ -28,10 +33,10 @@ namespace ABA_Creator.Forms.Payer
         private void UpdatePayers()
         {
             listBox1.Items.Clear();
-            string SettingsPayee = Properties.Settings.Default.Payers;
-            if (SettingsPayee.Length <= 0) return;
-            Payers = JsonConvert.DeserializeObject<List<PaymentSender>>(Properties.Settings.Default.Payers);
-            foreach (PaymentSender payer in Payers)
+            
+            if (_settingsProvider.Settings.Payers.Count <= 0) return;
+
+            foreach (PaymentSender payer in _settingsProvider.Settings.Payers)
             {
                 listBox1.Items.Add(payer.AccountName.ToUpper().PadRight(20 - payer.AccountName.Length) +
                                    $" - BSB: {payer.BSB} " +
@@ -41,7 +46,7 @@ namespace ABA_Creator.Forms.Payer
 
         private void button2_Click(object sender, EventArgs e)
         {
-            if (m_managePayer.IsDisposed) m_managePayer = new ManagePayer();
+            if (m_managePayer.IsDisposed) m_managePayer = _formFactory.CreateManagePayerForm();
             m_managePayer.PayerID = listBox1.SelectedIndex;
             if (m_managePayer.ShowDialog() == DialogResult.OK)
             {
@@ -51,21 +56,19 @@ namespace ABA_Creator.Forms.Payer
 
         private void button1_Click(object sender, EventArgs e)
         {
-            PaymentRecipient selectedPayer = Payers[listBox1.SelectedIndex];
+            PaymentRecipient selectedPayer = _settingsProvider.Settings.Payers[listBox1.SelectedIndex];
             if(MessageBox.Show("Are you sure you want to remove this payer?\n"+
                                 $"Acc Name: {selectedPayer.AccountName}\nBSB: {selectedPayer.BSB}\nAcc No: {selectedPayer.AccountNumber}",
                                 "Remove Payer",MessageBoxButtons.OKCancel)==DialogResult.OK)
             {
-                Payers.RemoveAt(listBox1.SelectedIndex);
-                listBox1.Items.RemoveAt(listBox1.SelectedIndex);
-                Properties.Settings.Default.Payers = JsonConvert.SerializeObject(Payers);
-                Properties.Settings.Default.Save();
+                _settingsProvider.Settings.Payers.RemoveAt(listBox1.SelectedIndex);
+                _settingsProvider.Save();
             }
         }
 
         private void button3_Click(object sender, EventArgs e)
         {
-            if (m_addPayer.IsDisposed) m_addPayer = new AddPayer();
+            if (m_addPayer.IsDisposed) m_addPayer = _formFactory.CreateAddPayerForm();
             if (m_addPayer.ShowDialog() == DialogResult.OK)
             {
                 UpdatePayers();

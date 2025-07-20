@@ -1,23 +1,22 @@
-﻿using ABA_Creator.Entities;
-using ABA_Creator.Entities.ABA;
+﻿using Creator.ABA.Models;
+using Creator.ABA.Models.ABA;
+using Creator.ABA.Models.Configuration;
+using Creator.ABA.Services.Interfaces;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace ABA_Creator.Forms.Transactions
+namespace Creator.ABA.Forms.Transactions
 {
     public partial class AddTransaction : Form
     {
+        private ISettingsProvider<AbaProfileSettings> _settingsProvider;
+
         public DetailRecord Transaction { get; private set; }
 
-        public AddTransaction()
+        public AddTransaction(ISettingsProvider<AbaProfileSettings> settingsProvider)
         {
+            _settingsProvider = settingsProvider;
+
             InitializeComponent();
         }
 
@@ -29,24 +28,22 @@ namespace ABA_Creator.Forms.Transactions
 
         private void button2_Click(object sender, EventArgs e)
         {
-            Transaction = new DetailRecord(Utilities.GetCurrentPayer(),
-                                                        Utilities.GetPayeeFromID(cmbo_Payees.SelectedIndex),
+            Transaction = new DetailRecord(_settingsProvider.Settings.ActivePayer,
+                                                        _settingsProvider.Settings.Payees[cmbo_Payees.SelectedIndex],
                                                         " ",
                                                         (int)nmc_Amount.Value,
                                                         (int)nmc_Tax.Value,
                                                         txt_LodgementRef.Text,
                                                         txt_Remitter.Text);
             // This will fail if this form is not opened using ShowDialog
-            //((Main)this.Owner).AddTransaction(TranRecord);
-            //((Main)this.Owner).m_Transactions.Add(TranRecord);
+            ((Main)this.Owner).AddTransaction(Transaction);
             this.DialogResult = DialogResult.OK;
             this.Close();
         }
 
         private void AddTransaction_Load(object sender, EventArgs e)
         {
-            List<PaymentRecipient> _Payees = Utilities.GetPayees();
-            foreach (PaymentRecipient Payee in _Payees)
+            foreach (PaymentRecipient Payee in _settingsProvider.Settings.Payees)
             {
                 cmbo_Payees.Items.Add(Payee.ToString());
             }

@@ -1,5 +1,5 @@
 ﻿
-namespace ABA_Creator.Forms.Payer
+namespace Creator.ABA.Forms.Payer
 {
     partial class ManagePayers
     {

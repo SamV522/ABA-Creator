@@ -1,7 +1,6 @@
-﻿using ABA_Creator.Entities;
-using System;
+﻿using System;
 
-namespace ABA_Creator.Entities.ABA
+namespace Creator.ABA.Models.ABA
 {
     public class DetailRecord
     {
@@ -48,7 +47,7 @@ namespace ABA_Creator.Entities.ABA
 
         public string NameOfRemitter
         {
-            get { return m_NameOfRemitter; }
+            get { return m_NameOfRemitter.PadRight(16,' '); }
             set { m_NameOfRemitter = value.Substring(0,Math.Min(value.Length,16)); }
         }
 

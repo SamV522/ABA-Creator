@@ -1,6 +1,7 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
 
-namespace ABA_Creator.Entities
+namespace Creator.ABA.Models
 {
     [Serializable]
     public class PaymentSender : PaymentRecipient
@@ -8,20 +9,23 @@ namespace ABA_Creator.Entities
         #region Properties
         private string m_FinancialInstitution;
 
+        [Required]
         public string FinancialInstitution
         {
             get { return m_FinancialInstitution; }
-            set { m_FinancialInstitution = value.ToUpper().Substring(0, Math.Min(value.Length,3)); }
+            set { m_FinancialInstitution = value?.ToUpper()?.Substring(0, Math.Min(value.Length,3)); }
         }
 
+        [Required]
         override public string AccountName
         {
             get { return m_AccountName; }
-            set { m_AccountName = value.Substring(0, Math.Min(value.Length,26)); }
+            set { m_AccountName = value?.Substring(0, Math.Min(value.Length,26)); }
         }
 
         private string m_UserPreferredSpecification;
 
+        [Required]
         public string UserPreferredSpecification
         {
             get { return m_UserPreferredSpecification; }
@@ -31,6 +35,7 @@ namespace ABA_Creator.Entities
 
         private string m_UserIdentificationNumber;
 
+        [Required]
         public string UserIdentificationNumber
         {
             get { return m_UserIdentificationNumber; }

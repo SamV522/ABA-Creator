@@ -1,5 +1,5 @@
 ﻿
-namespace ABA_Creator.Forms.Payer
+namespace Creator.ABA.Forms.Payer
 {
     partial class ManagePayer
     {
@@ -29,161 +29,164 @@ namespace ABA_Creator.Forms.Payer
         /// </summary>
         private void InitializeComponent()
         {
-            this.textBox2 = new System.Windows.Forms.TextBox();
-            this.label5 = new System.Windows.Forms.Label();
-            this.bsbTxt2 = new System.Windows.Forms.TextBox();
-            this.bsbTxt1 = new System.Windows.Forms.TextBox();
-            this.label4 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
-            this.button2 = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
-            this.textBox4 = new System.Windows.Forms.TextBox();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.SuspendLayout();
+            txt_FICode = new System.Windows.Forms.TextBox();
+            label5 = new System.Windows.Forms.Label();
+            label3 = new System.Windows.Forms.Label();
+            label2 = new System.Windows.Forms.Label();
+            label1 = new System.Windows.Forms.Label();
+            btn_Cancel = new System.Windows.Forms.Button();
+            btn_OK = new System.Windows.Forms.Button();
+            txt_AccountNumber = new System.Windows.Forms.TextBox();
+            txt_AccountName = new System.Windows.Forms.TextBox();
+            btn_ValidateBsb = new System.Windows.Forms.Button();
+            txt_Bsb = new System.Windows.Forms.MaskedTextBox();
+            SuspendLayout();
             // 
-            // textBox2
+            // txt_FICode
             // 
-            this.textBox2.Location = new System.Drawing.Point(108, 64);
-            this.textBox2.MaxLength = 3;
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(36, 20);
-            this.textBox2.TabIndex = 14;
+            txt_FICode.Location = new System.Drawing.Point(126, 74);
+            txt_FICode.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            txt_FICode.MaxLength = 3;
+            txt_FICode.Name = "txt_FICode";
+            txt_FICode.Size = new System.Drawing.Size(41, 23);
+            txt_FICode.TabIndex = 3;
             // 
             // label5
             // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(50, 67);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(55, 13);
-            this.label5.TabIndex = 22;
-            this.label5.Text = "Institution:";
-            // 
-            // bsbTxt2
-            // 
-            this.bsbTxt2.Location = new System.Drawing.Point(166, 38);
-            this.bsbTxt2.MaxLength = 3;
-            this.bsbTxt2.Name = "bsbTxt2";
-            this.bsbTxt2.Size = new System.Drawing.Size(36, 20);
-            this.bsbTxt2.TabIndex = 13;
-            // 
-            // bsbTxt1
-            // 
-            this.bsbTxt1.Location = new System.Drawing.Point(108, 38);
-            this.bsbTxt1.MaxLength = 3;
-            this.bsbTxt1.Name = "bsbTxt1";
-            this.bsbTxt1.Size = new System.Drawing.Size(36, 20);
-            this.bsbTxt1.TabIndex = 12;
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(150, 41);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(10, 13);
-            this.label4.TabIndex = 21;
-            this.label4.Text = "-";
+            label5.AutoSize = true;
+            label5.Location = new System.Drawing.Point(58, 77);
+            label5.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            label5.Name = "label5";
+            label5.Size = new System.Drawing.Size(64, 15);
+            label5.TabIndex = 22;
+            label5.Text = "Institution:";
             // 
             // label3
             // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(12, 93);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(90, 13);
-            this.label3.TabIndex = 20;
-            this.label3.Text = "Account Number:";
+            label3.AutoSize = true;
+            label3.Location = new System.Drawing.Point(14, 107);
+            label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            label3.Name = "label3";
+            label3.Size = new System.Drawing.Size(102, 15);
+            label3.TabIndex = 20;
+            label3.Text = "Account Number:";
             // 
             // label2
             // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(71, 41);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(31, 13);
-            this.label2.TabIndex = 19;
-            this.label2.Text = "BSB:";
+            label2.AutoSize = true;
+            label2.Location = new System.Drawing.Point(83, 47);
+            label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            label2.Name = "label2";
+            label2.Size = new System.Drawing.Size(30, 15);
+            label2.TabIndex = 19;
+            label2.Text = "BSB:";
             // 
             // label1
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(21, 15);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(81, 13);
-            this.label1.TabIndex = 17;
-            this.label1.Text = "Account Name:";
+            label1.AutoSize = true;
+            label1.Location = new System.Drawing.Point(24, 17);
+            label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            label1.Name = "label1";
+            label1.Size = new System.Drawing.Size(90, 15);
+            label1.TabIndex = 17;
+            label1.Text = "Account Name:";
             // 
-            // button2
+            // btn_Cancel
             // 
-            this.button2.Location = new System.Drawing.Point(239, 116);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(75, 23);
-            this.button2.TabIndex = 18;
-            this.button2.Text = "Cancel";
-            this.button2.UseVisualStyleBackColor = true;
+            btn_Cancel.Location = new System.Drawing.Point(279, 134);
+            btn_Cancel.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            btn_Cancel.Name = "btn_Cancel";
+            btn_Cancel.Size = new System.Drawing.Size(88, 27);
+            btn_Cancel.TabIndex = 6;
+            btn_Cancel.Text = "Cancel";
+            btn_Cancel.UseVisualStyleBackColor = true;
+            btn_Cancel.Click += Btn_Cancel_Click;
             // 
-            // button1
+            // btn_OK
             // 
-            this.button1.Location = new System.Drawing.Point(158, 116);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 16;
-            this.button1.Text = "Save";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            btn_OK.Location = new System.Drawing.Point(184, 134);
+            btn_OK.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            btn_OK.Name = "btn_OK";
+            btn_OK.Size = new System.Drawing.Size(88, 27);
+            btn_OK.TabIndex = 5;
+            btn_OK.Text = "OK";
+            btn_OK.UseVisualStyleBackColor = true;
+            btn_OK.Click += button1_Click;
             // 
-            // textBox4
+            // txt_AccountNumber
             // 
-            this.textBox4.Location = new System.Drawing.Point(108, 90);
-            this.textBox4.Name = "textBox4";
-            this.textBox4.Size = new System.Drawing.Size(206, 20);
-            this.textBox4.TabIndex = 15;
+            txt_AccountNumber.Location = new System.Drawing.Point(126, 104);
+            txt_AccountNumber.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            txt_AccountNumber.Name = "txt_AccountNumber";
+            txt_AccountNumber.Size = new System.Drawing.Size(240, 23);
+            txt_AccountNumber.TabIndex = 4;
             // 
-            // textBox1
+            // txt_AccountName
             // 
-            this.textBox1.Location = new System.Drawing.Point(108, 12);
-            this.textBox1.MaxLength = 26;
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(206, 20);
-            this.textBox1.TabIndex = 11;
+            txt_AccountName.Location = new System.Drawing.Point(126, 14);
+            txt_AccountName.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            txt_AccountName.MaxLength = 26;
+            txt_AccountName.Name = "txt_AccountName";
+            txt_AccountName.Size = new System.Drawing.Size(240, 23);
+            txt_AccountName.TabIndex = 0;
+            // 
+            // btn_ValidateBsb
+            // 
+            btn_ValidateBsb.BackgroundImage = Properties.Resources.cloud_done_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24;
+            btn_ValidateBsb.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            btn_ValidateBsb.Location = new System.Drawing.Point(232, 41);
+            btn_ValidateBsb.Name = "btn_ValidateBsb";
+            btn_ValidateBsb.Size = new System.Drawing.Size(37, 27);
+            btn_ValidateBsb.TabIndex = 2;
+            btn_ValidateBsb.UseVisualStyleBackColor = true;
+            btn_ValidateBsb.Click += Btn_ValidateBsb_Click;
+            // 
+            // txt_Bsb
+            // 
+            txt_Bsb.Location = new System.Drawing.Point(126, 44);
+            txt_Bsb.Mask = "000-999";
+            txt_Bsb.Name = "txt_Bsb";
+            txt_Bsb.PromptChar = ' ';
+            txt_Bsb.Size = new System.Drawing.Size(100, 23);
+            txt_Bsb.TabIndex = 1;
             // 
             // ManagePayer
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(328, 156);
-            this.Controls.Add(this.textBox2);
-            this.Controls.Add(this.label5);
-            this.Controls.Add(this.bsbTxt2);
-            this.Controls.Add(this.bsbTxt1);
-            this.Controls.Add(this.label4);
-            this.Controls.Add(this.label3);
-            this.Controls.Add(this.label2);
-            this.Controls.Add(this.label1);
-            this.Controls.Add(this.button2);
-            this.Controls.Add(this.button1);
-            this.Controls.Add(this.textBox4);
-            this.Controls.Add(this.textBox1);
-            this.Name = "ManagePayer";
-            this.Text = "ManagePayer";
-            this.Load += new System.EventHandler(this.ManagePayee_Load);
-            this.ResumeLayout(false);
-            this.PerformLayout();
+            AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
+            AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            ClientSize = new System.Drawing.Size(383, 180);
+            Controls.Add(txt_Bsb);
+            Controls.Add(btn_ValidateBsb);
+            Controls.Add(txt_FICode);
+            Controls.Add(label5);
+            Controls.Add(label3);
+            Controls.Add(label2);
+            Controls.Add(label1);
+            Controls.Add(btn_Cancel);
+            Controls.Add(btn_OK);
+            Controls.Add(txt_AccountNumber);
+            Controls.Add(txt_AccountName);
+            Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            Name = "ManagePayer";
+            Text = "ManagePayer";
+            Load += ManagePayee_Load;
+            ResumeLayout(false);
+            PerformLayout();
 
         }
 
         #endregion
 
-        private System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.TextBox txt_FICode;
         private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.TextBox bsbTxt2;
-        private System.Windows.Forms.TextBox bsbTxt1;
-        private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.TextBox textBox4;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.Button btn_Cancel;
+        private System.Windows.Forms.Button btn_OK;
+        private System.Windows.Forms.TextBox txt_AccountNumber;
+        private System.Windows.Forms.TextBox txt_AccountName;
+        private System.Windows.Forms.Button btn_ValidateBsb;
+        private System.Windows.Forms.MaskedTextBox txt_Bsb;
     }
 }

@@ -1,16 +1,24 @@
-﻿using System;
+﻿using Creator.ABA.Helpers;
+using Creator.ABA.Helpers.Interfaces;
+using Creator.ABA.Models;
+using Creator.ABA.Models.Configuration;
+using Creator.ABA.Services.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
-using ABA_Creator.Entities;
-using Newtonsoft.Json;
 
-namespace ABA_Creator.Forms.Payee
+namespace Creator.ABA.Forms.Payee
 {
     public partial class AddPayee : Form
     {
-        public AddPayee()
+        private ISettingsProvider<AbaProfileSettings> _settingsProvider;
+        private readonly IBsbValidationHelper _bsbValidationHelper;
+
+        public AddPayee(ISettingsProvider<AbaProfileSettings> settingsProvider, IBsbValidationHelper bsbValidationHelper)
         {
             InitializeComponent();
+            _settingsProvider = settingsProvider ?? throw new ArgumentNullException(nameof(settingsProvider));
+            _bsbValidationHelper = bsbValidationHelper;
         }
 
         private void AddPayee_Load(object sender, EventArgs e)
@@ -55,10 +63,10 @@ namespace ABA_Creator.Forms.Payee
         private void bsb_Validation(object sender, KeyPressEventArgs e)
         {
             Control ctrl = (Control)sender;
-            if (e.KeyChar.ToString() == "-" && ctrl.Name == "bsbTxt1")
+            if (e.KeyChar.ToString() == "-" && ctrl.Name == "txt_Bsb")
             {
                 e.Handled = true;
-                bsbTxt2.Focus();
+                txt_Bsb_2.Focus();
             }
             else if (e.KeyChar.ToString() == "")
             {
@@ -73,21 +81,18 @@ namespace ABA_Creator.Forms.Payee
         private void button1_Click(object sender, EventArgs e)
         {
             // Add payee to list of payees.
-            //List<PaymentRecipient> Payees = JsonMapper.ToObject(Properties.Settings.Default.Payees);
-            bool bsbParsed = int.TryParse($"{bsbTxt1.Text}{bsbTxt2.Text}", out int _bsb);
-            if(bsbParsed)
+            bool bsbParsed = int.TryParse($"{txt_Bsb_1.Text}", out int _bsb);
+            if (bsbParsed)
             {
-                PaymentRecipient newRecipient = new PaymentRecipient(_bsb, textBox4.Text, textBox1.Text);
+                PaymentRecipient newRecipient = new PaymentRecipient(_bsb, txt_AccountNumber.Text, txt_AccountName.Text);
                 List<PaymentRecipient> Payees;
                 try
                 {
-                    Payees = JsonConvert.DeserializeObject<List<PaymentRecipient>>(Properties.Settings.Default.Payees);
+                    _settingsProvider.Settings.Payees.Add(newRecipient);
 
-                    if (Payees == null) Payees = new List<PaymentRecipient>();
-                    Payees.Add(newRecipient);
-                    string PayeesJson = JsonConvert.SerializeObject(Payees);
-                    Properties.Settings.Default.Payees = PayeesJson;
-                    if(MessageBox.Show($"Payee added by account name: {newRecipient.AccountName}","Payee Added",MessageBoxButtons.OK)==DialogResult.OK)
+                    _settingsProvider.Save();
+
+                    if (MessageBox.Show($"Payee added by account name: {newRecipient.AccountName}", "Payee Added", MessageBoxButtons.OK) == DialogResult.OK)
                     {
                         this.DialogResult = DialogResult.OK;
                         this.Close();
@@ -97,7 +102,27 @@ namespace ABA_Creator.Forms.Payee
                 {
                     Console.WriteLine(ex.Message);
                 }
-                Properties.Settings.Default.Save();
+            }
+        }
+
+        private async void btn_ValidateBsb_Click(object sender, EventArgs e)
+        {
+            var validationResult = await _bsbValidationHelper.IsValidBsb($"{txt_Bsb.Text}");
+
+            switch (validationResult.ResultType)
+            {
+                case BsbValidationResultType.InvalidFormat:
+                    MessageBox.Show("BSB is not in a valid format. Please enter a 6-digit BSB.", "Invalid BSB", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    break;
+                case BsbValidationResultType.NoMatch:
+                    MessageBox.Show("BSB does not match any known financial institutions. Please check the BSB and try again.", "No Match", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    break;
+                case BsbValidationResultType.MultipleMatches:
+                    MessageBox.Show("BSB matches multiple financial institutions. Please check the bsb and try again.", "Multiple Matches", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    break;
+                case BsbValidationResultType.SingleMatch:
+                    MessageBox.Show("BSB has been validated successfully.", "BSB Validated", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    break;
             }
         }
     }

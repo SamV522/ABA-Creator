@@ -1,7 +1,6 @@
 ﻿using System;
-using ABA_Creator.Entities;
 
-namespace ABA_Creator.Entities.ABA
+namespace Creator.ABA.Models.ABA
 {
     public class DescriptiveRecord
     {

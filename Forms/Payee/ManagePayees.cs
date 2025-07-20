@@ -1,23 +1,29 @@
-﻿using ABA_Creator.Entities;
+﻿using Creator.ABA.Models;
+using Creator.ABA.Models.Configuration;
+using Creator.ABA.Services.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
-using Newtonsoft.Json;
-using ABA_Creator.Forms.Payee;
 
-namespace ABA_Creator.Forms.Payee
+namespace Creator.ABA.Forms.Payee
 {
     public partial class ManagePayees : Form
     {
+        private IFormFactory _formFactory;
+        private ISettingsProvider<AbaProfileSettings> _settingsProvider;
+
         private ManagePayee m_managePayee;
         private AddPayee m_addPayee;
         private List<PaymentRecipient> Payees;
 
-        public ManagePayees()
+        public ManagePayees(IFormFactory formFactory, ISettingsProvider<AbaProfileSettings> settingsProvider)
         {
+            _settingsProvider = settingsProvider;
+            _formFactory = formFactory;
+
             InitializeComponent();
-            m_managePayee = new ManagePayee();
-            m_addPayee = new AddPayee();
+            m_managePayee = _formFactory.CreateManagePayeeForm();
+            m_addPayee = _formFactory.CreateAddPayeeForm();
             Payees = new List<PaymentRecipient>();
         }
 
@@ -28,11 +34,7 @@ namespace ABA_Creator.Forms.Payee
 
         private void UpdatePayees()
         {
-            listBox1.Items.Clear();
-            string SettingsPayee = Properties.Settings.Default.Payees;
-            if (SettingsPayee.Length <= 0) return;
-            Payees = JsonConvert.DeserializeObject<List<PaymentRecipient>>(Properties.Settings.Default.Payees);
-            foreach (PaymentRecipient payee in Payees)
+            foreach (PaymentRecipient payee in _settingsProvider.Settings.Payees)
             {
                 listBox1.Items.Add(payee.AccountName.ToUpper().PadRight(20) +
                                    $" - BSB: {payee.BSB} " +
@@ -42,7 +44,7 @@ namespace ABA_Creator.Forms.Payee
 
         private void button2_Click(object sender, EventArgs e)
         {
-            if (m_managePayee.IsDisposed) m_managePayee = new ManagePayee();
+            if (m_managePayee.IsDisposed) m_managePayee = _formFactory.CreateManagePayeeForm();
             m_managePayee.PayeeID = listBox1.SelectedIndex;
             if (m_managePayee.ShowDialog() == DialogResult.OK)
             {
@@ -57,16 +59,15 @@ namespace ABA_Creator.Forms.Payee
                                 $"Acc Name: {selectedPayee.AccountName}\nBSB: {selectedPayee.BSB}\nAcc No: {selectedPayee.AccountNumber}",
                                 "Remove Payee",MessageBoxButtons.OKCancel)==DialogResult.OK)
             {
-                Payees.RemoveAt(listBox1.SelectedIndex);
+                _settingsProvider.Settings.Payees.RemoveAt(listBox1.SelectedIndex);
                 listBox1.Items.RemoveAt(listBox1.SelectedIndex);
-                Properties.Settings.Default.Payees = JsonConvert.SerializeObject(Payees);
-                Properties.Settings.Default.Save();
+                _settingsProvider.Save();
             }
         }
 
         private void button3_Click(object sender, EventArgs e)
         {
-            if (m_addPayee.IsDisposed) m_addPayee = new AddPayee();
+            if (m_addPayee.IsDisposed) m_addPayee = _formFactory.CreateAddPayeeForm();
             if (m_addPayee.ShowDialog() == DialogResult.OK)
             {
                 UpdatePayees();

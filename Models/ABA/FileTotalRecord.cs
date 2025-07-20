@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace ABA_Creator.Entities.ABA
+namespace Creator.ABA.Models.ABA
 {
     public class FileTotalRecord
     {

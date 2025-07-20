@@ -1,5 +1,5 @@
 ﻿
-namespace ABA_Creator.Forms.Transactions
+namespace Creator.ABA.Forms.Transactions
 {
     partial class AddTransaction
     {

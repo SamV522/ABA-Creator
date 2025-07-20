@@ -1,5 +1,5 @@
 ﻿
-namespace ABA_Creator.Forms.Payer
+namespace Creator.ABA.Forms.Payer
 { 
     partial class AddPayer
     {
@@ -29,194 +29,196 @@ namespace ABA_Creator.Forms.Payer
         /// </summary>
         private void InitializeComponent()
         {
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.textBox4 = new System.Windows.Forms.TextBox();
-            this.button1 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
-            this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
-            this.bsbTxt1 = new System.Windows.Forms.TextBox();
-            this.bsbTxt2 = new System.Windows.Forms.TextBox();
-            this.label5 = new System.Windows.Forms.Label();
-            this.textBox2 = new System.Windows.Forms.TextBox();
-            this.label6 = new System.Windows.Forms.Label();
-            this.textBox3 = new System.Windows.Forms.TextBox();
-            this.SuspendLayout();
+            txt_AccountName = new System.Windows.Forms.TextBox();
+            txt_AccountNumber = new System.Windows.Forms.TextBox();
+            btn_OK = new System.Windows.Forms.Button();
+            btn_Cancel = new System.Windows.Forms.Button();
+            label1 = new System.Windows.Forms.Label();
+            label2 = new System.Windows.Forms.Label();
+            label3 = new System.Windows.Forms.Label();
+            label5 = new System.Windows.Forms.Label();
+            txt_FICode = new System.Windows.Forms.TextBox();
+            label6 = new System.Windows.Forms.Label();
+            txt_UserID = new System.Windows.Forms.TextBox();
+            button3 = new System.Windows.Forms.Button();
+            txt_Bsb = new System.Windows.Forms.MaskedTextBox();
+            SuspendLayout();
             // 
-            // textBox1
+            // txt_AccountName
             // 
-            this.textBox1.Location = new System.Drawing.Point(108, 12);
-            this.textBox1.MaxLength = 26;
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(206, 20);
-            this.textBox1.TabIndex = 0;
-            this.textBox1.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.alpha_Validation);
+            txt_AccountName.Location = new System.Drawing.Point(126, 14);
+            txt_AccountName.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            txt_AccountName.MaxLength = 26;
+            txt_AccountName.Name = "txt_AccountName";
+            txt_AccountName.Size = new System.Drawing.Size(240, 23);
+            txt_AccountName.TabIndex = 0;
+            txt_AccountName.KeyPress += alpha_Validation;
             // 
-            // textBox4
+            // txt_AccountNumber
             // 
-            this.textBox4.Location = new System.Drawing.Point(108, 116);
-            this.textBox4.Name = "textBox4";
-            this.textBox4.Size = new System.Drawing.Size(206, 20);
-            this.textBox4.TabIndex = 5;
-            this.textBox4.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.numeric_Validation);
+            txt_AccountNumber.Location = new System.Drawing.Point(126, 134);
+            txt_AccountNumber.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            txt_AccountNumber.Name = "txt_AccountNumber";
+            txt_AccountNumber.Size = new System.Drawing.Size(240, 23);
+            txt_AccountNumber.TabIndex = 5;
+            txt_AccountNumber.KeyPress += numeric_Validation;
             // 
-            // button1
+            // btn_OK
             // 
-            this.button1.Location = new System.Drawing.Point(158, 142);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 6;
-            this.button1.Text = "Add";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            btn_OK.Location = new System.Drawing.Point(184, 164);
+            btn_OK.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            btn_OK.Name = "btn_OK";
+            btn_OK.Size = new System.Drawing.Size(88, 27);
+            btn_OK.TabIndex = 6;
+            btn_OK.Text = "OK";
+            btn_OK.UseVisualStyleBackColor = true;
+            btn_OK.Click += button1_Click;
             // 
-            // button2
+            // btn_Cancel
             // 
-            this.button2.Location = new System.Drawing.Point(239, 142);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(75, 23);
-            this.button2.TabIndex = 7;
-            this.button2.Text = "Cancel";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
+            btn_Cancel.Location = new System.Drawing.Point(279, 164);
+            btn_Cancel.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            btn_Cancel.Name = "btn_Cancel";
+            btn_Cancel.Size = new System.Drawing.Size(88, 27);
+            btn_Cancel.TabIndex = 7;
+            btn_Cancel.Text = "Cancel";
+            btn_Cancel.UseVisualStyleBackColor = true;
+            btn_Cancel.Click += button2_Click;
             // 
             // label1
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(21, 15);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(81, 13);
-            this.label1.TabIndex = 6;
-            this.label1.Text = "Account Name:";
+            label1.AutoSize = true;
+            label1.Location = new System.Drawing.Point(24, 17);
+            label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            label1.Name = "label1";
+            label1.Size = new System.Drawing.Size(90, 15);
+            label1.TabIndex = 6;
+            label1.Text = "Account Name:";
             // 
             // label2
             // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(71, 41);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(31, 13);
-            this.label2.TabIndex = 7;
-            this.label2.Text = "BSB:";
+            label2.AutoSize = true;
+            label2.Location = new System.Drawing.Point(83, 47);
+            label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            label2.Name = "label2";
+            label2.Size = new System.Drawing.Size(30, 15);
+            label2.TabIndex = 7;
+            label2.Text = "BSB:";
             // 
             // label3
             // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(12, 116);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(90, 13);
-            this.label3.TabIndex = 8;
-            this.label3.Text = "Account Number:";
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(150, 41);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(10, 13);
-            this.label4.TabIndex = 9;
-            this.label4.Text = "-";
-            // 
-            // bsbTxt1
-            // 
-            this.bsbTxt1.Location = new System.Drawing.Point(108, 38);
-            this.bsbTxt1.MaxLength = 3;
-            this.bsbTxt1.Name = "bsbTxt1";
-            this.bsbTxt1.Size = new System.Drawing.Size(36, 20);
-            this.bsbTxt1.TabIndex = 1;
-            this.bsbTxt1.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.bsb_Validation);
-            // 
-            // bsbTxt2
-            // 
-            this.bsbTxt2.Location = new System.Drawing.Point(166, 38);
-            this.bsbTxt2.MaxLength = 3;
-            this.bsbTxt2.Name = "bsbTxt2";
-            this.bsbTxt2.Size = new System.Drawing.Size(36, 20);
-            this.bsbTxt2.TabIndex = 2;
-            this.bsbTxt2.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.bsb_Validation);
+            label3.AutoSize = true;
+            label3.Location = new System.Drawing.Point(14, 134);
+            label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            label3.Name = "label3";
+            label3.Size = new System.Drawing.Size(102, 15);
+            label3.TabIndex = 8;
+            label3.Text = "Account Number:";
             // 
             // label5
             // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(47, 93);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(55, 13);
-            this.label5.TabIndex = 10;
-            this.label5.Text = "Institution:";
+            label5.AutoSize = true;
+            label5.Location = new System.Drawing.Point(55, 107);
+            label5.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            label5.Name = "label5";
+            label5.Size = new System.Drawing.Size(64, 15);
+            label5.TabIndex = 10;
+            label5.Text = "Institution:";
             // 
-            // textBox2
+            // txt_FICode
             // 
-            this.textBox2.Location = new System.Drawing.Point(108, 90);
-            this.textBox2.MaxLength = 3;
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(36, 20);
-            this.textBox2.TabIndex = 4;
-            this.textBox2.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.alpha_Validation);
+            txt_FICode.Location = new System.Drawing.Point(126, 104);
+            txt_FICode.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            txt_FICode.MaxLength = 3;
+            txt_FICode.Name = "txt_FICode";
+            txt_FICode.Size = new System.Drawing.Size(41, 23);
+            txt_FICode.TabIndex = 4;
+            txt_FICode.KeyPress += alpha_Validation;
             // 
             // label6
             // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(59, 67);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(46, 13);
-            this.label6.TabIndex = 11;
-            this.label6.Text = "User ID:";
+            label6.AutoSize = true;
+            label6.Location = new System.Drawing.Point(69, 77);
+            label6.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            label6.Name = "label6";
+            label6.Size = new System.Drawing.Size(47, 15);
+            label6.TabIndex = 11;
+            label6.Text = "User ID:";
             // 
-            // textBox3
+            // txt_UserID
             // 
-            this.textBox3.Location = new System.Drawing.Point(108, 64);
-            this.textBox3.MaxLength = 6;
-            this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(52, 20);
-            this.textBox3.TabIndex = 3;
+            txt_UserID.Location = new System.Drawing.Point(126, 74);
+            txt_UserID.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            txt_UserID.MaxLength = 6;
+            txt_UserID.Name = "txt_UserID";
+            txt_UserID.Size = new System.Drawing.Size(60, 23);
+            txt_UserID.TabIndex = 3;
+            // 
+            // button3
+            // 
+            button3.BackgroundImage = Properties.Resources.cloud_done_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24;
+            button3.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            button3.Location = new System.Drawing.Point(232, 42);
+            button3.Name = "button3";
+            button3.Size = new System.Drawing.Size(37, 24);
+            button3.TabIndex = 2;
+            button3.UseVisualStyleBackColor = true;
+            button3.Click += button3_Click;
+            // 
+            // txt_Bsb
+            // 
+            txt_Bsb.Location = new System.Drawing.Point(126, 44);
+            txt_Bsb.Mask = "000-999";
+            txt_Bsb.Name = "txt_Bsb";
+            txt_Bsb.PromptChar = ' ';
+            txt_Bsb.Size = new System.Drawing.Size(100, 23);
+            txt_Bsb.TabIndex = 1;
             // 
             // AddPayer
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(328, 180);
-            this.Controls.Add(this.textBox3);
-            this.Controls.Add(this.label6);
-            this.Controls.Add(this.textBox2);
-            this.Controls.Add(this.label5);
-            this.Controls.Add(this.bsbTxt2);
-            this.Controls.Add(this.bsbTxt1);
-            this.Controls.Add(this.label4);
-            this.Controls.Add(this.label3);
-            this.Controls.Add(this.label2);
-            this.Controls.Add(this.label1);
-            this.Controls.Add(this.button2);
-            this.Controls.Add(this.button1);
-            this.Controls.Add(this.textBox4);
-            this.Controls.Add(this.textBox1);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
-            this.MaximizeBox = false;
-            this.MinimizeBox = false;
-            this.Name = "AddPayer";
-            this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
-            this.Text = "Add Payer";
-            this.Load += new System.EventHandler(this.AddPayee_Load);
-            this.ResumeLayout(false);
-            this.PerformLayout();
+            AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
+            AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            ClientSize = new System.Drawing.Size(383, 208);
+            Controls.Add(txt_Bsb);
+            Controls.Add(button3);
+            Controls.Add(txt_UserID);
+            Controls.Add(label6);
+            Controls.Add(txt_FICode);
+            Controls.Add(label5);
+            Controls.Add(label3);
+            Controls.Add(label2);
+            Controls.Add(label1);
+            Controls.Add(btn_Cancel);
+            Controls.Add(btn_OK);
+            Controls.Add(txt_AccountNumber);
+            Controls.Add(txt_AccountName);
+            FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+            Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            MaximizeBox = false;
+            MinimizeBox = false;
+            Name = "AddPayer";
+            SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
+            Text = "Add Payer";
+            Load += AddPayee_Load;
+            ResumeLayout(false);
+            PerformLayout();
 
         }
 
         #endregion
 
-        private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.TextBox textBox4;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.TextBox txt_AccountName;
+        private System.Windows.Forms.TextBox txt_AccountNumber;
+        private System.Windows.Forms.Button btn_OK;
+        private System.Windows.Forms.Button btn_Cancel;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.TextBox bsbTxt1;
-        private System.Windows.Forms.TextBox bsbTxt2;
         private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.TextBox txt_FICode;
         private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.TextBox textBox3;
+        private System.Windows.Forms.TextBox txt_UserID;
+        private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.MaskedTextBox txt_Bsb;
     }
 }

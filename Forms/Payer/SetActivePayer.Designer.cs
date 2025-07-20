@@ -1,5 +1,5 @@
 ﻿
-namespace ABA_Creator.Forms.Payer
+namespace Creator.ABA.Forms.Payer
 {
     partial class SetActivePayer
     {
@@ -29,64 +29,67 @@ namespace ABA_Creator.Forms.Payer
         /// </summary>
         private void InitializeComponent()
         {
-            this.button1 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
-            this.listBox1 = new System.Windows.Forms.ListBox();
-            this.SuspendLayout();
+            btn_OK = new System.Windows.Forms.Button();
+            btn_Cancel = new System.Windows.Forms.Button();
+            listBox1 = new System.Windows.Forms.ListBox();
+            SuspendLayout();
             // 
-            // button1
+            // btn_OK
             // 
-            this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.button1.Location = new System.Drawing.Point(632, 415);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 0;
-            this.button1.Text = "OK";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            btn_OK.Anchor = System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right;
+            btn_OK.Location = new System.Drawing.Point(737, 479);
+            btn_OK.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            btn_OK.Name = "btn_OK";
+            btn_OK.Size = new System.Drawing.Size(88, 27);
+            btn_OK.TabIndex = 0;
+            btn_OK.Text = "OK";
+            btn_OK.UseVisualStyleBackColor = true;
+            btn_OK.Click += Btn_OK_Click;
             // 
-            // button2
+            // btn_Cancel
             // 
-            this.button2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.button2.Location = new System.Drawing.Point(713, 415);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(75, 23);
-            this.button2.TabIndex = 1;
-            this.button2.Text = "Cancel";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
+            btn_Cancel.Anchor = System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right;
+            btn_Cancel.Location = new System.Drawing.Point(832, 479);
+            btn_Cancel.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            btn_Cancel.Name = "btn_Cancel";
+            btn_Cancel.Size = new System.Drawing.Size(88, 27);
+            btn_Cancel.TabIndex = 1;
+            btn_Cancel.Text = "Cancel";
+            btn_Cancel.UseVisualStyleBackColor = true;
+            btn_Cancel.Click += Btn_Cancel_Click;
             // 
             // listBox1
             // 
-            this.listBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.listBox1.FormattingEnabled = true;
-            this.listBox1.Location = new System.Drawing.Point(12, 12);
-            this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(776, 394);
-            this.listBox1.TabIndex = 2;
-            this.listBox1.SelectedIndexChanged += new System.EventHandler(this.listBox1_SelectedIndexChanged);
+            listBox1.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
+            listBox1.FormattingEnabled = true;
+            listBox1.ItemHeight = 15;
+            listBox1.Location = new System.Drawing.Point(14, 14);
+            listBox1.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            listBox1.Name = "listBox1";
+            listBox1.Size = new System.Drawing.Size(905, 454);
+            listBox1.TabIndex = 2;
+            listBox1.SelectedIndexChanged += listBox1_SelectedIndexChanged;
             // 
             // SetActivePayer
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Controls.Add(this.listBox1);
-            this.Controls.Add(this.button2);
-            this.Controls.Add(this.button1);
-            this.Name = "SetActivePayer";
-            this.Text = "SetActivePayer";
-            this.Load += new System.EventHandler(this.SetActivePayer_Load);
-            this.ResumeLayout(false);
+            AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
+            AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            ClientSize = new System.Drawing.Size(933, 519);
+            Controls.Add(listBox1);
+            Controls.Add(btn_Cancel);
+            Controls.Add(btn_OK);
+            Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            Name = "SetActivePayer";
+            Text = "SetActivePayer";
+            Load += SetActivePayer_Load;
+            ResumeLayout(false);
 
         }
 
         #endregion
 
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button btn_OK;
+        private System.Windows.Forms.Button btn_Cancel;
         private System.Windows.Forms.ListBox listBox1;
     }
 }

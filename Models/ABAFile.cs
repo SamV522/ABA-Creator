@@ -1,13 +1,9 @@
-﻿using ABA_Creator.Entities.ABA;
-using System;
+﻿using Creator.ABA.Models.ABA;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 
-namespace ABA_Creator.Entities
+namespace Creator.ABA.Models
 {
     class ABAFile
     {

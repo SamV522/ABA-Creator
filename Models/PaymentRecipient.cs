@@ -1,12 +1,14 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
 
-namespace ABA_Creator.Entities
+namespace Creator.ABA.Models
 {
     [Serializable]
     public class PaymentRecipient
     {
         protected int m_BSB;
 
+        [Required]
         public int BSB
         {
             get { return m_BSB; }
@@ -15,18 +17,20 @@ namespace ABA_Creator.Entities
 
         protected string m_accountNumber;
 
+        [Required, MaxLength(9)]
         public string AccountNumber
         {
             get { return m_accountNumber; }
-            set { m_accountNumber = value.Substring(0, Math.Min(value.Length, 9)); }
+            set { m_accountNumber = value?.Substring(0, Math.Min(value.Length, 9)); }
         }
 
         protected string m_AccountName;
 
+        [Required, MaxLength(32)]
         virtual public string AccountName
         {
             get { return m_AccountName; }
-            set { m_AccountName = value.Substring(0,Math.Min(value.Length,32)); }
+            set { m_AccountName = value?.Substring(0,Math.Min(value.Length,32)); }
         }
 
         public PaymentRecipient() { }

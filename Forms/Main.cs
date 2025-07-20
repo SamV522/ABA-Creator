@@ -1,20 +1,31 @@
-﻿using System;
+﻿using Creator.ABA.Extensions;
+using Creator.ABA.Forms;
+using Creator.ABA.Forms.Payee;
+using Creator.ABA.Forms.Payer;
+using Creator.ABA.Forms.Transactions;
+using Creator.ABA.Helpers;
+using Creator.ABA.Helpers.Interfaces;
+using Creator.ABA.Models;
+using Creator.ABA.Models.ABA;
+using Creator.ABA.Models.Configuration;
+using Creator.ABA.Services.Interfaces;
+using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
+using System.Linq;
+using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Reflection;
-using ABA_Creator.Entities;
-using ABA_Creator.Entities.ABA;
-using ABA_Creator.Forms;
-using ABA_Creator.Forms.Payee;
-using ABA_Creator.Forms.Payer;
-using ABA_Creator.Forms.Transactions;
 
-namespace ABA_Creator
+namespace Creator.ABA
 {
     public partial class Main : Form
     {
-        private AboutBox m_aboutBox;
+        private readonly ISettingsProvider<AbaProfileSettings> _settingsProvider;
+        private readonly IFormFactory _formFactory;
+        private readonly IBsbValidationHelper _bsbValidationHelper;
+
+        private readonly AboutBox m_aboutBox;
 
         private AddPayee m_addPayeeForm;
         private ManagePayees m_managePayeesForm;
@@ -23,78 +34,137 @@ namespace ABA_Creator
         private ManagePayers m_managePayersForm;
         private SetActivePayer m_setPayersForm;
 
-        private AddTransaction m_addTransactionForm;
+        private readonly AddTransaction m_addTransactionForm;
 
         public DescriptiveRecord m_DescriptiveRecord;
         public List<DetailRecord> m_Transactions;
         public FileTotalRecord m_FileTotalRecord;
 
-        public Main()
+        public Main(IFormFactory formFactory, 
+            ISettingsProvider<AbaProfileSettings> settingsProvider, 
+            IBsbValidationHelper bsbValidationHelper)
         {
+            _settingsProvider = settingsProvider;
+            _formFactory = formFactory;
+            _bsbValidationHelper = bsbValidationHelper;
+
             InitializeComponent();
+
             m_aboutBox = new AboutBox();
-            m_addPayeeForm = new AddPayee();
-            m_managePayeesForm = new ManagePayees();
-            m_addPayerForm = new AddPayer();
-            m_managePayersForm = new ManagePayers();
-            m_setPayersForm = new SetActivePayer();
-            m_addTransactionForm = new AddTransaction();
+            m_addPayeeForm = _formFactory.CreateAddPayeeForm();
+            m_managePayeesForm = _formFactory.CreateManagePayeesForm();
+            m_addPayerForm = _formFactory.CreateAddPayerForm();
+            m_managePayersForm = _formFactory.CreateManagePayersForm();
+            m_setPayersForm = _formFactory.CreateSetActivePayerForm();
+            m_addTransactionForm = _formFactory.CreateAddTransactionForm();
+
             m_Transactions = new List<DetailRecord>();
-            openFileDialog1.InitialDirectory = Environment.CurrentDirectory;
-            saveFileDialog1.InitialDirectory = Environment.CurrentDirectory;
+
+            dlg_OpenAbaFile.InitialDirectory = Environment.CurrentDirectory;
+            dlg_SaveAbaFile.InitialDirectory = Environment.CurrentDirectory;
         }
 
-        private void addToolStripMenuItem_Click(object sender, EventArgs e)
+        private void AddToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (m_addPayeeForm.IsDisposed) m_addPayeeForm = new AddPayee();
+            if (m_addPayeeForm.IsDisposed) m_addPayeeForm = _formFactory.CreateAddPayeeForm();
             m_addPayeeForm.Show();
             m_addPayeeForm.BringToFront();
         }
 
-        private void manageToolStripMenuItem_Click(object sender, EventArgs e)
+        private void ManageToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (m_managePayeesForm.IsDisposed) m_managePayeesForm = new ManagePayees();
+            if (m_managePayeesForm.IsDisposed) m_managePayeesForm = _formFactory.CreateManagePayeesForm();
             m_managePayeesForm.Show();
             m_managePayeesForm.BringToFront();
         }
 
         private void Main_Load(object sender, EventArgs e)
         {
+            LoadSettings();
+        }
+
+        private void LoadSettings(string filePath = null)
+        {
+            // Load settings
+            try
+            {
+                _settingsProvider.Settings.PropertyChanged -= Settings_PropertyChanged; // Unsubscribe to avoid duplicate events
+
+                _settingsProvider.Load(filePath);
+
+                // Susbcribe to settings property changed event
+                _settingsProvider.Settings.PropertyChanged += Settings_PropertyChanged;
+            }
+            catch (FileNotFoundException)
+            {
+                // If the settings file is not found, prompt the user to configure the payer(s)
+                var result = MessageBox.Show("Settings file not found. You will need to configure your payer(s) and set your active payer.", "Settings Not Found", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+            catch (AggregateValidationException ex)
+            {
+                // If the settings file is not valid, show validation errors
+                MessageBox.Show("Failed to validate settings file, if you wish to load settings please correct the below errors and load the file again.\n\n" +
+                    string.Join("\n", ex.ValidationResults.Select(error => error.ErrorMessage)),
+                    "Validation Error",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
             this.Text = $"{Application.ProductName} - {Application.ProductVersion}";
         }
 
-        private void searchBSBsToolStripMenuItem_Click(object sender, EventArgs e)
+        private void Main_FormClosing(object sender, FormClosingEventArgs e)
         {
-            System.Diagnostics.Process.Start("http://bsb.apca.com.au/");
+            // Save settings on exit
+            _settingsProvider.Save();
+
+            // Unsubscribe from settings property changed event
+            _settingsProvider.Settings.PropertyChanged -= Settings_PropertyChanged;
         }
 
-        private void managePayersToolStripMenuItem_Click(object sender, EventArgs e)
+        private void Settings_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
-            if (m_managePayersForm.IsDisposed) m_managePayersForm = new ManagePayers();
+            if (e.PropertyName == nameof(_settingsProvider.Settings.ActivePayer))
+            {
+                UpdateDescriptiveRecord();
+                btn_AddTransaction.Enabled = _settingsProvider.Settings.ActivePayer != null;
+            }
+        }
+
+        private void SearchBSBsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Process.Start(new ProcessStartInfo
+            {
+                FileName = "https://bsb.auspaynet.com.au",
+                UseShellExecute = true
+            });
+        }
+
+        private void ManagePayersToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (m_managePayersForm.IsDisposed) m_managePayersForm = _formFactory.CreateManagePayersForm();
             m_managePayersForm.Show();
             m_managePayersForm.BringToFront();
         }
 
-        private void newPayerToolStripMenuItem_Click(object sender, EventArgs e)
+        private void NewPayerToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (m_addPayerForm.IsDisposed) m_addPayerForm = new AddPayer();
+            if (m_addPayerForm.IsDisposed) m_addPayerForm = _formFactory.CreateAddPayerForm();
             m_addPayerForm.Show();
             m_addPayerForm.BringToFront();
         }
 
-        private void setPayerToolStripMenuItem_Click(object sender, EventArgs e)
+        private void SetPayerToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (m_setPayersForm.IsDisposed) m_setPayersForm = new SetActivePayer();
-            m_setPayersForm.Show();
-            m_setPayersForm.BringToFront();
+            if (m_setPayersForm.IsDisposed) m_setPayersForm = _formFactory.CreateSetActivePayerForm();
+            m_setPayersForm.ShowDialog();
+            UpdateDescriptiveRecord();
         }
 
-        private void addToolStripMenuItem1_Click(object sender, EventArgs e)
+        private void AddToolStripMenuItem1_Click(object sender, EventArgs e)
         {
             m_addTransactionForm.ShowDialog(this);
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void Btn_AddTransaction_Click(object sender, EventArgs e)
         {
             if (m_addTransactionForm.ShowDialog(this) == DialogResult.OK)
             {
@@ -121,10 +191,7 @@ namespace ABA_Creator
             {
                 dgv_DetailRecord.Rows.Add(tranRecord.ToArray());
             }
-            if(dgv_DescriptiveRecord.Rows.Count<1)
-            {
-                UpdateDescriptiveRecord();
-            }
+
             UpdateFileTotalRecord();
         }
 
@@ -134,20 +201,15 @@ namespace ABA_Creator
             UpdateTransactions();
         }
 
-        private void openABAFileToolStripMenuItem_Click(object sender, EventArgs e)
+        private void OpenABAFileToolStripMenuItem_Click(object sender, EventArgs e)
         {
             OpenABAFile();
         }
 
-        private void testStringConsumeToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-
-        }
-
         private void UpdateDescriptiveRecord()
         {
-            PaymentSender _payer = Utilities.GetCurrentPayer();
-            if(_payer !=null)
+            PaymentSender _payer = _settingsProvider.Settings.ActivePayer;
+            if (_payer != null)
             {
                 UpdateDescriptiveRecord(new DescriptiveRecord("01",
                                         new UserSupplyingFile(_payer.FinancialInstitution,
@@ -156,7 +218,7 @@ namespace ABA_Creator
             }
             else
             {
-                MessageBox.Show("No payer has been selected, please set a payer from the Payers menu.", "No Payer!",MessageBoxButtons.OK);
+                MessageBox.Show("No payer has been selected, please set a payer from the Payers menu.", "No Payer!", MessageBoxButtons.OK);
             }
         }
 
@@ -199,11 +261,11 @@ namespace ABA_Creator
 
         private void OpenABAFile()
         {
-            ClearTransactions();
-            if (openFileDialog1.ShowDialog() == DialogResult.OK)
+            if (dlg_OpenAbaFile.ShowDialog() == DialogResult.OK)
             {
+                ClearTransactions();
                 //MessageBox.Show(openFileDialog1.FileName);
-                ABAFile _aba = new ABAFile(openFileDialog1.FileName);
+                ABAFile _aba = new ABAFile(dlg_OpenAbaFile.FileName);
                 UpdateDescriptiveRecord(_aba.descriptiveRecord);
                 SetTransactions(_aba.detailRecords);
                 UpdateFileTotalRecord(_aba.fileTotalRecord);
@@ -212,12 +274,12 @@ namespace ABA_Creator
 
         private void SaveABAFile()
         {
-            if(saveFileDialog1.ShowDialog() == DialogResult.OK)
+            if (dlg_SaveAbaFile.ShowDialog() == DialogResult.OK)
             {
                 string _aba = new ABAFile(m_DescriptiveRecord, m_Transactions, m_FileTotalRecord).ToString();
-                StreamWriter sW = File.CreateText(saveFileDialog1.FileName);
-                sW.Write(_aba);
-                sW.Close();
+                StreamWriter stream = File.CreateText(dlg_SaveAbaFile.FileName);
+                stream.Write(_aba);
+                stream.Close();
             }
         }
 
@@ -228,29 +290,29 @@ namespace ABA_Creator
             ClearFileTotalRecord();
         }
 
-        private void saveABAFileToolStripMenuItem_Click(object sender, EventArgs e)
+        private void SaveABAFileToolStripMenuItem_Click(object sender, EventArgs e)
         {
             SaveABAFile();
         }
 
-        private void dgv_DetailRecord_CellValueChanged(object sender, DataGridViewCellEventArgs e)
+        private void Dgv_DetailRecord_CellValueChanged(object sender, DataGridViewCellEventArgs e)
         {
             if (m_Transactions == null || m_Transactions.Count == 0 || m_Transactions.Count < e.RowIndex) return;
             m_Transactions[e.RowIndex] = new DetailRecord(RowToArray(dgv_DetailRecord.Rows[e.RowIndex]));
             UpdateTransactions();
         }
 
-        private void dgv_DetailRecord_UserDeletedRow(object sender, DataGridViewRowEventArgs e)
+        private void Dgv_DetailRecord_UserDeletedRow(object sender, DataGridViewRowEventArgs e)
         {
         }
 
-        private string[] RowToArray(DataGridViewRow row)
+        private static string[] RowToArray(DataGridViewRow row)
         {
             string[] _ = new string[row.Cells.Count];
             int i = 0;
-            foreach(DataGridViewCell cell in row.Cells)
+            foreach (DataGridViewCell cell in row.Cells)
             {
-                if(cell.Value!=null)
+                if (cell.Value != null)
                 {
                     _[i] = cell.Value.ToString();
                 }
@@ -259,7 +321,7 @@ namespace ABA_Creator
             return _;
         }
 
-        private void dgv_DetailRecord_Sorted(object sender, EventArgs e)
+        private void Dgv_DetailRecord_Sorted(object sender, EventArgs e)
         {
             m_Transactions.Clear();
             foreach (DataGridViewRow row in dgv_DetailRecord.Rows)
@@ -268,12 +330,12 @@ namespace ABA_Creator
             }
         }
 
-        private void newABAFileToolStripMenuItem_Click(object sender, EventArgs e)
+        private void NewABAFileToolStripMenuItem_Click(object sender, EventArgs e)
         {
             NewABAFile();
         }
 
-        private void button2_Click(object sender, EventArgs e)
+        private void Btn_CopyTransaction_Click(object sender, EventArgs e)
         {
             MessageBox.Show("This feature is not yet available", "Feature not available");
             /*if(dgv_DetailRecord.SelectedRows.Count>0)
@@ -285,41 +347,34 @@ namespace ABA_Creator
             }*/
         }
 
-        private void dgv_DetailRecord_RowsAdded(object sender, DataGridViewRowsAddedEventArgs e)
+        private void Dgv_DetailRecord_RowsAdded(object sender, DataGridViewRowsAddedEventArgs e)
         {
             if (m_Transactions == null || m_Transactions.Count == 0 || m_Transactions.Count < e.RowIndex) return;
             m_Transactions[e.RowIndex] = new DetailRecord(RowToArray(dgv_DetailRecord.Rows[e.RowIndex]));
         }
 
-        private void dgv_DetailRecord_UserDeletingRow(object sender, DataGridViewRowCancelEventArgs e)
+        private void Dgv_DetailRecord_UserDeletingRow(object sender, DataGridViewRowCancelEventArgs e)
         {
+            // Cancel the default delete behaviour
             e.Cancel = true;
-            if (!DeleteRows(e.Row));
+
+            // Defer to controlled method of deleting rows
+            DeleteSelectedRows();
         }
 
-        private bool DeleteRows(DataGridViewRow row)
-        {
-            DataGridViewRow[] rows = new DataGridViewRow[1] { row };
-            return DeleteRows(rows);
-        }
-
-        private bool DeleteRows(DataGridViewSelectedRowCollection selection)
-        {
-            DataGridViewRow[] rows = new DataGridViewRow[selection.Count];
-            selection.CopyTo(rows, 0);
-            return DeleteRows(rows);
-        }
-
-        private bool DeleteRows(DataGridViewRow[] rows)
+        private bool DeleteSelectedRows()
         {
             bool _deleteRows = MessageBox.Show(
                 $"Are you sure you want to delete {dgv_DetailRecord.SelectedRows.Count} row(s)?",
                 "Delete Rows", MessageBoxButtons.OKCancel) == DialogResult.OK;
-            if(_deleteRows)
+
+            if (_deleteRows)
             {
                 foreach (DataGridViewRow row in dgv_DetailRecord.SelectedRows)
                 {
+                    // Remove the transaction from the list
                     m_Transactions.RemoveAt(row.Index);
+                    // Remove the row from the DataGridView
                     dgv_DetailRecord.Rows.RemoveAt(row.Index);
                     UpdateTransactions();
                 }
@@ -327,17 +382,113 @@ namespace ABA_Creator
             return _deleteRows;
         }
 
-        private void button4_Click(object sender, EventArgs e)
+        private void Btn_DeleteTransaction_Click(object sender, EventArgs e)
         {
-            if(dgv_DetailRecord.SelectedRows.Count>0)
+            if (dgv_DetailRecord.SelectedRows.Count > 0)
             {
-                DeleteRows(dgv_DetailRecord.SelectedRows);
+                DeleteSelectedRows();
+            }
+            else
+            {
+                MessageBox.Show("Please select at least one row to delete.", "No Rows Selected", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
 
-        private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
+        private void AboutToolStripMenuItem_Click(object sender, EventArgs e)
         {
             m_aboutBox.Show();
+        }
+
+        private void ImportSettingsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            dlg_OpenSettingsFile.InitialDirectory = Environment.CurrentDirectory;
+            var result = dlg_OpenSettingsFile.ShowDialog();
+            if (result == DialogResult.OK)
+            {
+                LoadSettings(dlg_OpenSettingsFile.FileName);
+                MessageBox.Show("Settings imported successfully!", "Imported Settings", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                _settingsProvider.Save(); // Save the settings after importing
+            }
+        }
+
+        private void ExitToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            // Prompt the user to confirm exit
+            var result = MessageBox.Show("Are you sure you want to exit?", "Confirm Exit", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            if (result == DialogResult.Yes)
+            {
+                Application.Exit();
+            }
+        }
+
+        private void ExportSettingsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var result = dlg_SaveSettingsFile.ShowDialog();
+            if (result == DialogResult.OK)
+            {
+                try
+                {
+                    _settingsProvider.Save(dlg_SaveSettingsFile.FileName);
+                    MessageBox.Show("Settings exported successfully.", "Export Settings", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Failed to export settings: {ex.Message}", "Export Settings Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+        }
+
+        private void ABAFileSpecToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Process.Start(new ProcessStartInfo
+            {
+                FileName = "https://www.cemtexaba.com/aba-format/cemtex-aba-file-format-details/",
+                UseShellExecute = true
+            });
+        }
+
+        private async void button1_Click(object sender, EventArgs e)
+        {
+            var payeeBsbs = m_Transactions.Select(transaction => transaction.PayeeBSB);
+            var payerBsbs = m_Transactions.Select(transaction => transaction.PayerBSB);
+
+            var validationResults = new List<BsbValidationResult>();
+            Task.WaitAll(
+                Task.Run(() => { MessageBox.Show("Validating BSBs, this may take a while...", "BSB Validation", MessageBoxButtons.OK, MessageBoxIcon.Information); }),
+                Task.Run(async () =>
+                {
+
+                    foreach (var bsb in payeeBsbs.Concat(payerBsbs).Distinct())
+                    {
+                        validationResults.Add(await _bsbValidationHelper.IsValidBsb(bsb));
+                    }
+                }
+                ));
+
+            if (validationResults.Any(result => result.ResultType != BsbValidationResultType.SingleMatch))
+            {
+                var validationErrors = validationResults.Where(result => result.ResultType != BsbValidationResultType.SingleMatch);
+
+                foreach(DataGridViewRow row in dgv_DetailRecord.Rows)
+                {
+                    var bsb = row.Cells["BSB"].Value?.ToString();
+                    var traceRecord = row.Cells["TraceRecord"].Value?.ToString();
+                    var matches = validationErrors.Where(result => result.Bsb == bsb || result.Bsb == traceRecord).ToList();
+                    if (matches.Count > 0 )
+                    {
+                        row.DefaultCellStyle.BackColor = System.Drawing.Color.LightCoral;
+                    } else
+                    {
+                        row.DefaultCellStyle.BackColor = System.Drawing.Color.LightGreen;
+                    }
+                }
+                MessageBox.Show("Some BSBs are invalid or have multiple matches. Please check the results.", "BSB Validation Results", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+            else
+            {
+                MessageBox.Show("All BSBs are valid and have single matches.", "BSB Validation Results", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+
         }
     }
 }

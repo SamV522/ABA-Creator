@@ -1,83 +1,71 @@
-﻿using ABA_Creator.Entities;
-using Newtonsoft.Json;
+﻿using Creator.ABA.Models;
+using Creator.ABA.Models.Configuration;
+using Creator.ABA.Services.Interfaces;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace ABA_Creator.Forms.Payer
+namespace Creator.ABA.Forms.Payer
 {
     public partial class SetActivePayer : Form
     {
-        private List<PaymentSender> m_Payers;
-        private PaymentSender m_selectedPayer;
-        private int m_selectedPayerID = -1;
+        private readonly ISettingsProvider<AbaProfileSettings> _settingsProvider;
 
-        public SetActivePayer()
+        private PaymentSender m_selectedPayer;
+
+        public SetActivePayer(ISettingsProvider<AbaProfileSettings> settingsProvider)
         {
+            _settingsProvider = settingsProvider;
+
             InitializeComponent();
         }
 
         private void SetActivePayer_Load(object sender, EventArgs e)
         {
             UpdatePayers();
-            if(Properties.Settings.Default.ActivePayer>=0 && Properties.Settings.Default.ActivePayer <= m_Payers.Count)
+            if(_settingsProvider.Settings.ActivePayer != null)
             {
-                listBox1.SelectedIndex = Properties.Settings.Default.ActivePayer;
+                listBox1.SelectedIndex = _settingsProvider.Settings.Payers.IndexOf(_settingsProvider.Settings.ActivePayer);
             }
         }
 
         private void UpdatePayers()
         {
-            m_Payers = JsonConvert.DeserializeObject<List<PaymentSender>>(Properties.Settings.Default.Payers);
-            m_Payers = (m_Payers == null ? new List<PaymentSender>() : m_Payers);
-            foreach(PaymentSender Payer in m_Payers)
+            foreach(PaymentSender Payer in _settingsProvider.Settings.Payers)
             {
                 listBox1.Items.Add($"{Payer.AccountName.PadRight(20 - Payer.AccountName.Length)} - BSB: {Payer.BSB} - Acc: {Payer.AccountNumber}");
             }
         }
 
-        private void button1_Click(object sender, EventArgs e)
-        {   
-            if(m_selectedPayer !=null && m_selectedPayerID != Properties.Settings.Default.ActivePayer)
+        private void Btn_OK_Click(object sender, EventArgs e)
+        {
+            if (m_selectedPayer == null) return;
+
+
+            if (MessageBox.Show("Are you sure you want to set active payer to the following:\n\n" +
+                            m_selectedPayer.AccountName +
+                            $"\nBSB: {m_selectedPayer.BSB}" +
+                            $"\nAcc: {m_selectedPayer.AccountNumber}", "Set Active Payer", MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
-                if (MessageBox.Show("Are you sure you want to set active payer to:\n" +
-                                m_selectedPayer.AccountName +
-                                $"\nBSB: {m_selectedPayer.BSB}" +
-                                $"\nAcc: {m_selectedPayer.AccountNumber}", "Set Active Payer", MessageBoxButtons.OKCancel) == DialogResult.OK)
-                {
-                    Properties.Settings.Default.ActivePayer = m_selectedPayerID;
-                    Properties.Settings.Default.Save();
-                    this.Close();
-                }
-                else
-                {
-                    m_selectedPayerID = Properties.Settings.Default.ActivePayer;
-                    listBox1.SelectedIndex = Properties.Settings.Default.ActivePayer;
-                }
+                _settingsProvider.Settings.ActivePayer = m_selectedPayer;
+
+                _settingsProvider.Save();
+                this.Close();
             }
         }
 
         private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (listBox1.SelectedIndex >= 0 && listBox1.SelectedIndex <= m_Payers.Count)
+            if (listBox1.SelectedIndex >= 0 && listBox1.SelectedIndex <= _settingsProvider.Settings.Payers.Count)
             {
-                m_selectedPayer = m_Payers[listBox1.SelectedIndex];
-                m_selectedPayerID = listBox1.SelectedIndex;
+                m_selectedPayer = _settingsProvider.Settings.Payers[listBox1.SelectedIndex];
             }
             else
             {
                 m_selectedPayer = null;
-                m_selectedPayerID = -1;
             }
         }
 
-        private void button2_Click(object sender, EventArgs e)
+        private void Btn_Cancel_Click(object sender, EventArgs e)
         {
             this.Close();
         }

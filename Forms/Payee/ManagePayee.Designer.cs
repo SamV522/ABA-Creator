@@ -1,5 +1,5 @@
 ﻿
-namespace ABA_Creator.Forms.Payee
+namespace Creator.ABA.Forms.Payee
 {
     partial class ManagePayee
     {
@@ -29,139 +29,138 @@ namespace ABA_Creator.Forms.Payee
         /// </summary>
         private void InitializeComponent()
         {
-            this.bsbTxt2 = new System.Windows.Forms.TextBox();
-            this.bsbTxt1 = new System.Windows.Forms.TextBox();
-            this.label4 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
-            this.button2 = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
-            this.textBox4 = new System.Windows.Forms.TextBox();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.SuspendLayout();
-            // 
-            // bsbTxt2
-            // 
-            this.bsbTxt2.Location = new System.Drawing.Point(167, 38);
-            this.bsbTxt2.MaxLength = 3;
-            this.bsbTxt2.Name = "bsbTxt2";
-            this.bsbTxt2.Size = new System.Drawing.Size(36, 20);
-            this.bsbTxt2.TabIndex = 12;
-            // 
-            // bsbTxt1
-            // 
-            this.bsbTxt1.Location = new System.Drawing.Point(109, 38);
-            this.bsbTxt1.MaxLength = 3;
-            this.bsbTxt1.Name = "bsbTxt1";
-            this.bsbTxt1.Size = new System.Drawing.Size(36, 20);
-            this.bsbTxt1.TabIndex = 11;
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(151, 41);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(10, 13);
-            this.label4.TabIndex = 19;
-            this.label4.Text = "-";
+            label3 = new System.Windows.Forms.Label();
+            label2 = new System.Windows.Forms.Label();
+            label1 = new System.Windows.Forms.Label();
+            btn_Cancel = new System.Windows.Forms.Button();
+            btn_SavePayee = new System.Windows.Forms.Button();
+            textBox4 = new System.Windows.Forms.TextBox();
+            textBox1 = new System.Windows.Forms.TextBox();
+            txt_Bsb = new System.Windows.Forms.MaskedTextBox();
+            btn_ValidateBsb = new System.Windows.Forms.Button();
+            SuspendLayout();
             // 
             // label3
             // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(13, 67);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(90, 13);
-            this.label3.TabIndex = 18;
-            this.label3.Text = "Account Number:";
+            label3.AutoSize = true;
+            label3.Location = new System.Drawing.Point(15, 77);
+            label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            label3.Name = "label3";
+            label3.Size = new System.Drawing.Size(102, 15);
+            label3.TabIndex = 18;
+            label3.Text = "Account Number:";
             // 
             // label2
             // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(72, 41);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(31, 13);
-            this.label2.TabIndex = 17;
-            this.label2.Text = "BSB:";
+            label2.AutoSize = true;
+            label2.Location = new System.Drawing.Point(84, 47);
+            label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            label2.Name = "label2";
+            label2.Size = new System.Drawing.Size(30, 15);
+            label2.TabIndex = 17;
+            label2.Text = "BSB:";
             // 
             // label1
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(22, 15);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(81, 13);
-            this.label1.TabIndex = 16;
-            this.label1.Text = "Account Name:";
+            label1.AutoSize = true;
+            label1.Location = new System.Drawing.Point(26, 17);
+            label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            label1.Name = "label1";
+            label1.Size = new System.Drawing.Size(90, 15);
+            label1.TabIndex = 16;
+            label1.Text = "Account Name:";
             // 
-            // button2
+            // btn_Cancel
             // 
-            this.button2.Location = new System.Drawing.Point(240, 90);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(75, 23);
-            this.button2.TabIndex = 15;
-            this.button2.Text = "Cancel";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
+            btn_Cancel.Location = new System.Drawing.Point(280, 104);
+            btn_Cancel.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            btn_Cancel.Name = "btn_Cancel";
+            btn_Cancel.Size = new System.Drawing.Size(88, 27);
+            btn_Cancel.TabIndex = 5;
+            btn_Cancel.Text = "Cancel";
+            btn_Cancel.UseVisualStyleBackColor = true;
+            btn_Cancel.Click += Btn_Cancel_Click;
             // 
-            // button1
+            // btn_SavePayee
             // 
-            this.button1.Location = new System.Drawing.Point(159, 90);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 14;
-            this.button1.Text = "Save";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            btn_SavePayee.Location = new System.Drawing.Point(186, 104);
+            btn_SavePayee.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            btn_SavePayee.Name = "btn_SavePayee";
+            btn_SavePayee.Size = new System.Drawing.Size(88, 27);
+            btn_SavePayee.TabIndex = 4;
+            btn_SavePayee.Text = "OK";
+            btn_SavePayee.UseVisualStyleBackColor = true;
+            btn_SavePayee.Click += Btn_SavePayee_Click;
             // 
             // textBox4
             // 
-            this.textBox4.Location = new System.Drawing.Point(109, 64);
-            this.textBox4.Name = "textBox4";
-            this.textBox4.Size = new System.Drawing.Size(206, 20);
-            this.textBox4.TabIndex = 13;
+            textBox4.Location = new System.Drawing.Point(127, 74);
+            textBox4.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            textBox4.Name = "textBox4";
+            textBox4.Size = new System.Drawing.Size(240, 23);
+            textBox4.TabIndex = 3;
             // 
             // textBox1
             // 
-            this.textBox1.Location = new System.Drawing.Point(109, 12);
-            this.textBox1.MaxLength = 32;
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(206, 20);
-            this.textBox1.TabIndex = 10;
+            textBox1.Location = new System.Drawing.Point(127, 14);
+            textBox1.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            textBox1.MaxLength = 32;
+            textBox1.Name = "textBox1";
+            textBox1.Size = new System.Drawing.Size(240, 23);
+            textBox1.TabIndex = 10;
+            // 
+            // txt_Bsb
+            // 
+            txt_Bsb.Location = new System.Drawing.Point(127, 45);
+            txt_Bsb.Mask = "000-999";
+            txt_Bsb.Name = "txt_Bsb";
+            txt_Bsb.PromptChar = ' ';
+            txt_Bsb.Size = new System.Drawing.Size(100, 23);
+            txt_Bsb.TabIndex = 1;
+            // 
+            // btn_ValidateBsb
+            // 
+            btn_ValidateBsb.BackgroundImage = Properties.Resources.cloud_done_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24;
+            btn_ValidateBsb.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            btn_ValidateBsb.Location = new System.Drawing.Point(233, 42);
+            btn_ValidateBsb.Name = "btn_ValidateBsb";
+            btn_ValidateBsb.Size = new System.Drawing.Size(37, 25);
+            btn_ValidateBsb.TabIndex = 2;
+            btn_ValidateBsb.UseVisualStyleBackColor = true;
+            btn_ValidateBsb.Click += btn_ValidateBsb_Click;
             // 
             // ManagePayee
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(328, 132);
-            this.Controls.Add(this.bsbTxt2);
-            this.Controls.Add(this.bsbTxt1);
-            this.Controls.Add(this.label4);
-            this.Controls.Add(this.label3);
-            this.Controls.Add(this.label2);
-            this.Controls.Add(this.label1);
-            this.Controls.Add(this.button2);
-            this.Controls.Add(this.button1);
-            this.Controls.Add(this.textBox4);
-            this.Controls.Add(this.textBox1);
-            this.Name = "ManagePayee";
-            this.Text = "ManagePayee";
-            this.Load += new System.EventHandler(this.ManagePayee_Load);
-            this.ResumeLayout(false);
-            this.PerformLayout();
+            AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
+            AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            ClientSize = new System.Drawing.Size(383, 152);
+            Controls.Add(btn_ValidateBsb);
+            Controls.Add(txt_Bsb);
+            Controls.Add(label3);
+            Controls.Add(label2);
+            Controls.Add(label1);
+            Controls.Add(btn_Cancel);
+            Controls.Add(btn_SavePayee);
+            Controls.Add(textBox4);
+            Controls.Add(textBox1);
+            Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            Name = "ManagePayee";
+            Text = "Manage Payee";
+            Load += ManagePayee_Load;
+            ResumeLayout(false);
+            PerformLayout();
 
         }
 
         #endregion
-
-        private System.Windows.Forms.TextBox bsbTxt2;
-        private System.Windows.Forms.TextBox bsbTxt1;
-        private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button btn_Cancel;
+        private System.Windows.Forms.Button btn_SavePayee;
         private System.Windows.Forms.TextBox textBox4;
         private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.MaskedTextBox txt_Bsb;
+        private System.Windows.Forms.Button btn_ValidateBsb;
     }
 }

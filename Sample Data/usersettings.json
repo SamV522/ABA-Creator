@@ -1,0 +1,21 @@
+{
+  "Payers": [
+    {
+      "FinancialInstitution": "ANZ",
+      "AccountName": "Test Payer",
+      "UserPreferredSpecification": "Test Payer",
+      "UserIdentificationNumber": "111111",
+      "BSB": 14010,
+      "AccountNumber": "123456789"
+    }
+  ],
+  "Payees": [],
+  "ActivePayer": {
+    "FinancialInstitution": "ANZ",
+    "AccountName": "Test Payer",
+    "UserPreferredSpecification": "Test Payer",
+    "UserIdentificationNumber": "111111",
+    "BSB": 14010,
+    "AccountNumber": "123456789"
+  }
+}

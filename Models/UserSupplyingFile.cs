@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace ABA_Creator.Entities
+﻿namespace Creator.ABA.Models
 {
     public class UserSupplyingFile
     {
@@ -13,7 +7,7 @@ namespace ABA_Creator.Entities
         public string FinancialInstitution
         {
             get { return m_financialInstitution; }
-            set { m_financialInstitution = value.Substring(0,3); }
+            set { m_financialInstitution = value.Substring(0, 3); }
         }
 
         private string m_UserPreferredSpecification;
@@ -21,7 +15,7 @@ namespace ABA_Creator.Entities
         public string UserPreferredSpecification
         {
             get { return m_UserPreferredSpecification; }
-            set { m_UserPreferredSpecification = value.PadRight(26,' ').Substring(0,26); }
+            set { m_UserPreferredSpecification = value.PadRight(26, ' ').Substring(0, 26); }
         }
 
 
@@ -33,11 +27,11 @@ namespace ABA_Creator.Entities
             set { m_UserIdentificationNumber = value.PadLeft(6,'0').Substring(0,6); }
         }
 
-        public UserSupplyingFile(string _FI, string _UPS, string _UID)
+        public UserSupplyingFile(string _FinancialInstitution, string _UserPreferredSpecification, string _UserIndefiicationNumber)
         {
-            FinancialInstitution = _FI;
-            UserPreferredSpecification = _UPS;
-            UserIdentificationNumber = _UID;
+            FinancialInstitution = _FinancialInstitution;
+            UserPreferredSpecification = _UserPreferredSpecification;
+            UserIdentificationNumber = _UserIndefiicationNumber;
         }
 
         public UserSupplyingFile(PaymentSender payer)
