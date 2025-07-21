@@ -81,7 +81,7 @@ namespace Creator.ABA.Forms.Payee
         private void button1_Click(object sender, EventArgs e)
         {
             // Add payee to list of payees.
-            bool bsbParsed = int.TryParse($"{txt_Bsb_1.Text}", out int _bsb);
+            bool bsbParsed = int.TryParse($"{txt_Bsb.Text.Replace("-", "")}", out int _bsb);
             if (bsbParsed)
             {
                 PaymentRecipient newRecipient = new PaymentRecipient(_bsb, txt_AccountNumber.Text, txt_AccountName.Text);

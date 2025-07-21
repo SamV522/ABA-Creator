@@ -32,13 +32,13 @@ namespace Creator.ABA.Forms.Payer
 
         private void UpdatePayers()
         {
-            listBox1.Items.Clear();
+            lst_Payers.Items.Clear();
             
             if (_settingsProvider.Settings.Payers.Count <= 0) return;
 
             foreach (PaymentSender payer in _settingsProvider.Settings.Payers)
             {
-                listBox1.Items.Add(payer.AccountName.ToUpper().PadRight(20 - payer.AccountName.Length) +
+                lst_Payers.Items.Add(payer.AccountName.ToUpper().PadRight(20 - payer.AccountName.Length) +
                                    $" - BSB: {payer.BSB} " +
                                    $"- Acc No: {payer.AccountNumber}");
             }
@@ -47,7 +47,7 @@ namespace Creator.ABA.Forms.Payer
         private void button2_Click(object sender, EventArgs e)
         {
             if (m_managePayer.IsDisposed) m_managePayer = _formFactory.CreateManagePayerForm();
-            m_managePayer.PayerID = listBox1.SelectedIndex;
+            m_managePayer.PayerID = lst_Payers.SelectedIndex;
             if (m_managePayer.ShowDialog() == DialogResult.OK)
             {
                 UpdatePayers();
@@ -56,12 +56,12 @@ namespace Creator.ABA.Forms.Payer
 
         private void button1_Click(object sender, EventArgs e)
         {
-            PaymentRecipient selectedPayer = _settingsProvider.Settings.Payers[listBox1.SelectedIndex];
+            PaymentRecipient selectedPayer = _settingsProvider.Settings.Payers[lst_Payers.SelectedIndex];
             if(MessageBox.Show("Are you sure you want to remove this payer?\n"+
                                 $"Acc Name: {selectedPayer.AccountName}\nBSB: {selectedPayer.BSB}\nAcc No: {selectedPayer.AccountNumber}",
                                 "Remove Payer",MessageBoxButtons.OKCancel)==DialogResult.OK)
             {
-                _settingsProvider.Settings.Payers.RemoveAt(listBox1.SelectedIndex);
+                _settingsProvider.Settings.Payers.RemoveAt(lst_Payers.SelectedIndex);
                 _settingsProvider.Save();
             }
         }

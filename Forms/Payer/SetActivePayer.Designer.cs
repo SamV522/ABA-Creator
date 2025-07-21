@@ -31,7 +31,7 @@ namespace Creator.ABA.Forms.Payer
         {
             btn_OK = new System.Windows.Forms.Button();
             btn_Cancel = new System.Windows.Forms.Button();
-            listBox1 = new System.Windows.Forms.ListBox();
+            lst_ActivePayers = new System.Windows.Forms.ListBox();
             SuspendLayout();
             // 
             // btn_OK
@@ -58,24 +58,24 @@ namespace Creator.ABA.Forms.Payer
             btn_Cancel.UseVisualStyleBackColor = true;
             btn_Cancel.Click += Btn_Cancel_Click;
             // 
-            // listBox1
+            // lst_ActivePayers
             // 
-            listBox1.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
-            listBox1.FormattingEnabled = true;
-            listBox1.ItemHeight = 15;
-            listBox1.Location = new System.Drawing.Point(14, 14);
-            listBox1.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            listBox1.Name = "listBox1";
-            listBox1.Size = new System.Drawing.Size(905, 454);
-            listBox1.TabIndex = 2;
-            listBox1.SelectedIndexChanged += listBox1_SelectedIndexChanged;
+            lst_ActivePayers.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
+            lst_ActivePayers.FormattingEnabled = true;
+            lst_ActivePayers.ItemHeight = 15;
+            lst_ActivePayers.Location = new System.Drawing.Point(14, 14);
+            lst_ActivePayers.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            lst_ActivePayers.Name = "lst_ActivePayers";
+            lst_ActivePayers.Size = new System.Drawing.Size(905, 454);
+            lst_ActivePayers.TabIndex = 2;
+            lst_ActivePayers.SelectedIndexChanged += listBox1_SelectedIndexChanged;
             // 
             // SetActivePayer
             // 
             AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             ClientSize = new System.Drawing.Size(933, 519);
-            Controls.Add(listBox1);
+            Controls.Add(lst_ActivePayers);
             Controls.Add(btn_Cancel);
             Controls.Add(btn_OK);
             Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
@@ -90,6 +90,6 @@ namespace Creator.ABA.Forms.Payer
 
         private System.Windows.Forms.Button btn_OK;
         private System.Windows.Forms.Button btn_Cancel;
-        private System.Windows.Forms.ListBox listBox1;
+        private System.Windows.Forms.ListBox lst_ActivePayers;
     }
 }

@@ -36,16 +36,16 @@ namespace Creator.ABA.Forms.Payee
         {
             foreach (PaymentRecipient payee in _settingsProvider.Settings.Payees)
             {
-                listBox1.Items.Add(payee.AccountName.ToUpper().PadRight(20) +
+                lst_Payees.Items.Add(payee.AccountName.ToUpper().PadRight(20) +
                                    $" - BSB: {payee.BSB} " +
                                    $"- Acc No: {payee.AccountNumber}");
             }
         }
 
-        private void button2_Click(object sender, EventArgs e)
+        private void Btn_Edit_Click(object sender, EventArgs e)
         {
             if (m_managePayee.IsDisposed) m_managePayee = _formFactory.CreateManagePayeeForm();
-            m_managePayee.PayeeID = listBox1.SelectedIndex;
+            m_managePayee.PayeeID = lst_Payees.SelectedIndex;
             if (m_managePayee.ShowDialog() == DialogResult.OK)
             {
                 UpdatePayees();
@@ -54,13 +54,13 @@ namespace Creator.ABA.Forms.Payee
 
         private void button1_Click(object sender, EventArgs e)
         {
-            PaymentRecipient selectedPayee = Payees[listBox1.SelectedIndex];
+            PaymentRecipient selectedPayee = _settingsProvider.Settings.Payees[lst_Payees.SelectedIndex];
             if(MessageBox.Show("Are you sure you want to remove this payee?\n"+
                                 $"Acc Name: {selectedPayee.AccountName}\nBSB: {selectedPayee.BSB}\nAcc No: {selectedPayee.AccountNumber}",
                                 "Remove Payee",MessageBoxButtons.OKCancel)==DialogResult.OK)
             {
-                _settingsProvider.Settings.Payees.RemoveAt(listBox1.SelectedIndex);
-                listBox1.Items.RemoveAt(listBox1.SelectedIndex);
+                _settingsProvider.Settings.Payees.RemoveAt(lst_Payees.SelectedIndex);
+                lst_Payees.Items.RemoveAt(lst_Payees.SelectedIndex);
                 _settingsProvider.Save();
             }
         }

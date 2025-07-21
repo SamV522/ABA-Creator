@@ -24,7 +24,7 @@ namespace Creator.ABA.Forms.Payer
             UpdatePayers();
             if(_settingsProvider.Settings.ActivePayer != null)
             {
-                listBox1.SelectedIndex = _settingsProvider.Settings.Payers.IndexOf(_settingsProvider.Settings.ActivePayer);
+                lst_ActivePayers.SelectedIndex = _settingsProvider.Settings.Payers.IndexOf(_settingsProvider.Settings.ActivePayer);
             }
         }
 
@@ -32,7 +32,7 @@ namespace Creator.ABA.Forms.Payer
         {
             foreach(PaymentSender Payer in _settingsProvider.Settings.Payers)
             {
-                listBox1.Items.Add($"{Payer.AccountName.PadRight(20 - Payer.AccountName.Length)} - BSB: {Payer.BSB} - Acc: {Payer.AccountNumber}");
+                lst_ActivePayers.Items.Add($"{Payer.AccountName.PadRight(20 - Payer.AccountName.Length)} - BSB: {Payer.BSB} - Acc: {Payer.AccountNumber}");
             }
         }
 
@@ -55,9 +55,9 @@ namespace Creator.ABA.Forms.Payer
 
         private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (listBox1.SelectedIndex >= 0 && listBox1.SelectedIndex <= _settingsProvider.Settings.Payers.Count)
+            if (lst_ActivePayers.SelectedIndex >= 0 && lst_ActivePayers.SelectedIndex <= _settingsProvider.Settings.Payers.Count)
             {
-                m_selectedPayer = _settingsProvider.Settings.Payers[listBox1.SelectedIndex];
+                m_selectedPayer = _settingsProvider.Settings.Payers[lst_ActivePayers.SelectedIndex];
             }
             else
             {

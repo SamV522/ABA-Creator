@@ -36,7 +36,7 @@ namespace Creator.ABA.Forms.Payee
                     if (bsbParsed)
                     {
                         // Update existing payee
-                        _settingsProvider.Settings.Payees[PayeeID] = new PaymentRecipient(_bsb, textBox4.Text, textBox1.Text);
+                        _settingsProvider.Settings.Payees[PayeeID] = new PaymentRecipient(_bsb, txt_AccountNumber.Text, txt_AccountName.Text);
 
                         _settingsProvider.Save();
                     }
@@ -52,9 +52,9 @@ namespace Creator.ABA.Forms.Payee
             if (_settingsProvider.Settings.Payees[PayeeID] != null)
             {
                 m_Payee = _settingsProvider.Settings.Payees[PayeeID];
-                textBox1.Text = m_Payee.AccountName;
-                txt_Bsb.Text = m_Payee.BSB.ToString("000000").Substring(0, 3);
-                textBox4.Text = m_Payee.AccountNumber;
+                txt_AccountName.Text = m_Payee.AccountName;
+                txt_Bsb.Text = m_Payee.BSB.ToString("000-000");
+                txt_AccountNumber.Text = m_Payee.AccountNumber;
             }
             else
             {

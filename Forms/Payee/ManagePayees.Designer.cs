@@ -29,77 +29,81 @@ namespace Creator.ABA.Forms.Payee
         /// </summary>
         private void InitializeComponent()
         {
-            this.listBox1 = new System.Windows.Forms.ListBox();
-            this.button1 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
-            this.SuspendLayout();
+            lst_Payees = new System.Windows.Forms.ListBox();
+            btn_Delete = new System.Windows.Forms.Button();
+            btn_Edit = new System.Windows.Forms.Button();
+            btn_New = new System.Windows.Forms.Button();
+            SuspendLayout();
             // 
-            // listBox1
+            // lst_Payees
             // 
-            this.listBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.listBox1.FormattingEnabled = true;
-            this.listBox1.Location = new System.Drawing.Point(12, 12);
-            this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(326, 394);
-            this.listBox1.TabIndex = 0;
+            lst_Payees.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
+            lst_Payees.FormattingEnabled = true;
+            lst_Payees.ItemHeight = 15;
+            lst_Payees.Location = new System.Drawing.Point(14, 14);
+            lst_Payees.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            lst_Payees.Name = "lst_Payees";
+            lst_Payees.Size = new System.Drawing.Size(380, 454);
+            lst_Payees.TabIndex = 0;
             // 
-            // button1
+            // btn_Delete
             // 
-            this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.button1.Location = new System.Drawing.Point(12, 415);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 1;
-            this.button1.Text = "Delete";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            btn_Delete.Anchor = System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left;
+            btn_Delete.Location = new System.Drawing.Point(14, 479);
+            btn_Delete.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            btn_Delete.Name = "btn_Delete";
+            btn_Delete.Size = new System.Drawing.Size(88, 27);
+            btn_Delete.TabIndex = 1;
+            btn_Delete.Text = "Delete";
+            btn_Delete.UseVisualStyleBackColor = true;
+            btn_Delete.Click += button1_Click;
             // 
-            // button2
+            // btn_Edit
             // 
-            this.button2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.button2.Location = new System.Drawing.Point(93, 415);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(75, 23);
-            this.button2.TabIndex = 2;
-            this.button2.Text = "Edit";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
+            btn_Edit.Anchor = System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left;
+            btn_Edit.Location = new System.Drawing.Point(108, 479);
+            btn_Edit.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            btn_Edit.Name = "btn_Edit";
+            btn_Edit.Size = new System.Drawing.Size(88, 27);
+            btn_Edit.TabIndex = 2;
+            btn_Edit.Text = "Edit";
+            btn_Edit.UseVisualStyleBackColor = true;
+            btn_Edit.Click += Btn_Edit_Click;
             // 
-            // button3
+            // btn_New
             // 
-            this.button3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.button3.Location = new System.Drawing.Point(263, 415);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(75, 23);
-            this.button3.TabIndex = 3;
-            this.button3.Text = "New";
-            this.button3.UseVisualStyleBackColor = true;
-            this.button3.Click += new System.EventHandler(this.button3_Click);
+            btn_New.Anchor = System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right;
+            btn_New.Location = new System.Drawing.Point(307, 479);
+            btn_New.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            btn_New.Name = "btn_New";
+            btn_New.Size = new System.Drawing.Size(88, 27);
+            btn_New.TabIndex = 3;
+            btn_New.Text = "New";
+            btn_New.UseVisualStyleBackColor = true;
+            btn_New.Click += button3_Click;
             // 
             // ManagePayees
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(350, 450);
-            this.Controls.Add(this.button3);
-            this.Controls.Add(this.button2);
-            this.Controls.Add(this.button1);
-            this.Controls.Add(this.listBox1);
-            this.Name = "ManagePayees";
-            this.Text = "ManagePayees";
-            this.Load += new System.EventHandler(this.ManagePayees_Load);
-            this.ResumeLayout(false);
+            AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
+            AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            ClientSize = new System.Drawing.Size(408, 519);
+            Controls.Add(btn_New);
+            Controls.Add(btn_Edit);
+            Controls.Add(btn_Delete);
+            Controls.Add(lst_Payees);
+            Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            Name = "ManagePayees";
+            Text = "ManagePayees";
+            Load += ManagePayees_Load;
+            ResumeLayout(false);
 
         }
 
         #endregion
 
-        private System.Windows.Forms.ListBox listBox1;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.ListBox lst_Payees;
+        private System.Windows.Forms.Button btn_Delete;
+        private System.Windows.Forms.Button btn_Edit;
+        private System.Windows.Forms.Button btn_New;
     }
 }

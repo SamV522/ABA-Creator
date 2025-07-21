@@ -33,9 +33,9 @@ namespace Creator.ABA.Forms.Payee
             label2 = new System.Windows.Forms.Label();
             label1 = new System.Windows.Forms.Label();
             btn_Cancel = new System.Windows.Forms.Button();
-            btn_SavePayee = new System.Windows.Forms.Button();
-            textBox4 = new System.Windows.Forms.TextBox();
-            textBox1 = new System.Windows.Forms.TextBox();
+            btn_OK = new System.Windows.Forms.Button();
+            txt_AccountNumber = new System.Windows.Forms.TextBox();
+            txt_AccountName = new System.Windows.Forms.TextBox();
             txt_Bsb = new System.Windows.Forms.MaskedTextBox();
             btn_ValidateBsb = new System.Windows.Forms.Button();
             SuspendLayout();
@@ -81,33 +81,33 @@ namespace Creator.ABA.Forms.Payee
             btn_Cancel.UseVisualStyleBackColor = true;
             btn_Cancel.Click += Btn_Cancel_Click;
             // 
-            // btn_SavePayee
+            // btn_OK
             // 
-            btn_SavePayee.Location = new System.Drawing.Point(186, 104);
-            btn_SavePayee.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            btn_SavePayee.Name = "btn_SavePayee";
-            btn_SavePayee.Size = new System.Drawing.Size(88, 27);
-            btn_SavePayee.TabIndex = 4;
-            btn_SavePayee.Text = "OK";
-            btn_SavePayee.UseVisualStyleBackColor = true;
-            btn_SavePayee.Click += Btn_SavePayee_Click;
+            btn_OK.Location = new System.Drawing.Point(186, 104);
+            btn_OK.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            btn_OK.Name = "btn_OK";
+            btn_OK.Size = new System.Drawing.Size(88, 27);
+            btn_OK.TabIndex = 4;
+            btn_OK.Text = "OK";
+            btn_OK.UseVisualStyleBackColor = true;
+            btn_OK.Click += Btn_SavePayee_Click;
             // 
-            // textBox4
+            // txt_AccountNumber
             // 
-            textBox4.Location = new System.Drawing.Point(127, 74);
-            textBox4.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            textBox4.Name = "textBox4";
-            textBox4.Size = new System.Drawing.Size(240, 23);
-            textBox4.TabIndex = 3;
+            txt_AccountNumber.Location = new System.Drawing.Point(127, 74);
+            txt_AccountNumber.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            txt_AccountNumber.Name = "txt_AccountNumber";
+            txt_AccountNumber.Size = new System.Drawing.Size(240, 23);
+            txt_AccountNumber.TabIndex = 3;
             // 
-            // textBox1
+            // txt_AccountName
             // 
-            textBox1.Location = new System.Drawing.Point(127, 14);
-            textBox1.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            textBox1.MaxLength = 32;
-            textBox1.Name = "textBox1";
-            textBox1.Size = new System.Drawing.Size(240, 23);
-            textBox1.TabIndex = 10;
+            txt_AccountName.Location = new System.Drawing.Point(127, 14);
+            txt_AccountName.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            txt_AccountName.MaxLength = 32;
+            txt_AccountName.Name = "txt_AccountName";
+            txt_AccountName.Size = new System.Drawing.Size(240, 23);
+            txt_AccountName.TabIndex = 10;
             // 
             // txt_Bsb
             // 
@@ -140,9 +140,9 @@ namespace Creator.ABA.Forms.Payee
             Controls.Add(label2);
             Controls.Add(label1);
             Controls.Add(btn_Cancel);
-            Controls.Add(btn_SavePayee);
-            Controls.Add(textBox4);
-            Controls.Add(textBox1);
+            Controls.Add(btn_OK);
+            Controls.Add(txt_AccountNumber);
+            Controls.Add(txt_AccountName);
             Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             Name = "ManagePayee";
             Text = "Manage Payee";
@@ -157,9 +157,9 @@ namespace Creator.ABA.Forms.Payee
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button btn_Cancel;
-        private System.Windows.Forms.Button btn_SavePayee;
-        private System.Windows.Forms.TextBox textBox4;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.Button btn_OK;
+        private System.Windows.Forms.TextBox txt_AccountNumber;
+        private System.Windows.Forms.TextBox txt_AccountName;
         private System.Windows.Forms.MaskedTextBox txt_Bsb;
         private System.Windows.Forms.Button btn_ValidateBsb;
     }

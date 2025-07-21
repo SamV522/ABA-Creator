@@ -40,7 +40,7 @@ namespace Creator.ABA.Forms.Payer
             txt_FICode = new System.Windows.Forms.TextBox();
             label6 = new System.Windows.Forms.Label();
             txt_UserID = new System.Windows.Forms.TextBox();
-            button3 = new System.Windows.Forms.Button();
+            btn_ValidateBsb = new System.Windows.Forms.Button();
             txt_Bsb = new System.Windows.Forms.MaskedTextBox();
             SuspendLayout();
             // 
@@ -154,16 +154,16 @@ namespace Creator.ABA.Forms.Payer
             txt_UserID.Size = new System.Drawing.Size(60, 23);
             txt_UserID.TabIndex = 3;
             // 
-            // button3
+            // btn_ValidateBsb
             // 
-            button3.BackgroundImage = Properties.Resources.cloud_done_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24;
-            button3.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            button3.Location = new System.Drawing.Point(232, 42);
-            button3.Name = "button3";
-            button3.Size = new System.Drawing.Size(37, 24);
-            button3.TabIndex = 2;
-            button3.UseVisualStyleBackColor = true;
-            button3.Click += button3_Click;
+            btn_ValidateBsb.BackgroundImage = Properties.Resources.cloud_done_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24;
+            btn_ValidateBsb.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            btn_ValidateBsb.Location = new System.Drawing.Point(232, 42);
+            btn_ValidateBsb.Name = "btn_ValidateBsb";
+            btn_ValidateBsb.Size = new System.Drawing.Size(37, 24);
+            btn_ValidateBsb.TabIndex = 2;
+            btn_ValidateBsb.UseVisualStyleBackColor = true;
+            btn_ValidateBsb.Click += button3_Click;
             // 
             // txt_Bsb
             // 
@@ -180,7 +180,7 @@ namespace Creator.ABA.Forms.Payer
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             ClientSize = new System.Drawing.Size(383, 208);
             Controls.Add(txt_Bsb);
-            Controls.Add(button3);
+            Controls.Add(btn_ValidateBsb);
             Controls.Add(txt_UserID);
             Controls.Add(label6);
             Controls.Add(txt_FICode);
@@ -218,7 +218,7 @@ namespace Creator.ABA.Forms.Payer
         private System.Windows.Forms.TextBox txt_FICode;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.TextBox txt_UserID;
-        private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.Button btn_ValidateBsb;
         private System.Windows.Forms.MaskedTextBox txt_Bsb;
     }
 }
