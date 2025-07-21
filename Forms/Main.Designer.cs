@@ -541,15 +541,15 @@ namespace Creator.ABA
             // importSettingsToolStripMenuItem
             // 
             importSettingsToolStripMenuItem.Name = "importSettingsToolStripMenuItem";
-            importSettingsToolStripMenuItem.Size = new System.Drawing.Size(110, 22);
-            importSettingsToolStripMenuItem.Text = "Import";
+            importSettingsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            importSettingsToolStripMenuItem.Text = "Import ABA Profile";
             importSettingsToolStripMenuItem.Click += ImportSettingsToolStripMenuItem_Click;
             // 
             // exportSettingsToolStripMenuItem
             // 
             exportSettingsToolStripMenuItem.Name = "exportSettingsToolStripMenuItem";
-            exportSettingsToolStripMenuItem.Size = new System.Drawing.Size(110, 22);
-            exportSettingsToolStripMenuItem.Text = "Export";
+            exportSettingsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            exportSettingsToolStripMenuItem.Text = "Export ABA Profile";
             exportSettingsToolStripMenuItem.Click += ExportSettingsToolStripMenuItem_Click;
             // 
             // dlg_OpenSettingsFile
