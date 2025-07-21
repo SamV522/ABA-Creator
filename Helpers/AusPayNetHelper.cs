@@ -17,6 +17,7 @@ namespace Creator.ABA.Helpers
         {
             _httpClient = httpClientFactory.CreateClient("AusPayNet");
             _appSettingsProvider = appSettingsProvider;
+            _appSettingsProvider.Load();
         }
 
 

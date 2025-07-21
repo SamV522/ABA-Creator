@@ -465,9 +465,19 @@ namespace Creator.ABA
                 }
                 ));
 
-            if (validationResults.Any(result => result.ResultType != BsbValidationResultType.SingleMatch))
+            var unableToValidate = validationResults.Where(result => result.ResultType == BsbValidationResultType.UnableToValidate);
+
+            if(unableToValidate.Any()) 
             {
-                var validationErrors = validationResults.Where(result => result.ResultType != BsbValidationResultType.SingleMatch);
+                MessageBox.Show("Unable to validate some BSBs, try again later", "Unable to Validate", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return; 
+            }
+
+            var validationErrors = validationResults.Where(result => result.ResultType != BsbValidationResultType.SingleMatch && result.ResultType != BsbValidationResultType.UnableToValidate);
+
+
+            if (validationErrors.Any())
+            {
 
                 foreach(DataGridViewRow row in dgv_DetailRecord.Rows)
                 {

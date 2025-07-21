@@ -79,6 +79,9 @@ namespace Creator.ABA.Forms.Payee
 
             switch (validationResult.ResultType)
             {
+                case BsbValidationResultType.UnableToValidate:
+                    MessageBox.Show("Unable to validate BSB at this time. Please try again later.", "Unable to Validate", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    break;
                 case BsbValidationResultType.InvalidFormat:
                     MessageBox.Show("BSB is not in a valid format. Please enter a 6-digit BSB.", "Invalid BSB", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     break;

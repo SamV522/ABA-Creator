@@ -4,6 +4,7 @@ using Creator.ABA.Services.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
@@ -11,6 +12,7 @@ namespace Creator.ABA.Helpers
 {
     public enum BsbValidationResultType
     {
+        UnableToValidate,
         InvalidFormat,
         NoMatch,
         SingleMatch,
@@ -49,38 +51,50 @@ namespace Creator.ABA.Helpers
                 };
             }
 
-            // Check it against AusPayNetwork
-            var results = await _bsbLookupService.LookupAsync(new BsbLookupRequest() { bsbcode = bsb });
+            try
+            {
+                // Check it against AusPayNetwork
+                var results = await _bsbLookupService.LookupAsync(new BsbLookupRequest() { bsbcode = bsb });
 
-            if (results == null || !results.Any())
-            {
-                return new BsbValidationResult
-                {
-                    Bsb = bsb,
-                    ResultType = BsbValidationResultType.NoMatch
-                };
-            } 
-            else
-            {
-                if (results.Length > 1)
+                if (results == null || !results.Any())
                 {
                     return new BsbValidationResult
                     {
                         Bsb = bsb,
-                        ResultType = BsbValidationResultType.MultipleMatches,
-                        Matches = results.ToList()
+                        ResultType = BsbValidationResultType.NoMatch
                     };
                 }
                 else
                 {
-                    return new BsbValidationResult
+                    if (results.Length > 1)
                     {
-                        Bsb = bsb,
-                        ResultType = BsbValidationResultType.SingleMatch,
-                        Matches = results.ToList()
-                    };
+                        return new BsbValidationResult
+                        {
+                            Bsb = bsb,
+                            ResultType = BsbValidationResultType.MultipleMatches,
+                            Matches = results.ToList()
+                        };
+                    }
+                    else
+                    {
+                        return new BsbValidationResult
+                        {
+                            Bsb = bsb,
+                            ResultType = BsbValidationResultType.SingleMatch,
+                            Matches = results.ToList()
+                        };
+                    }
                 }
+            } catch (HttpRequestException ex)
+            {
+                Console.WriteLine(ex.Message);
             }
+
+            return new BsbValidationResult
+            {
+                Bsb = bsb,
+                ResultType = BsbValidationResultType.UnableToValidate
+            };
         }
     }
 }
